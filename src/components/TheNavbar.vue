@@ -1,6 +1,6 @@
 <template>
-  <v-sheet class="header" color="transparent">
-    <v-img class="image" src="../assets/index.jpg" max-height="500px"></v-img>
+  <v-sheet class="the-navbar" color="transparent">
+    <v-img class="image" src="../assets/index.jpg" max-height="800px"></v-img>
     <v-container class="pa-10" fluid>
       <v-row no-gutters align="center">
         <v-col cols="6">
@@ -35,11 +35,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "TheNavbar"
+};
 </script>
 
 <style lang="scss" scoped>
-.header {
+.the-navbar {
   position: relative;
   z-index: 0;
 

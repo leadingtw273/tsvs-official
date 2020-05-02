@@ -1,16 +1,19 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-sheet color="indigo" height="1900px">123</v-sheet>
-    <the-about></the-about>
+    <home-carousel></home-carousel>
+    <home-news></home-news>
+    <home-about></home-about>
   </v-container>
 </template>
 
 <script>
-import TheAbout from "../components/Home/TheAbout";
+import HomeCarousel from "../components/Home/HomeCarousel";
+import HomeNews from "../components/Home/HomeNews";
+import HomeAbout from "../components/Home/HomeAbout";
 
 export default {
   name: "Home",
-  components: { TheAbout }
+  components: { HomeCarousel, HomeNews, HomeAbout }
 };
 </script>
 

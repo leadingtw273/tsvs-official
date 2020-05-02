@@ -1,12 +1,9 @@
 <template>
   <v-app>
     <the-navbar></the-navbar>
-    <!-- Sizes your content based upon application components -->
+
     <v-content>
-      <!-- Provides the application the proper gutter -->
-      <v-container fluid>
-        <v-sheet color="indigo" height="1900px"></v-sheet>
-      </v-container>
+      <router-view></router-view>
     </v-content>
 
     <the-footer></the-footer>

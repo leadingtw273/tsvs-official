@@ -11,7 +11,7 @@
             2019/11/15)。以聯絡國內外人士共同發揚血管外科醫學之研究、教學、及應用，增進全民健康及國際學術交流為宗旨。
           </span>
         </v-col>
-        <v-col class="" cols="auto" align-self="end">
+        <v-col cols="auto" align-self="end">
           <v-btn text small rounded class="text-lowercase">more >></v-btn>
         </v-col>
       </v-row>

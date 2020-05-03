@@ -11,8 +11,8 @@
           <v-btn outlined rounded color="white">會員登入</v-btn>
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
-          <v-icon color="white" large>crop_square</v-icon>
-          <v-icon color="white" large>crop_square</v-icon>
+          <v-icon color="white" large>mdi-checkbox-blank-outline</v-icon>
+          <v-icon color="white" large>mdi-checkbox-blank-outline</v-icon>
         </v-col>
       </v-row>
       <div class="mt-12">

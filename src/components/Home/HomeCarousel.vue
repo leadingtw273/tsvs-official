@@ -2,22 +2,19 @@
   <div class="the-carousel d-flex flex-row mx-12 mb-12">
     <v-carousel v-model="targetContent" class="image" height="100%" cycle hide-delimiters show-arrows-on-hover>
       <v-carousel-item v-for="{ image } in items" :key="image">
-        <v-img class="image" :src="image"></v-img>
+        <v-img :src="image" height="100%"></v-img>
       </v-carousel-item>
     </v-carousel>
-    <v-sheet class="content d-flex align-center pl-12" color="primary">
-      <div
-        :class="[i === targetContent ? 'd-flex' : 'd-none', 'flex-column']"
-        v-for="({ text }, i) in items"
-        :key="text.title"
-      >
-        <span class="display-1 white--text mb-1">{{ text.title }}</span>
-        <span class="title font-weight-light white--text">{{ text.subTitle }}</span>
-
-        <v-radio-group row v-model="targetContent">
-          <v-radio class="ma-0" color="white" v-for="(item, i) in items" :key="i" :value="i" dark></v-radio>
-        </v-radio-group>
+    <v-sheet class="content d-flex flex-column justify-center px-12" color="primary">
+      <div v-for="({ text }, i) in items" :key="text.title">
+        <div class="d-flex flex-column" v-if="i === targetContent">
+          <span class="d-inline-block text-truncate display-2 white--text mb-1">{{ text.title }}</span>
+          <span class="title d-inline-block text-truncate font-weight-light white--text">{{ text.subTitle }}</span>
+        </div>
       </div>
+      <v-radio-group row v-model="targetContent">
+        <v-radio class="ma-0" color="white" v-for="(item, i) in items" :key="i" :value="i" dark></v-radio>
+      </v-radio-group>
     </v-sheet>
   </div>
 </template>
@@ -58,12 +55,13 @@ export default {
   .image {
     border-radius: 40px 0 0 40px;
     height: 100%;
+    width: 65%;
   }
 
   .content {
     border-radius: 0 40px 40px 0;
     height: 100%;
-    width: 50%;
+    width: 35%;
   }
 }
 </style>

@@ -3,13 +3,13 @@
     <v-img class="image" src="../assets/index.jpg" max-height="800px"></v-img>
     <v-container class="pa-10" fluid>
       <div class="d-flex justify-space-between">
-        <div class="d-flex">
+        <router-link :to="{ name: 'Home' }" class="d-flex">
           <v-img src="../assets/TSVS_logo.png" height="80px" width="80px" contain></v-img>
           <div class="d-flex flex-column align-self-center ml-4">
             <span class="white--text display-1">台灣血管外科協會</span>
             <span class="white--text">Taiwan Society for Vascular Surgery</span>
           </div>
-        </div>
+        </router-link>
         <div class="d-flex align-self-center">
           <v-btn outlined rounded color="white">會員登入</v-btn>
           <v-btn text rounded class="ml-2" color="white">English</v-btn>

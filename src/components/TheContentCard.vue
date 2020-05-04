@@ -147,7 +147,7 @@ export default {
     width: 20%;
 
     .item-divider {
-      width: 50%;
+      width: 65px;
 
       opacity: 0.6;
       background-color: white;

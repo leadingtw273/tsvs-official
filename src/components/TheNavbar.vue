@@ -23,19 +23,19 @@
         </div>
       </div>
       <div class="mt-8">
-        <v-btn text color="white">學會資訊</v-btn>
+        <v-btn text :to="{ path: '/about' }" color="white">學會資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">學會公告</v-btn>
+        <v-btn text :to="{ path: '/news' }" color="white">學會公告</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">會議課程資訊</v-btn>
+        <v-btn text :to="{ path: '/events' }" color="white">會議課程資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">資料查詢</v-btn>
+        <v-btn text :to="{ path: '/search' }" color="white">資料查詢</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">會員專區</v-btn>
+        <v-btn text :to="{ path: '/member' }" color="white">會員專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">衛教專區</v-btn>
+        <v-btn text :to="{ path: '/health-education' }" color="white">衛教專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">相關網站</v-btn>
+        <v-btn text :to="{ path: '/websites-link' }" color="white">相關網站</v-btn>
       </div>
     </v-container>
   </v-sheet>

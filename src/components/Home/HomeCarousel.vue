@@ -49,7 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 .the-carousel {
-  border-radius: 40px;
   height: 700px;
 
   .image {

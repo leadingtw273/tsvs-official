@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import TheContentCard from "../components/TheContentCard.vue";
 
 Vue.use(VueRouter);
 
@@ -9,16 +10,16 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/:content",
+    name: "ContentCard",
+    component: TheContentCard,
+    props: route => ({ title: route.params.content }),
+    beforeEnter: (to, from, next) => {
+      next();
+    }
   }
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ];
 
 const router = new VueRouter({

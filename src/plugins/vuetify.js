@@ -14,7 +14,8 @@ export default new Vuetify({
         primary_light_3: "#B8C0D9",
         primary_light_4: "#DAE0F2",
         secondary: "#EAEDF7",
-        accent: "#800000"
+        accent: "#800000",
+        active: "#9DB1F2"
       }
     }
   }

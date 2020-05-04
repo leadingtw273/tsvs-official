@@ -1,10 +1,22 @@
 <template>
   <div class="the-carousel d-flex flex-row mx-12 mb-12">
-    <v-img class="image" src="../../assets/carousel/carousel01.jpg"></v-img>
-    <v-sheet class="content d-flex justify-center align-center" color="primary">
-      <div>
-        <span class="d-block display-1 white--text mb-1">台灣血管外科學會</span>
-        <span class="d-block title font-weight-light white--text">Taiwan Society for Vascular Surgery</span>
+    <v-carousel v-model="targetContent" class="image" height="100%" cycle hide-delimiters show-arrows-on-hover>
+      <v-carousel-item v-for="{ image } in items" :key="image">
+        <v-img class="image" :src="image"></v-img>
+      </v-carousel-item>
+    </v-carousel>
+    <v-sheet class="content d-flex align-center pl-12" color="primary">
+      <div
+        :class="[i === targetContent ? 'd-flex' : 'd-none', 'flex-column']"
+        v-for="({ text }, i) in items"
+        :key="text.title"
+      >
+        <span class="display-1 white--text mb-1">{{ text.title }}</span>
+        <span class="title font-weight-light white--text">{{ text.subTitle }}</span>
+
+        <v-radio-group row v-model="targetContent">
+          <v-radio class="ma-0" color="white" v-for="(item, i) in items" :key="i" :value="i" dark></v-radio>
+        </v-radio-group>
       </div>
     </v-sheet>
   </div>
@@ -15,6 +27,7 @@ export default {
   name: "HomeCarousel",
   data() {
     return {
+      targetContent: 0,
       items: [
         {
           image: "https://cw1.tw/CW/images/article/C1323775766370.jpg",
@@ -22,7 +35,7 @@ export default {
         },
         {
           image: "https://www.medicaltravel.org.tw/img/section1bg1.jpg",
-          text: { title: "醫療大數據－精準醫學的前哨站", subTitle: "Precision Medicine" }
+          text: { title: "醫療大數據", subTitle: "Precision Medicine" }
         },
         {
           image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
@@ -45,13 +58,12 @@ export default {
   .image {
     border-radius: 40px 0 0 40px;
     height: 100%;
-    width: 70%;
   }
 
   .content {
     border-radius: 0 40px 40px 0;
     height: 100%;
-    width: 30%;
+    width: 50%;
   }
 }
 </style>

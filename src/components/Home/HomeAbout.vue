@@ -3,7 +3,7 @@
     <v-container class="py-12">
       <v-row no-gutters>
         <v-col class="pr-12">
-          <span class="headline d-block my-12">About TSVS</span>
+          <span class="headline d-block my-12">學會資訊</span>
           <span class="title d-block font-weight-light mb-6">學會簡介</span>
           <span class="title d-block font-weight-light mb-12">
             台灣血管外科學會Taiwan Society for Vascular Surgery，簡稱TSVS。成立於 2005年，目前共有活動會員 438 人

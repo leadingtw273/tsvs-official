@@ -2,25 +2,28 @@
   <v-sheet class="the-navbar" color="transparent">
     <v-img class="image" src="../assets/index.jpg" max-height="800px"></v-img>
     <v-container class="pa-10" fluid>
-      <v-row no-gutters align="center">
-        <v-col cols="6">
-          <v-img src="../assets/logo.png" max-width="400px" contain></v-img>
-        </v-col>
-        <v-spacer></v-spacer>
-        <v-col class="d-flex flex-row">
+      <div class="d-flex justify-space-between">
+        <div class="d-flex">
+          <v-img src="../assets/TSVS_logo.png" height="80px" width="80px" contain></v-img>
+          <div class="d-flex flex-column align-self-center ml-4">
+            <span class="white--text display-1">台灣血管外科協會</span>
+            <span class="white--text">Taiwan Society for Vascular Surgery</span>
+          </div>
+        </div>
+        <div class="d-flex align-self-center">
           <v-btn outlined rounded color="white">會員登入</v-btn>
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
           <v-icon color="white" large>mdi-checkbox-blank-outline</v-icon>
           <v-icon color="white" large>mdi-checkbox-blank-outline</v-icon>
-        </v-col>
-      </v-row>
-      <div class="mt-12">
-        <v-btn text color="white">About TSVS</v-btn>
+        </div>
+      </div>
+      <div class="mt-8">
+        <v-btn text color="white">學會資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">News</v-btn>
+        <v-btn text color="white">學會公告</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text color="white">Events</v-btn>
+        <v-btn text color="white">會議課程資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text color="white">資料查詢</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>

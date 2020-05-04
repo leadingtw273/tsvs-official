@@ -14,8 +14,12 @@
           <v-btn outlined rounded color="white">會員登入</v-btn>
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
-          <v-icon color="white" large>mdi-checkbox-blank-outline</v-icon>
-          <v-icon color="white" large>mdi-checkbox-blank-outline</v-icon>
+          <v-btn icon large color="#3B5998">
+            <v-icon>mdi-facebook</v-icon>
+          </v-btn>
+          <v-btn icon large color="#FF0000">
+            <v-icon>mdi-youtube</v-icon>
+          </v-btn>
         </div>
       </div>
       <div class="mt-8">

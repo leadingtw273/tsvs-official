@@ -15,10 +15,10 @@
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
           <v-btn icon large color="#3B5998">
-            <v-icon>mdi-facebook</v-icon>
+            <v-icon large>mdi-facebook</v-icon>
           </v-btn>
           <v-btn icon large color="#FF0000">
-            <v-icon>mdi-youtube</v-icon>
+            <v-icon large>mdi-youtube</v-icon>
           </v-btn>
         </div>
       </div>

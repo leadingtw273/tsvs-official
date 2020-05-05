@@ -1,32 +1,65 @@
 <template>
   <div class="the-content-card d-flex flex-row mx-12 mb-12">
-    <v-sheet color="primary" class="side-bar pl-12">
-      <v-list flat class="py-12" color="transparent" dark>
-        <v-subheader class="mb-2">
-          <span class="white--text headline">{{ sideBarTitle }}</span>
-        </v-subheader>
-        <v-list-item-group color="active" v-model="item">
-          <template v-for="({ id, text, subItems }, i) in items">
-            <v-divider class="item-divider ml-4" :key="id" v-if="i !== 0"></v-divider>
+    <v-sheet color="primary" class="side-bar px-8 py-12" dark>
+      <span class="d-flex headline mb-2 ml-4">{{ menuTitle }}</span>
 
-            <v-list-item :key="id + '_text'">
-              <v-list-item-content>
-                <v-list-item-title v-text="text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+      <v-btn-toggle class="d-flex flex-column" v-model="menuItemIndex" color="active" mandatory group>
+        <template v-for="({ id, text }, i) in menuList">
+          <v-divider class="item-divider ml-4" :key="id + '_divider'" v-if="i !== 0"></v-divider>
+          <v-btn @click="getContent(id)" class="main-menu justify-start subtitle-1" :key="id">
+            {{ text }}
+          </v-btn>
 
-            <v-list-item-group v-model="subItem" :key="id + '_subGroup'" v-if="subItems != null && item === i">
-              <v-list-item dense v-for="{ id, text } in subItems" :key="id">
-                <v-list-item-content>
-                  <v-list-item-title v-text="text"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </template>
-        </v-list-item-group>
-      </v-list>
+          <v-btn-toggle
+            class="d-flex flex-column"
+            v-model="subMenuItemIndex"
+            v-if="menuItemIndex === i && subMenuList.length !== 0"
+            color="active"
+            :key="id + '_subGroup'"
+            mandatory
+            group
+          >
+            <v-btn
+              :class="['sub-menu', 'justify-start', subMenuItemIndex === i ? 'active--text' : '']"
+              v-for="({ id, text }, i) in subMenuList"
+              :key="id"
+              @click="getContent(id)"
+            >
+              {{ text }}
+            </v-btn>
+          </v-btn-toggle>
+        </template>
+      </v-btn-toggle>
     </v-sheet>
-    <v-sheet color="secondary" class="content">456</v-sheet>
+    <v-sheet color="secondary" class="content py-12 px-8">
+      <div class="d-flex flex-row mb-6">
+        <div>
+          <v-divider class="mx-6" color="black" vertical></v-divider>
+          <span class="headline">{{ menuList[menuItemIndex].text }}</span>
+        </div>
+        <div v-if="subMenuList[subMenuItemIndex] != null">
+          <v-divider class="mx-6" color="black" vertical></v-divider>
+          <span class="headline">{{ subMenuList[subMenuItemIndex].text }}</span>
+        </div>
+      </div>
+      <v-btn-toggle
+        class="d-flex flex-wrap mb-6 mx-8"
+        v-model="contentItemIndex"
+        v-if="contentList.length !== 0"
+        color="accent"
+        mandatory
+        group
+      >
+        <v-btn v-for="{ id, text } in contentList" :key="id">
+          {{ text }}
+        </v-btn>
+      </v-btn-toggle>
+      <div class="px-12">
+        <slot>
+          N/A
+        </slot>
+      </div>
+    </v-sheet>
   </div>
 </template>
 
@@ -34,106 +67,69 @@
 export default {
   name: "TheContentCard",
   props: {
-    title: {
+    menuTitle: {
+      type: String,
+      default: "學會資訊"
+    },
+    menuList: {
+      type: Array,
+      default() {
+        return [
+          { id: "0", text: "聯絡資訊" },
+          { id: "1", text: "帳號資訊" },
+          { id: "2", text: "學會簡介" },
+          { id: "3", text: "主要任務" },
+          {
+            id: "4",
+            text: "章程法令規章",
+            items: [
+              { id: "0", text: "學會章程" },
+              { id: "1", text: "規章" },
+              { id: "2", text: "法令" }
+            ]
+          },
+          { id: "5", text: "組織名單" },
+          { id: "6", text: "會議記錄" }
+        ];
+      }
+    },
+    contentList: {
+      type: Array,
+      default() {
+        return [
+          { id: "5", text: "組織名單" },
+          { id: "6", text: "會議記錄" }
+        ];
+      }
+    },
+    contentId: {
       type: String
     }
   },
   data() {
     return {
-      sideBarTitle: "",
-      item: 0,
-      subItem: 0,
-      items: []
+      menuItemIndex: 0,
+      subMenuItemIndex: 0,
+      contentItemIndex: 0
     };
   },
-  methods: {
-    getSideBarTitle(name) {
-      switch (name) {
-        case "about":
-          return "學會資訊";
-        case "news":
-          return "學會公告";
-        case "events":
-          return "會議課程資訊";
-        case "search":
-          return "資料查詢";
-        case "member":
-          return "會員專區";
-        case "health-education":
-          return "衛教專區";
-        case "websites-link":
-          return "相關網站";
-      }
-    },
-    getSideBarItems(name) {
-      switch (name) {
-        case "about":
-          return [
-            { id: "0", text: "聯絡資訊" },
-            { id: "1", text: "帳號資訊" },
-            { id: "2", text: "學會簡介" },
-            { id: "3", text: "主要任務" },
-            {
-              id: "4",
-              text: "章程法令規章",
-              subItems: [
-                { id: "0", text: "學會章程" },
-                { id: "1", text: "規章" },
-                { id: "2", text: "法令" }
-              ]
-            },
-            { id: "5", text: "組織名單" },
-            { id: "6", text: "會議記錄" }
-          ];
-        case "news":
-          return [
-            { id: "0", text: "秘書處公告" },
-            { id: "1", text: "活動通知" },
-            { id: "2", text: "醫學新知" }
-          ];
-        case "events":
-          return [
-            { id: "0", text: "申請會議課程活動" },
-            { id: "1", text: "今日會議課程活動" },
-            { id: "2", text: "近期會議活動課程" },
-            { id: "3", text: "會議課程活動介紹" }
-          ];
-        case "search":
-          return [
-            { id: "0", text: "手術準則與參考標準" },
-            { id: "1", text: "影片紀錄" },
-            { id: "2", text: "訓練醫院" },
-            { id: "3", text: "衛服部連結" },
-            { id: "4", text: "資料下載" },
-            { id: "5", text: "學術教育資源" }
-          ];
-        case "member":
-          return [
-            { id: "0", text: "會員入會" },
-            { id: "1", text: "會員登入" }
-          ];
-        case "health-education":
-          return [
-            { id: "0", text: "尋找醫師" },
-            { id: "1", text: "血管手術資訊" }
-          ];
-        case "websites-link":
-          return [
-            { id: "0", text: "合作學會機關" },
-            { id: "1", text: "贊助廠商" }
-          ];
-      }
+  computed: {
+    subMenuList() {
+      if (!Object.prototype.hasOwnProperty.call(this.menuList[this.menuItemIndex], "items")) return [];
+      return this.menuList[this.menuItemIndex].items;
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    console.log("RouteUpdate");
-    this.items = this.getSideBarItems(to.params.content);
-    this.sideBarTitle = this.getSideBarTitle(to.params.content);
-    next();
-  },
-  mounted() {
-    this.items = this.getSideBarItems(this.title);
-    this.sideBarTitle = this.getSideBarTitle(this.title);
+  methods: {
+    getContent(id) {
+      this.contentItemIndex = 0;
+
+      const targeItem = this.menuList.find(({ id: itemId }) => itemId === id);
+      if (targeItem != null && Object.prototype.hasOwnProperty.call(targeItem, "items")) {
+        this.$emit("update:contentId", targeItem.items[0].id);
+      } else {
+        this.$emit("update:contentId", id);
+      }
+    }
   }
 };
 </script>
@@ -152,11 +148,31 @@ export default {
       opacity: 0.6;
       background-color: white;
     }
+
+    .main-menu {
+      height: 46px !important;
+    }
+
+    .sub-menu {
+      height: 30px !important;
+    }
+
+    .v-btn:before {
+      background-color: transparent !important;
+    }
   }
 
   .content {
     border-radius: 0 40px 40px 0;
     width: 80%;
+
+    .v-btn {
+      height: 30px !important;
+    }
+
+    .v-btn:before {
+      background-color: transparent !important;
+    }
   }
 }
 </style>

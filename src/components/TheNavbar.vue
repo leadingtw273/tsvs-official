@@ -6,7 +6,7 @@
         <router-link :to="{ name: 'Home' }" class="d-flex">
           <v-img src="../assets/TSVS_logo.png" height="80px" width="80px" contain></v-img>
           <div class="d-flex flex-column align-self-center ml-4">
-            <span class="white--text display-1">台灣血管外科協會</span>
+            <span class="white--text display-1">台灣血管外科學會</span>
             <span class="white--text">Taiwan Society for Vascular Surgery</span>
           </div>
         </router-link>
@@ -25,17 +25,17 @@
       <div class="mt-8">
         <v-btn text :to="{ path: '/學會資訊' }" color="white">學會資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/學會公告' }" color="white">學會公告</v-btn>
+        <v-btn text :to="{ path: '/學會公告/秘書處公告' }" color="white">學會公告</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/會議課程資訊' }" color="white">會議課程資訊</v-btn>
+        <v-btn text :to="{ path: '/會議課程資訊/申請會議課程活動' }" color="white">會議課程資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/資料查詢' }" color="white">資料查詢</v-btn>
+        <v-btn text :to="{ path: '/資料查詢/手術準則與參考標準' }" color="white">資料查詢</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/會員專區' }" color="white">會員專區</v-btn>
+        <v-btn text :to="{ path: '/會員專區/會員入會' }" color="white">會員專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/衛教專區' }" color="white">衛教專區</v-btn>
+        <v-btn text :to="{ path: '/衛教專區/尋找醫師' }" color="white">衛教專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/相關網站' }" color="white">相關網站</v-btn>
+        <v-btn text :to="{ path: '/相關網站/合作學會機關' }" color="white">相關網站</v-btn>
       </div>
     </v-container>
   </v-sheet>

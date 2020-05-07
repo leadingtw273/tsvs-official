@@ -3,29 +3,28 @@
     <v-sheet color="primary" class="side-bar px-8 py-12" dark>
       <span class="d-flex headline mb-2 ml-4">{{ menuTitle }}</span>
 
-      <v-btn-toggle class="d-flex flex-column" v-model="menuItemIndex" color="active" mandatory group>
-        <template v-for="({ id, text }, i) in menuList">
-          <v-divider class="item-divider ml-4" :key="id + '_divider'" v-if="i !== 0"></v-divider>
-          <v-btn @click="getContent(id)" class="main-menu justify-start subtitle-1" :key="id">
+      <v-btn-toggle class="d-flex flex-column" v-model="menuIndex" color="active" mandatory group>
+        <template v-for="({ text, items, link }, i) in menuList">
+          <v-divider class="item-divider ml-4" :key="text + '_divider'" v-if="i !== 0"></v-divider>
+          <v-btn :to="link" class="main-menu justify-start subtitle-1" :key="text">
             {{ text }}
           </v-btn>
-
           <v-btn-toggle
             class="d-flex flex-column"
-            v-model="subMenuItemIndex"
-            v-if="menuItemIndex === i && subMenuList.length !== 0"
+            v-model="subMenuIndex"
+            v-if="menuIndex === i && subMenuList.length !== 0"
             color="active"
-            :key="id + '_subGroup'"
+            :key="text + '_subGroup'"
             mandatory
             group
           >
             <v-btn
-              :class="['sub-menu', 'justify-start', subMenuItemIndex === i ? 'active--text' : '']"
-              v-for="({ id, text }, i) in subMenuList"
-              :key="id"
-              @click="getContent(id)"
+              class="sub-menu justify-start"
+              v-for="{ text: subText, link: subLink } in subMenuList"
+              :to="subLink"
+              :key="subText"
             >
-              {{ text }}
+              {{ subText }}
             </v-btn>
           </v-btn-toggle>
         </template>
@@ -35,30 +34,16 @@
       <div class="d-flex flex-row mb-6">
         <div>
           <v-divider class="mx-6" color="black" vertical></v-divider>
-          <span class="headline">{{ menuList[menuItemIndex].text }}</span>
+          <span class="headline">{{ menuList[menuIndex].text }}</span>
         </div>
-        <div v-if="subMenuList[subMenuItemIndex] != null">
+        <div v-if="subMenuList[subMenuIndex] != null">
           <v-divider class="mx-6" color="black" vertical></v-divider>
-          <span class="headline">{{ subMenuList[subMenuItemIndex].text }}</span>
+          <span class="headline">{{ subMenuList[subMenuIndex].text }}</span>
         </div>
       </div>
-      <v-btn-toggle
-        class="d-flex flex-wrap mb-6 mx-8"
-        v-model="contentItemIndex"
-        v-if="contentList.length !== 0"
-        color="accent"
-        mandatory
-        group
-      >
-        <v-btn v-for="{ id, text } in contentList" :key="id">
-          {{ text }}
-        </v-btn>
-      </v-btn-toggle>
-      <div class="px-12">
-        <slot>
-          N/A
-        </slot>
-      </div>
+      <slot>
+        N/A
+      </slot>
     </v-sheet>
   </div>
 </template>
@@ -92,44 +77,29 @@ export default {
           { id: "6", text: "會議記錄" }
         ];
       }
-    },
-    contentList: {
-      type: Array,
-      default() {
-        return [
-          { id: "5", text: "組織名單" },
-          { id: "6", text: "會議記錄" }
-        ];
-      }
-    },
-    contentId: {
-      type: String
     }
   },
   data() {
     return {
-      menuItemIndex: 0,
-      subMenuItemIndex: 0,
-      contentItemIndex: 0
+      menuIndex: 0,
+      subMenuIndex: 0
     };
   },
   computed: {
     subMenuList() {
-      if (!Object.prototype.hasOwnProperty.call(this.menuList[this.menuItemIndex], "items")) return [];
-      return this.menuList[this.menuItemIndex].items;
+      if (!Object.prototype.hasOwnProperty.call(this.menuList[this.menuIndex], "items")) return [];
+      return this.menuList[this.menuIndex].items;
     }
   },
-  methods: {
-    getContent(id) {
-      this.contentItemIndex = 0;
+  mounted() {
+    const path = this.$route.path;
+    const [, , menuText, subMenuText] = path.split("/");
 
-      const targeItem = this.menuList.find(({ id: itemId }) => itemId === id);
-      if (targeItem != null && Object.prototype.hasOwnProperty.call(targeItem, "items")) {
-        this.$emit("update:contentId", targeItem.items[0].id);
-      } else {
-        this.$emit("update:contentId", id);
-      }
-    }
+    const menuFindIndex = this.menuList.findIndex(({ text }) => text === menuText);
+    this.menuIndex = menuFindIndex === -1 ? 0 : menuFindIndex;
+
+    const subMenuFindIndex = this.subMenuList.findIndex(({ text }) => text === subMenuText);
+    this.subMenuIndex = subMenuFindIndex === -1 ? 0 : subMenuFindIndex;
   }
 };
 </script>
@@ -165,14 +135,6 @@ export default {
   .content {
     border-radius: 0 40px 40px 0;
     width: 80%;
-
-    .v-btn {
-      height: 30px !important;
-    }
-
-    .v-btn:before {
-      background-color: transparent !important;
-    }
   }
 }
 </style>

@@ -51,6 +51,14 @@ export default {
       },
       immediate: true
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log("beforeRouteUpdate News");
+    next();
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log("beforeRouteEnter News");
+    next();
   }
 };
 </script>

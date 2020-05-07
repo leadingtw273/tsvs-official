@@ -36,11 +36,6 @@ Vue.use(VueRouter);
 //         {
 //           id: "0",
 //           text: "秘書處公告",
-//           items: [
-//             { id: "0", text: "學會章程" },
-//             { id: "1", text: "規章" },
-//             { id: "2", text: "法令" }
-//           ]
 //         },
 //         { id: "1", text: "活動通知" },
 //         { id: "2", text: "醫學新知" }
@@ -90,7 +85,73 @@ const routes = [
   {
     path: "/學會資訊",
     name: "About",
-    component: About
+    component: About,
+    children: [
+      {
+        path: "聯絡資訊",
+        component() {
+          return import("../views/About/ContactInfo");
+        }
+      },
+      {
+        path: "帳號資訊",
+        component() {
+          return import("../views/About/AccountInformation");
+        }
+      },
+      {
+        path: "學會簡介",
+        component() {
+          return import("../views/About/SocietyIntroduction");
+        }
+      },
+      {
+        path: "主要任務",
+        component() {
+          return import("../views/About/Mission");
+        }
+      },
+      {
+        path: "章程法令規章",
+        children: [
+          {
+            path: "學會章程",
+            component() {
+              return import("../views/About/BylawsRegulations/SocietyCharter");
+            }
+          },
+          {
+            path: "規章",
+            component() {
+              return import("../views/About/BylawsRegulations/Regulations");
+            }
+          },
+          {
+            path: "法令",
+            component() {
+              return import("../views/About/BylawsRegulations/Decree");
+            }
+          }
+        ],
+        component() {
+          return import("../views/About/BylawsRegulations");
+        },
+        redirect: "章程法令規章/學會章程"
+      },
+      {
+        path: "組織名單",
+        component() {
+          return import("../views/About/OrganizationList");
+        }
+      },
+      {
+        path: "會議記錄",
+        component() {
+          return import("../views/About/MeetingRecord");
+        }
+      }
+    ],
+    redirect: "學會資訊/聯絡資訊"
   },
   {
     path: "/學會公告",

@@ -1,5 +1,7 @@
 <template>
-  <the-content-card v-bind="config" :contentId.sync="contentId"></the-content-card>
+  <the-content-card v-bind="config">
+    <router-view></router-view>
+  </the-content-card>
 </template>
 
 <script>
@@ -13,24 +15,11 @@ export default {
       config: {
         menuTitle: "相關網站",
         menuList: [
-          { id: "0", text: "合作學會機關" },
-          { id: "1", text: "贊助廠商" }
-        ],
-        contentList: []
-      },
-      contentId: "0"
+          { text: "合作學會機關", link: "/相關網站/合作學會機關" },
+          { text: "贊助廠商", link: "/相關網站/贊助廠商" }
+        ]
+      }
     };
-  },
-  watch: {
-    contentId: {
-      handler(val) {
-        switch (val) {
-          default:
-            this.config.contentList = [];
-        }
-      },
-      immediate: true
-    }
   }
 };
 </script>

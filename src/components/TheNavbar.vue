@@ -6,7 +6,7 @@
         <router-link :to="{ name: 'Home' }" class="d-flex">
           <v-img src="../assets/TSVS_logo.png" height="80px" width="80px" contain></v-img>
           <div class="d-flex flex-column align-self-center ml-4">
-            <span class="white--text display-1">台灣血管外科協會</span>
+            <span class="white--text display-1">台灣血管外科學會</span>
             <span class="white--text">Taiwan Society for Vascular Surgery</span>
           </div>
         </router-link>

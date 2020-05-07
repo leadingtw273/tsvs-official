@@ -156,32 +156,128 @@ const routes = [
   {
     path: "/學會公告",
     name: "News",
-    component: News
+    component: News,
+    children: [
+      {
+        path: "秘書處公告",
+        component() {
+          return import("../views/News/Secretariat");
+        }
+      },
+      {
+        path: "活動通知",
+        component() {
+          return import("../views/News/Events");
+        }
+      },
+      {
+        path: "醫學新知",
+        component() {
+          return import("../views/News/Medicine");
+        }
+      }
+    ],
+    redirect: "學會公告/秘書處公告"
   },
   {
     path: "/會議課程資訊",
     name: "Events",
-    component: Events
+    component: Events,
+    children: [
+      {
+        path: "申請會議課程活動",
+        component() {
+          return import("../views/Events/Application.vue");
+        }
+      },
+      {
+        path: "今日會議課程活動",
+        component() {
+          return import("../views/Events/Today.vue");
+        }
+      },
+      {
+        path: "近期會議活動課程",
+        component() {
+          return import("../views/Events/Recent.vue");
+        }
+      },
+      {
+        path: "會議課程活動介紹",
+        component() {
+          return import("../views/Events/Introduction.vue");
+        }
+      }
+    ],
+    redirect: "會議課程資訊/申請會議課程活動"
   },
   {
     path: "/資料查詢",
     name: "Search",
-    component: Search
+    component: Search,
+    children: [
+      {
+        path: "手術準則與參考標準"
+      },
+      {
+        path: "影片紀錄"
+      },
+      {
+        path: "訓練醫院"
+      },
+      {
+        path: "衛服部連結"
+      },
+      {
+        path: "資料下載"
+      },
+      {
+        path: "學術教育資源"
+      }
+    ],
+    redirect: "資料查詢/手術準則與參考標準"
   },
   {
     path: "/會員專區",
     name: "Member",
-    component: Member
+    component: Member,
+    children: [
+      {
+        path: "會員入會"
+      },
+      {
+        path: "會員登入"
+      }
+    ],
+    redirect: "會員專區/會員入會"
   },
   {
     path: "/衛教專區",
     name: "HealthEducation",
-    component: HealthEducation
+    component: HealthEducation,
+    children: [
+      {
+        path: "尋找醫師"
+      },
+      {
+        path: "血管手術資訊"
+      }
+    ],
+    redirect: "衛教專區/尋找醫師"
   },
   {
     path: "/相關網站",
     name: "WebsitesLink",
-    component: WebsitesLink
+    component: WebsitesLink,
+    children: [
+      {
+        path: "合作學會機關"
+      },
+      {
+        path: "贊助廠商"
+      }
+    ],
+    redirect: "相關網站/合作學會機關"
   }
 ];
 

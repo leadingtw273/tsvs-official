@@ -1,5 +1,7 @@
 <template>
-  <the-content-card v-bind="config" :contentId.sync="contentId"></the-content-card>
+  <the-content-card v-bind="config">
+    <router-view></router-view>
+  </the-content-card>
 </template>
 
 <script>
@@ -13,40 +15,15 @@ export default {
       config: {
         menuTitle: "資料查詢",
         menuList: [
-          { id: "0", text: "手術準則與參考標準" },
-          { id: "1", text: "影片紀錄" },
-          { id: "2", text: "訓練醫院" },
-          { id: "3", text: "衛服部連結" },
-          { id: "4", text: "資料下載" },
-          { id: "5", text: "學術教育資源" }
-        ],
-        contentList: []
-      },
-      contentId: "0"
+          { text: "手術準則與參考標準", link: "/資料查詢/手術準則與參考標準" },
+          { text: "影片紀錄", link: "/資料查詢/影片紀錄" },
+          { text: "訓練醫院", link: "/資料查詢/訓練醫院" },
+          { text: "衛服部連結", link: "/資料查詢/衛服部連結" },
+          { text: "資料下載", link: "/資料查詢/資料下載" },
+          { text: "學術教育資源", link: "/資料查詢/學術教育資源" }
+        ]
+      }
     };
-  },
-  watch: {
-    contentId: {
-      handler(val) {
-        switch (val) {
-          case "0":
-            this.config.contentList = [
-              { id: "0", text: "手術準則" },
-              { id: "1", text: "文獻報告參考" }
-            ];
-            break;
-          case "1":
-            this.config.contentList = [
-              { id: "0", text: "2019/9/7-8" },
-              { id: "1", text: "2019/7/5-6" }
-            ];
-            break;
-          default:
-            this.config.contentList = [];
-        }
-      },
-      immediate: true
-    }
   }
 };
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <the-content-card v-bind="config" :contentId.sync="contentId"></the-content-card>
+  <the-content-card v-bind="config">
+    <router-view></router-view>
+  </the-content-card>
 </template>
 
 <script>
@@ -13,52 +15,12 @@ export default {
       config: {
         menuTitle: "學會公告",
         menuList: [
-          { id: "0", text: "秘書處公告" },
-          { id: "1", text: "活動通知" },
-          { id: "2", text: "醫學新知" }
-        ],
-        contentList: []
-      },
-      contentId: "0"
+          { text: "秘書處公告", link: "/學會公告/秘書處公告" },
+          { text: "活動通知", link: "/學會公告/活動通知" },
+          { text: "醫學新知", link: "/學會公告/醫學新知" }
+        ]
+      }
     };
-  },
-  watch: {
-    contentId: {
-      handler(val) {
-        switch (val) {
-          case "0":
-            this.config.contentList = [
-              { id: "0", text: "2019/12/7" },
-              { id: "1", text: "2019/9/2" },
-              { id: "2", text: "2019/9/1" }
-            ];
-            break;
-          case "1":
-            this.config.contentList = [
-              { id: "0", text: "2019/10/18" },
-              { id: "1", text: "2019/10/18" }
-            ];
-            break;
-          case "2":
-            this.config.contentList = [
-              { id: "0", text: "2018/6/24" },
-              { id: "1", text: "2018/4/3" }
-            ];
-            break;
-          default:
-            this.config.contentList = [];
-        }
-      },
-      immediate: true
-    }
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log("beforeRouteUpdate News");
-    next();
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log("beforeRouteEnter News");
-    next();
   }
 };
 </script>

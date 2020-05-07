@@ -42,7 +42,9 @@
         </div>
       </div>
       <slot>
-        N/A
+        <div class="my-12 px-12">
+          N/A
+        </div>
       </slot>
     </v-sheet>
   </div>

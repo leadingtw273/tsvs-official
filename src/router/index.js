@@ -217,22 +217,40 @@ const routes = [
     component: Search,
     children: [
       {
-        path: "手術準則與參考標準"
+        path: "手術準則與參考標準",
+        component() {
+          return import("../views/Search/Guidelines.vue");
+        }
       },
       {
-        path: "影片紀錄"
+        path: "影片紀錄",
+        component() {
+          return import("../views/Search/Record.vue");
+        }
       },
       {
-        path: "訓練醫院"
+        path: "訓練醫院",
+        component() {
+          return import("../views/Search/TrainingHospital.vue");
+        }
       },
       {
-        path: "衛服部連結"
+        path: "衛服部連結",
+        component() {
+          return import("../views/Search/Link.vue");
+        }
       },
       {
-        path: "資料下載"
+        path: "資料下載",
+        component() {
+          return import("../views/Search/Download.vue");
+        }
       },
       {
-        path: "學術教育資源"
+        path: "學術教育資源",
+        component() {
+          return import("../views/Search/EducationalResources.vue");
+        }
       }
     ],
     redirect: "資料查詢/手術準則與參考標準"
@@ -243,10 +261,34 @@ const routes = [
     component: Member,
     children: [
       {
-        path: "會員入會"
+        path: "會員入會",
+        component() {
+          return import("../views/Member/SignUp.vue");
+        }
       },
       {
-        path: "會員登入"
+        path: "會員登入",
+        component() {
+          return import("../views/Member/SignIn.vue");
+        }
+      },
+      {
+        path: "會員中心",
+        component() {
+          return import("../views/Member/Center.vue");
+        }
+      },
+      {
+        path: "資料搜尋",
+        component() {
+          return import("../views/Member/Search.vue");
+        }
+      },
+      {
+        path: "會員積分",
+        component() {
+          return import("../views/Member/Integral.vue");
+        }
       }
     ],
     redirect: "會員專區/會員入會"
@@ -257,10 +299,16 @@ const routes = [
     component: HealthEducation,
     children: [
       {
-        path: "尋找醫師"
+        path: "尋找醫師",
+        component() {
+          return import("../views/HealthEducation/SearchDoctor.vue");
+        }
       },
       {
-        path: "血管手術資訊"
+        path: "血管手術資訊",
+        component() {
+          return import("../views/HealthEducation/SurgeryInformation.vue");
+        }
       }
     ],
     redirect: "衛教專區/尋找醫師"
@@ -271,10 +319,16 @@ const routes = [
     component: WebsitesLink,
     children: [
       {
-        path: "合作學會機關"
+        path: "合作學會機關",
+        component() {
+          return import("../views/WebsitesLink/CooperativeInstitute.vue");
+        }
       },
       {
-        path: "贊助廠商"
+        path: "贊助廠商",
+        component() {
+          return import("../views/WebsitesLink/Sponsor.vue");
+        }
       }
     ],
     redirect: "相關網站/合作學會機關"

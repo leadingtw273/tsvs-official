@@ -4,9 +4,9 @@
       <span class="d-flex headline mb-2 ml-4">{{ menuTitle }}</span>
 
       <v-btn-toggle class="d-flex flex-column" v-model="menuIndex" color="active" mandatory group>
-        <template v-for="({ text, items, link }, i) in menuList">
-          <v-divider class="item-divider ml-4" :key="text + '_divider'" v-if="i !== 0"></v-divider>
-          <v-btn :to="link" class="main-menu justify-start subtitle-1" :key="text">
+        <template v-for="({ text, items, link, show = true }, i) in menuList">
+          <v-divider class="item-divider ml-4" :key="text + '_divider'" v-if="show && i !== 0"></v-divider>
+          <v-btn :to="link" class="main-menu justify-start subtitle-1" :key="text" v-if="show">
             {{ text }}
           </v-btn>
           <v-btn-toggle

@@ -13,7 +13,7 @@
           </div>
         </router-link>
         <div class="d-flex align-self-center">
-          <v-btn outlined rounded color="white">會員登入</v-btn>
+          <v-btn outlined rounded :to="{ path: '/會員專區/會員登入' }" color="white">會員登入</v-btn>
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
           <v-btn icon large color="#3B5998">

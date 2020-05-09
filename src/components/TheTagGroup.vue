@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     getContentIndexFromTag(tag) {
-      return this.contentList.findIndex(({ tag: itemTag }) => itemTag === decodeURI(tag));
+      return this.contentList.findIndex(({ tag: itemTag }) => itemTag === tag);
     }
   },
   updated() {

@@ -15,9 +15,9 @@ export default {
       config: {
         menuTitle: "學會公告",
         menuList: [
-          { text: "秘書處公告", link: "/學會公告/秘書處公告" },
-          { text: "活動通知", link: "/學會公告/活動通知" },
-          { text: "醫學新知", link: "/學會公告/醫學新知" }
+          { text: "秘書處公告", link: "/news/secretariat" },
+          { text: "活動通知", link: "/news/events" },
+          { text: "醫學新知", link: "/news/medicine" }
         ]
       }
     };

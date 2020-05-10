@@ -13,7 +13,7 @@
           </div>
         </router-link>
         <div class="d-flex align-self-center">
-          <v-btn outlined rounded :to="{ path: '/會員專區/會員登入' }" color="white">會員登入</v-btn>
+          <v-btn outlined rounded :to="{ path: '/member/sign-in' }" color="white">會員登入</v-btn>
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
           <v-btn icon large color="#3B5998">
@@ -25,19 +25,19 @@
         </div>
       </div>
       <div class="mt-8">
-        <v-btn text :to="{ path: '/學會資訊' }" color="white">學會資訊</v-btn>
+        <v-btn text :to="{ path: '/about' }" color="white">學會資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/學會公告' }" color="white">學會公告</v-btn>
+        <v-btn text :to="{ path: '/news' }" color="white">學會公告</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/會議課程資訊' }" color="white">會議課程資訊</v-btn>
+        <v-btn text :to="{ path: '/events' }" color="white">會議課程資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/資料查詢' }" color="white">資料查詢</v-btn>
+        <v-btn text :to="{ path: '/search' }" color="white">資料查詢</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/會員專區' }" color="white">會員專區</v-btn>
+        <v-btn text :to="{ path: '/member' }" color="white">會員專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/衛教專區' }" color="white">衛教專區</v-btn>
+        <v-btn text :to="{ path: '/health-education' }" color="white">衛教專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/相關網站' }" color="white">相關網站</v-btn>
+        <v-btn text :to="{ path: '/websites-link' }" color="white">相關網站</v-btn>
       </div>
     </v-container>
   </v-sheet>

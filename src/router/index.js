@@ -18,51 +18,51 @@ const routes = [
     component: Home
   },
   {
-    path: "/學會資訊",
+    path: "/about",
     name: "About",
     component: About,
     children: [
       {
-        path: "聯絡資訊",
+        path: "contact-info",
         component() {
           return import("../views/About/ContactInfo");
         }
       },
       {
-        path: "帳號資訊",
+        path: "account-information",
         component() {
           return import("../views/About/AccountInformation");
         }
       },
       {
-        path: "學會簡介",
+        path: "society-introduction",
         component() {
           return import("../views/About/SocietyIntroduction");
         }
       },
       {
-        path: "主要任務",
+        path: "mission",
         component() {
           return import("../views/About/Mission");
         }
       },
       {
-        path: "章程法令規章",
+        path: "bylaws-regulations",
         children: [
           {
-            path: "學會章程",
+            path: "society-charter",
             component() {
               return import("../views/About/BylawsRegulations/SocietyCharter");
             }
           },
           {
-            path: "規章",
+            path: "regulations",
             component() {
               return import("../views/About/BylawsRegulations/Regulations");
             }
           },
           {
-            path: "法令",
+            path: "decree",
             component() {
               return import("../views/About/BylawsRegulations/Decree");
             }
@@ -71,202 +71,202 @@ const routes = [
         component() {
           return import("../views/About/BylawsRegulations");
         },
-        redirect: "章程法令規章/學會章程"
+        redirect: "bylaws-regulations/society-charter"
       },
       {
-        path: "組織名單",
+        path: "organization-list",
         component() {
           return import("../views/About/OrganizationList");
         }
       },
       {
-        path: "會議記錄",
+        path: "meeting-record",
         component() {
           return import("../views/About/MeetingRecord");
         }
       }
     ],
-    redirect: "學會資訊/聯絡資訊"
+    redirect: "about/contact-info"
   },
   {
-    path: "/學會公告",
+    path: "/news",
     name: "News",
     component: News,
     children: [
       {
-        path: "秘書處公告",
+        path: "secretariat",
         component() {
           return import("../views/News/Secretariat");
         }
       },
       {
-        path: "活動通知",
+        path: "events",
         component() {
           return import("../views/News/Events");
         }
       },
       {
-        path: "醫學新知",
+        path: "medicine",
         component() {
           return import("../views/News/Medicine");
         }
       }
     ],
-    redirect: "學會公告/秘書處公告"
+    redirect: "news/secretariat"
   },
   {
-    path: "/會議課程資訊",
+    path: "/events",
     name: "Events",
     component: Events,
     children: [
       {
-        path: "申請會議課程活動",
+        path: "application",
         component() {
           return import("../views/Events/Application.vue");
         }
       },
       {
-        path: "今日會議課程活動",
+        path: "today",
         component() {
           return import("../views/Events/Today.vue");
         }
       },
       {
-        path: "近期會議活動課程",
+        path: "recent",
         component() {
           return import("../views/Events/Recent.vue");
         }
       },
       {
-        path: "會議課程活動介紹",
+        path: "introduction",
         component() {
           return import("../views/Events/Introduction.vue");
         }
       }
     ],
-    redirect: "會議課程資訊/申請會議課程活動"
+    redirect: "events/application"
   },
   {
-    path: "/資料查詢",
+    path: "/search",
     name: "Search",
     component: Search,
     children: [
       {
-        path: "手術準則與參考標準",
+        path: "guidelines",
         component() {
           return import("../views/Search/Guidelines.vue");
         }
       },
       {
-        path: "影片紀錄",
+        path: "record",
         component() {
           return import("../views/Search/Record.vue");
         }
       },
       {
-        path: "訓練醫院",
+        path: "training-hospital",
         component() {
           return import("../views/Search/TrainingHospital.vue");
         }
       },
       {
-        path: "衛服部連結",
+        path: "link",
         component() {
           return import("../views/Search/Link.vue");
         }
       },
       {
-        path: "資料下載",
+        path: "download",
         component() {
           return import("../views/Search/Download.vue");
         }
       },
       {
-        path: "學術教育資源",
+        path: "educational-resources",
         component() {
           return import("../views/Search/EducationalResources.vue");
         }
       }
     ],
-    redirect: "資料查詢/手術準則與參考標準"
+    redirect: "search/guidelines"
   },
   {
-    path: "/會員專區",
+    path: "/member",
     name: "Member",
     component: Member,
     children: [
       {
-        path: "會員入會",
+        path: "sign-up",
         component() {
           return import("../views/Member/SignUp.vue");
         }
       },
       {
-        path: "會員登入",
+        path: "sign-in",
         component() {
           return import("../views/Member/SignIn.vue");
         }
       },
       {
-        path: "會員中心",
+        path: "center",
         component() {
           return import("../views/Member/Center.vue");
         }
       },
       {
-        path: "資料搜尋",
+        path: "search",
         component() {
           return import("../views/Member/Search.vue");
         }
       },
       {
-        path: "會員積分",
+        path: "integral",
         component() {
           return import("../views/Member/Integral.vue");
         }
       }
     ],
-    redirect: "會員專區/會員入會"
+    redirect: "member/sign-up"
   },
   {
-    path: "/衛教專區",
+    path: "/health-education",
     name: "HealthEducation",
     component: HealthEducation,
     children: [
       {
-        path: "尋找醫師",
+        path: "search-doctor",
         component() {
           return import("../views/HealthEducation/SearchDoctor.vue");
         }
       },
       {
-        path: "血管手術資訊",
+        path: "surgery-information",
         component() {
           return import("../views/HealthEducation/SurgeryInformation.vue");
         }
       }
     ],
-    redirect: "衛教專區/尋找醫師"
+    redirect: "health-education/search-doctor"
   },
   {
-    path: "/相關網站",
+    path: "/websites-link",
     name: "WebsitesLink",
     component: WebsitesLink,
     children: [
       {
-        path: "合作學會機關",
+        path: "cooperative-institute",
         component() {
           return import("../views/WebsitesLink/CooperativeInstitute.vue");
         }
       },
       {
-        path: "贊助廠商",
+        path: "sponsor",
         component() {
           return import("../views/WebsitesLink/Sponsor.vue");
         }
       }
     ],
-    redirect: "相關網站/合作學會機關"
+    redirect: "websites-link/cooperative-institute"
   }
 ];
 
@@ -274,13 +274,6 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.path !== decodeURI(to.path) || to.hash !== decodeURI(to.hash)) {
-    next({ path: decodeURI(to.path), hash: decodeURI(to.hash), replace: true });
-  }
-  next();
 });
 
 export default router;

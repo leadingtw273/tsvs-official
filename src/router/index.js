@@ -267,6 +267,10 @@ const routes = [
       }
     ],
     redirect: "websites-link/cooperative-institute"
+  },
+  {
+    path: "/*",
+    component: Home
   }
 ];
 

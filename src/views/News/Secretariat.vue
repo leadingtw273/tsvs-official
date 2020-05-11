@@ -5,17 +5,18 @@
       <div class="秘書處公告-2019-12-7-內容">
         <div class="秘書處公告-2019-12-7-內容__cbcf27669f044543949e95337ed33020">
           第八屆理監事暨學會幹部名單
-          <br />
-          <br />甘宗旦 理事長 李芳艷 副理事長 陳益祥 副理事長 吳毅暉 常務理事 魏崢 常務理事 柯博仁 常務理事 張睿智
-          常務理事
-          <br />
-          <br />李國楨 理事 林致源 理事 張兼華 理事 陳沂名 理事 陳映澄 理事 陳哲伸 理事 黃耀廣 理事
-          <br />
-          <br />詹志洋 理事 劉國聖 理事 蔡宜廷 理事 鄭伯智 理事 謝世榮 理事 顏旭霆 理事 李中毅 理事
-          <br />
-          <br />張忠毅 常務監事 李秋陽 監事 林暉翰 監事 許傳智 監事 陳柏霖 監事 蔡忠霖 監事 羅健洺 監事
-          <br />
-          <br />許喬博 秘書長 劉國聖 副秘書長 黃建偉 副秘書長 曾政哲 財務長
+          <div class="d-flex mt-6">
+            <v-simple-table class="transparent mr-6" dense v-for="group in list_1.length / 8 + 1" :key="group">
+              <template v-slot:default>
+                <tbody>
+                  <tr v-for="{ name, position } in list_1.slice((group - 1) * 8, group * 8)" :key="name + position">
+                    <td>{{ name }}</td>
+                    <td>{{ position }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </div>
         </div>
       </div>
     </div>
@@ -26,10 +27,19 @@
           <br />
           <br />(依會員編號順序排列)
           <br />
-          <br />S00622 吳欣岱 屏東醫院 S00638 林俊閔 台北馬偕 S00642 張瑞宗 三軍總醫院 S00643 林敬惟 三軍總醫院 S00650
-          陳迪詠 成大醫院 <br />S00654 陳泰位 台北榮總 S00660 陳嘉葦 台北榮總 S00665 陳宇恒 台北馬偕 S00669 黃俊銘
-          安南醫院 S00673 吳崇丞 林口長庚 <br />S00677 蘇以理 林口長庚 S00686 孟繁傑 台北榮總 S00689 文豪 成大醫院
-          <br />
+          <div class="d-flex mt-6">
+            <v-simple-table class="transparent mr-6" dense>
+              <template v-slot:default>
+                <tbody>
+                  <tr v-for="{ name, hospital, id } in list_2" :key="id">
+                    <td>{{ id }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ hospital }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </div>
           <br />◎會員編號自動由Ａ→Ｓ
           <br />
           <br />◎請9/5(四)前劃撥繳交專科醫師考試證書費：3000元 / 郵局劃撥帳號: 19944001 台灣血管外科學會 /
@@ -65,6 +75,55 @@ export default {
         { text: "2019/12/7", tag: "#2019/12/7" },
         { text: "2019/9/2", tag: "#2019/9/2" },
         { text: "2019/9/1", tag: "#2019/9/1" }
+      ],
+      list_1: [
+        { name: "甘宗旦", position: "理事長" },
+        { name: "李芳艷", position: "副理事長" },
+        { name: "陳益祥", position: "副理事長" },
+        { name: "吳毅暉", position: "常務理事" },
+        { name: "魏崢", position: "常務理事" },
+        { name: "柯博仁", position: "常務理事" },
+        { name: "張睿智", position: "常務理事" },
+        { name: "李國楨", position: "理事" },
+        { name: "林致源", position: "理事" },
+        { name: "張兼華", position: "理事" },
+        { name: "陳沂名", position: "理事" },
+        { name: "陳映澄", position: "理事" },
+        { name: "陳哲伸", position: "理事" },
+        { name: "黃耀廣", position: "理事" },
+        { name: "詹志洋", position: "理事" },
+        { name: "劉國聖", position: "理事" },
+        { name: "蔡宜廷", position: "理事" },
+        { name: "鄭伯智", position: "理事" },
+        { name: "謝世榮", position: "理事" },
+        { name: "顏旭霆", position: "理事" },
+        { name: "李中毅", position: "理事" },
+        { name: "張忠毅", position: "常務監事" },
+        { name: "李秋陽", position: "監事" },
+        { name: "林暉翰", position: "監事" },
+        { name: "許傳智", position: "監事" },
+        { name: "陳柏霖", position: "監事" },
+        { name: "蔡忠霖", position: "監事" },
+        { name: "羅健洺", position: "監事" },
+        { name: "許喬博", position: "秘書長" },
+        { name: "劉國聖", position: "副秘書長" },
+        { name: "黃建偉", position: "副秘書長" },
+        { name: "曾政哲", position: "財務長" }
+      ],
+      list_2: [
+        { hospital: "屏東醫院", name: "吳欣岱", id: "S00622" },
+        { hospital: "台北馬偕", name: "林俊閔", id: "S00638" },
+        { hospital: "三軍總醫院", name: "張瑞宗", id: "S00642" },
+        { hospital: "三軍總醫院", name: "林敬惟", id: "S00643" },
+        { hospital: "成大醫院", name: "陳迪詠", id: "S00650" },
+        { hospital: "台北榮總", name: "陳泰位", id: "S00654" },
+        { hospital: "台北榮總", name: "陳嘉葦", id: "S00660" },
+        { hospital: "台北馬偕", name: "陳宇恒", id: "S00665" },
+        { hospital: "安南醫院", name: "黃俊銘", id: "S00669" },
+        { hospital: "林口長庚", name: "吳崇丞", id: "S00673" },
+        { hospital: "林口長庚", name: "蘇以理", id: "S00677" },
+        { hospital: "台北榮總", name: "孟繁傑", id: "S00686" },
+        { hospital: "成大醫院", name: "文豪", id: "S00689" }
       ]
     };
   }

@@ -1,59 +1,72 @@
 <template>
   <div class="my-12 px-12">
     <div class="組織名單">
-      <div class="組織名單__b93efead07ab4f5783b42d8d1ebad4dc">
-        理監事
-        <br />
-        <br />第八屆理監事暨學會幹部名單
-        <br />
-        <br />甘宗旦 理事長 李芳艷 副理事長 陳益祥 副理事長 吳毅暉 常務理事 魏崢 常務理事 柯博仁 常務理事 張睿智
-        常務理事 李國楨 理事 <br />林致源 理事 張兼華 理事 陳沂名 理事 陳映澄 理事 陳哲伸 理事 黃耀廣 理事 詹志洋 理事
-        劉國聖 理事 <br />蔡宜廷 理事 鄭伯智 理事 謝世榮 理事 顏旭霆 理事 李中毅 理事 張忠毅 常務監事 李秋陽 監事 林暉翰
-        監事 <br />許傳智 監事 陳柏霖 監事 蔡忠霖 監事 羅健洺 監事 許喬博 秘書長 劉國聖 副秘書長 <br />黃建偉 副秘書長
-        曾政哲 財務長
-        <br />
-        <br />歷屆名單 / 第七屆
-        <br />
-        <br />林佳勳 理事長 李芳艷 副理事長 柯博仁 副理事長 林致源 常務理事 許喬博 常務理事 陳沂名 常務理事 魏崢
-        常務理事 李國楨 理事 <br />吳毅暉 理事 李中毅 理事 康沛倫 理事 黃耀廣 理事 詹志洋 理事 劉國聖 理事 陳偉華 理事
-        陳益祥 理事 <br />謝世榮 理事 蔡宜廷 理事 謝炯昭 理事 顏旭霆 理事 鄭伯智 理事 張忠毅 常務監事 李秋陽 監事 林暉翰
-        監事 <br />許傳智 監事 陳柏霖 監事 蔡忠霖 監事 羅健洺 監事 甘宗旦 秘書長 陳映澄 副秘書長 張兼華 副秘書長 陳彥仰
-        財務長
-        <br />
-        <br />
-        <br />委員會
-        <br />
-        <br />第八屆委員會名單
-        <br />
-        <br />臨床委員會 主委 蔡宜廷 副主委 李國楨 委員 顏旭霆 溫日昇 謝炯昭 林宜璋 蔡孝恩
-        <br />
-        <br />學術委員會 主委 陳沂名 副主委 張睿智 委員 陳懷民 吳毅暉 蔡忠霖 蘇大維 蔡宜廷 孫珅 謝世榮
-        <br />
-        <br />教育委員會 主委 陳映澄 副主委 陳哲伸 委員 李明禮 吳南鈞 劉殷佐 謝福謙
-        <br />
-        <br />研究委員會 主委 林致源 副主委 劉國聖 委員 阮俊能 許俊傑
-        <br />
-        <br />編輯委員會 主委 張兼華 副主委 陳柏霖 委員 林寶彥 陳泰位 蘇大維 張得一 黃世銘 楊智鈞
-        <br />
-        <br />國際及公共事務委員會 主委 吳毅暉 副主委 蔡忠霖 委員 袁明琦 柯博仁 陳偉華 陳沂名 蔡孝恩
-        <br />
-        <br />甄審委員會 主委 詹志洋 副主委 許傳智 委員 康沛倫
-        <br />
-        <br />歷屆名單 / 第七屆
-        <br />
-        <br />臨床委員會 主委 蔡宜廷 副主委 姜智耀 委員 李中毅 溫日昇 賴金湖 陳哲伸 楊翔宇
-        <br />
-        <br />學術委員會 主委 許喬博 副主委 吳毅暉 委員 謝炯昭 孫珅 黃竣暘 袁于婷
-        <br />
-        <br />編輯委員會 主委 張睿智 副主委 賴韋良 委員 李宗龍 陳柏霖 翁世憲 鄭伊佐 黃振銘
-        <br />
-        <br />教育委員會 主委 陳沂名 副主委 蔡宜廷 委員 賴韋良 張睿智 陳柏霖
-        <br />
-        <br />研究委員會 主委 林致源 副主委 許俊傑 委員 柯宏彥 陳紹緯 賴昭翰
-        <br />
-        <br />公共事務委員會 主委 劉國聖 副主委 黃耀廣 委員 蔡宗霖 李秋陽 蘇大維
-        <br />
-        <br />甄審委員會 主委 詹志洋 副主委 林寶彥 委員 顏旭霆 蔡孝恩 陳懷民
+      <div class="組織名單__b93efead07ab4f5783b42d8d1ebad4dc d-flex flex-column">
+        <span class="title">理監事</span>
+
+        <span class="subtitle-1">第八屆理監事暨學會幹部名單</span>
+        <div class="d-flex my-6">
+          <v-simple-table class="transparent mr-6" dense v-for="group in list_1.length / 8 + 1" :key="group">
+            <template v-slot:default>
+              <tbody>
+                <tr v-for="{ name, position } in list_1.slice((group - 1) * 8, group * 8)" :key="name + position">
+                  <td>{{ name }}</td>
+                  <td>{{ position }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </div>
+
+        <span class="subtitle-1">歷屆名單 / 第七屆</span>
+        <div class="d-flex my-6">
+          <v-simple-table class="transparent mr-6" dense v-for="group in list_2.length / 8 + 1" :key="group">
+            <template v-slot:default>
+              <tbody>
+                <tr v-for="{ name, position } in list_2.slice((group - 1) * 8, group * 8)" :key="name + position">
+                  <td>{{ name }}</td>
+                  <td>{{ position }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </div>
+
+        <span class="title">委員會</span>
+
+        <span class="subtitle-1">第八屆委員會名單</span>
+        <div class="d-flex flex-wrap my-6">
+          <v-simple-table class="transparent mr-6" dense v-for="{ title, list } in list_3" :key="title">
+            <template v-slot:default>
+              <thead>
+                <th class="text-left">{{ title }}</th>
+              </thead>
+              <tbody>
+                <tr v-for="{ name, position } in list" :key="name + position">
+                  <td>{{ name }}</td>
+                  <td>{{ position }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </div>
+
+        <span class="subtitle-1">歷屆名單 / 第七屆</span>
+        <div class="d-flex flex-wrap my-6">
+          <v-simple-table class="transparent mr-6" dense v-for="{ title, list } in list_4" :key="title">
+            <template v-slot:default>
+              <thead>
+                <th class="text-left">{{ title }}</th>
+              </thead>
+              <tbody>
+                <tr v-for="{ name, position } in list" :key="name + position">
+                  <td>{{ name }}</td>
+                  <td>{{ position }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </div>
       </div>
     </div>
   </div>
@@ -61,7 +74,237 @@
 
 <script>
 export default {
-  name: "OrganizationList"
+  name: "OrganizationList",
+  data() {
+    return {
+      list_1: [
+        { name: "甘宗旦", position: "理事長" },
+        { name: "李芳艷", position: "副理事長" },
+        { name: "陳益祥", position: "副理事長" },
+        { name: "吳毅暉", position: "常務理事" },
+        { name: "魏崢", position: "常務理事" },
+        { name: "柯博仁", position: "常務理事" },
+        { name: "張睿智", position: "常務理事" },
+        { name: "李國楨", position: "理事" },
+        { name: "林致源", position: "理事" },
+        { name: "張兼華", position: "理事" },
+        { name: "陳沂名", position: "理事" },
+        { name: "陳映澄", position: "理事" },
+        { name: "陳哲伸", position: "理事" },
+        { name: "黃耀廣", position: "理事" },
+        { name: "詹志洋", position: "理事" },
+        { name: "劉國聖", position: "理事" },
+        { name: "蔡宜廷", position: "理事" },
+        { name: "鄭伯智", position: "理事" },
+        { name: "謝世榮", position: "理事" },
+        { name: "顏旭霆", position: "理事" },
+        { name: "李中毅", position: "理事" },
+        { name: "張忠毅", position: "常務監事" },
+        { name: "李秋陽", position: "監事" },
+        { name: "林暉翰", position: "監事" },
+        { name: "許傳智", position: "監事" },
+        { name: "陳柏霖", position: "監事" },
+        { name: "蔡忠霖", position: "監事" },
+        { name: "羅健洺", position: "監事" },
+        { name: "許喬博", position: "秘書長" },
+        { name: "劉國聖", position: "副秘書長" },
+        { name: "黃建偉", position: "副秘書長" },
+        { name: "曾政哲", position: "財務長" }
+      ],
+      list_2: [
+        { name: "林佳勳", position: "理事長" },
+        { name: "李芳艷", position: "副理事長" },
+        { name: "柯博仁", position: "副理事長" },
+        { name: "林致源", position: "常務理事" },
+        { name: "許喬博", position: "常務理事" },
+        { name: "陳沂名", position: "常務理事" },
+        { name: "魏崢", position: "常務理事" },
+        { name: "李國楨", position: "理事" },
+        { name: "吳毅暉", position: "理事" },
+        { name: "李中毅", position: "理事" },
+        { name: "康沛倫", position: "理事" },
+        { name: "黃耀廣", position: "理事" },
+        { name: "詹志洋", position: "理事" },
+        { name: "劉國聖", position: "理事" },
+        { name: "陳偉華", position: "理事" },
+        { name: "陳益祥", position: "理事" },
+        { name: "謝世榮", position: "理事" },
+        { name: "蔡宜廷", position: "理事" },
+        { name: "謝炯昭", position: "理事" },
+        { name: "顏旭霆", position: "理事" },
+        { name: "鄭伯智", position: "理事" },
+        { name: "張忠毅", position: "常務監事" },
+        { name: "李秋陽", position: "監事" },
+        { name: "林暉翰", position: "監事" },
+        { name: "許傳智", position: "監事" },
+        { name: "陳柏霖", position: "監事" },
+        { name: "蔡忠霖", position: "監事" },
+        { name: "羅健洺", position: "監事" },
+        { name: "甘宗旦", position: "秘書長" },
+        { name: "陳映澄", position: "副秘書長" },
+        { name: "張兼華", position: "副秘書長" },
+        { name: "陳彥仰", position: "財務長" }
+      ],
+      list_3: [
+        {
+          title: "臨床委員會",
+          list: [
+            { name: "蔡宜廷", position: "主委" },
+            { name: "李國楨", position: "副主委" },
+            { name: "顏旭霆", position: "委員" },
+            { name: "溫日昇", position: "委員" },
+            { name: "謝炯昭", position: "委員" },
+            { name: "林宜璋", position: "委員" },
+            { name: "蔡孝恩", position: "委員" }
+          ]
+        },
+        {
+          title: "學術委員會",
+          list: [
+            { name: "陳沂名", position: "主委" },
+            { name: "張睿智", position: "副主委" },
+            { name: "陳懷民", position: "委員" },
+            { name: "吳毅暉", position: "委員" },
+            { name: "蔡忠霖", position: "委員" },
+            { name: "蘇大維", position: "委員" },
+            { name: "蔡宜廷", position: "委員" },
+            { name: "孫珅", position: "委員" },
+            { name: "謝世榮", position: "委員" }
+          ]
+        },
+        {
+          title: "教育委員會",
+          list: [
+            { name: "陳映澄", position: "主委" },
+            { name: "陳哲伸", position: "副主委" },
+            { name: "李明禮", position: "委員" },
+            { name: "吳南鈞", position: "委員" },
+            { name: "劉殷佐", position: "委員" },
+            { name: "謝福謙", position: "委員" }
+          ]
+        },
+        {
+          title: "研究委員會",
+          list: [
+            { name: "林致源", position: "主委" },
+            { name: "劉國聖", position: "副主委" },
+            { name: "阮俊能", position: "委員" },
+            { name: "許俊傑", position: "委員" }
+          ]
+        },
+        {
+          title: "編輯委員會",
+          list: [
+            { name: "張兼華", position: "主委" },
+            { name: "陳柏霖", position: "副主委" },
+            { name: "林寶彥", position: "委員" },
+            { name: "陳泰位", position: "委員" },
+            { name: "蘇大維", position: "委員" },
+            { name: "張得一", position: "委員" },
+            { name: "黃世銘", position: "委員" },
+            { name: "楊智鈞", position: "委員" }
+          ]
+        },
+        {
+          title: "國際及公共事務委員會",
+          list: [
+            { name: "吳毅暉", position: "主委" },
+            { name: "蔡忠霖", position: "副主委" },
+            { name: "袁明琦", position: "委員" },
+            { name: "柯博仁", position: "委員" },
+            { name: "陳偉華", position: "委員" },
+            { name: "陳沂名", position: "委員" },
+            { name: "蔡孝恩", position: "委員" }
+          ]
+        },
+        {
+          title: "甄審委員會",
+          list: [
+            { name: "詹志洋", position: "主委" },
+            { name: "許傳智", position: "副主委" },
+            { name: "康沛倫", position: "委員" }
+          ]
+        }
+      ],
+      list_4: [
+        {
+          title: "臨床委員會",
+          list: [
+            { name: "蔡宜廷", position: "主委" },
+            { name: "姜智耀", position: "副主委" },
+            { name: "李中毅", position: "委員" },
+            { name: "溫日昇", position: "委員" },
+            { name: "賴金湖", position: "委員" },
+            { name: "陳哲伸", position: "委員" },
+            { name: "楊翔宇", position: "委員" }
+          ]
+        },
+        {
+          title: "學術委員會",
+          list: [
+            { name: "許喬博", position: "主委" },
+            { name: "吳毅暉", position: "副主委" },
+            { name: "謝炯昭", position: "委員" },
+            { name: "孫珅", position: "委員" },
+            { name: "黃竣暘", position: "委員" },
+            { name: "袁于婷", position: "委員" }
+          ]
+        },
+        {
+          title: "編輯委員會",
+          list: [
+            { name: "張睿智", position: "主委" },
+            { name: "賴韋良", position: "副主委" },
+            { name: "李宗龍", position: "委員" },
+            { name: "陳柏霖", position: "委員" },
+            { name: "翁世憲", position: "委員" },
+            { name: "鄭伊佐", position: "委員" },
+            { name: "黃振銘", position: "委員" }
+          ]
+        },
+        {
+          title: "教育委員會",
+          list: [
+            { name: "陳沂名", position: "主委" },
+            { name: "蔡宜廷", position: "副主委" },
+            { name: "賴韋良", position: "委員" },
+            { name: "張睿智", position: "委員" },
+            { name: "陳柏霖", position: "委員" }
+          ]
+        },
+        {
+          title: "研究委員會",
+          list: [
+            { name: "林致源", position: "主委" },
+            { name: "許俊傑", position: "副主委" },
+            { name: "柯宏彥", position: "委員" },
+            { name: "陳紹緯", position: "委員" },
+            { name: "賴昭翰", position: "委員" }
+          ]
+        },
+        {
+          title: "公共事務委員會",
+          list: [
+            { name: "劉國聖", position: "主委" },
+            { name: "黃耀廣", position: "副主委" },
+            { name: "蔡宗霖", position: "委員" },
+            { name: "李秋陽", position: "委員" },
+            { name: "蘇大維", position: "委員" }
+          ]
+        },
+        {
+          title: "甄審委員會",
+          list: [
+            { name: "詹志洋", position: "主委" },
+            { name: "林寶彥", position: "副主委" },
+            { name: "顏旭霆", position: "委員" },
+            { name: "蔡孝恩", position: "委員" },
+            { name: "陳懷民", position: "委員" }
+          ]
+        }
+      ]
+    };
+  }
 };
 </script>
 

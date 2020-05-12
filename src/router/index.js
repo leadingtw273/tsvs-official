@@ -8,6 +8,7 @@ import Member from "../views/Member";
 import News from "../views/News";
 import Search from "../views/Search";
 import WebsitesLink from "../views/WebsitesLink";
+import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter);
 
@@ -270,7 +271,7 @@ const routes = [
   },
   {
     path: "/*",
-    component: Home
+    component: NotFound
   }
 ];
 

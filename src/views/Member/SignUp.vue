@@ -57,14 +57,14 @@
           <v-stepper-content :step="2">
             <v-sheet class="mb-12" color="transparent">
               <v-row>
-                <v-col cols="12" class="d-flex">
+                <v-col cols="auto" class="d-flex">
                   <span class="align-self-center mr-6">申請類別</span>
-                  <v-radio-group class="pa-0 ma-0" row hide-details="auto">
+                  <v-radio-group v-model="form.applyClass" class="align-self-center pa-0 ma-0" row hide-details="auto">
                     <v-radio label="個人申請" value="個人申請"></v-radio>
                     <v-radio label="學會/公司/團體" value="學會/公司/團體"></v-radio>
                   </v-radio-group>
                 </v-col>
-                <v-col cols="6" class="d-flex">
+                <v-col class="d-flex">
                   <span class="align-self-center mr-6">申請日期</span>
                   <v-menu
                     v-model="applyDateMenu"
@@ -78,6 +78,7 @@
                       <v-text-field
                         v-model="form.applyDate"
                         label="申請日期"
+                        dense
                         readonly
                         outlined
                         hide-details="auto"
@@ -93,17 +94,29 @@
                 </v-col>
                 <v-col cols="12">
                   <v-row>
-                    <v-col cols="4" class="d-flex">
+                    <v-col class="d-flex">
                       <span class="align-self-center mr-6">姓名(中文)</span>
-                      <v-text-field label="姓名(中文)" outlined hide-details="auto"></v-text-field>
+                      <v-text-field
+                        v-model="form.chName"
+                        label="姓名(中文)"
+                        dense
+                        outlined
+                        hide-details="auto"
+                      ></v-text-field>
                     </v-col>
-                    <v-col cols="4" class="d-flex">
+                    <v-col class="d-flex">
                       <span class="align-self-center mr-6">姓名(英文)</span>
-                      <v-text-field label="姓名(英文)" outlined hide-details="auto"></v-text-field>
+                      <v-text-field
+                        v-model="form.enName"
+                        label="姓名(英文)"
+                        dense
+                        outlined
+                        hide-details="auto"
+                      ></v-text-field>
                     </v-col>
-                    <v-col cols="3" class="d-flex">
+                    <v-col cols="auto" class="d-flex">
                       <span class="align-self-center mr-6">性別</span>
-                      <v-radio-group class="align-self-center pa-0 ma-0" row hide-details="auto">
+                      <v-radio-group v-model="form.gender" class="align-self-center pa-0 ma-0" row hide-details="auto">
                         <v-radio label="男" value="男"></v-radio>
                         <v-radio label="女" value="女"></v-radio>
                       </v-radio-group>
@@ -124,6 +137,7 @@
                       <v-text-field
                         v-model="form.birthday"
                         label="申請日期"
+                        dense
                         readonly
                         outlined
                         hide-details="auto"
@@ -137,67 +151,135 @@
                     ></v-date-picker>
                   </v-menu>
                 </v-col>
-                <v-col cols="12" class="d-flex">
+                <v-col cols="6" class="d-flex">
                   <span class="align-self-center mr-6">身份證號</span>
-                  <v-text-field label="國民身份證 / 外僑統一證號" outlined hide-details="auto"></v-text-field>
+                  <v-text-field
+                    v-model="form.identityNumber"
+                    label="國民身份證 / 外僑統一證號"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12" class="d-flex">
                   <span class="align-self-center mr-6">戶籍地址</span>
-                  <v-text-field label="戶籍地址" outlined hide-details="auto"></v-text-field>
+                  <v-text-field
+                    v-model="form.residenceAddress"
+                    label="戶籍地址"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12" class="d-flex">
                   <span class="align-self-center mr-6">通訊地址</span>
-                  <v-text-field label="通訊地址" outlined hide-details="auto"></v-text-field>
+                  <v-text-field
+                    v-model="form.mailingAddress"
+                    label="通訊地址"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="6" class="d-flex">
                   <span class="align-self-center mr-6">公司電話</span>
-                  <v-text-field label="公司電話" outlined hide-details="auto"></v-text-field>
+                  <v-text-field
+                    v-model="form.companyPhone"
+                    label="公司電話"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="6" class="d-flex">
                   <span class="align-self-center mr-6">行動電話</span>
-                  <v-text-field label="行動電話" outlined hide-details="auto"></v-text-field>
+                  <v-text-field v-model="form.phone" label="行動電話" dense outlined hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="d-flex">
                   <span class="align-self-center mr-6">電子信箱</span>
-                  <v-text-field label="電子信箱" outlined hide-details="auto"></v-text-field>
+                  <v-text-field v-model="form.email" label="電子信箱" dense outlined hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="d-flex">
                   <span class="align-self-center mr-6">現職服務醫院</span>
                   <v-row>
                     <v-col cols="4" class="d-flex">
-                      <v-text-field label="縣/市" outlined hide-details="auto"></v-text-field>
+                      <v-text-field
+                        v-model="form.serviceHospital.county"
+                        label="縣/市"
+                        dense
+                        outlined
+                        hide-details="auto"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="4" class="d-flex">
-                      <v-text-field label="區/鄉鎮" outlined hide-details="auto"></v-text-field>
+                      <v-text-field
+                        v-model="form.serviceHospital.township"
+                        label="區/鄉鎮"
+                        dense
+                        outlined
+                        hide-details="auto"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="4" class="d-flex">
-                      <v-text-field label="醫院" outlined hide-details="auto"></v-text-field>
+                      <v-text-field
+                        v-model="form.serviceHospital.name"
+                        label="醫院"
+                        dense
+                        outlined
+                        hide-details="auto"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="4" class="d-flex">
                   <span class="align-self-center mr-6">科別</span>
-                  <v-text-field label="科別" outlined hide-details="auto"></v-text-field>
+                  <v-text-field v-model="form.branch" label="科別" dense outlined hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="4" class="d-flex">
                   <span class="align-self-center mr-6">現任職務</span>
-                  <v-text-field label="現任職務" outlined hide-details="auto"></v-text-field>
+                  <v-text-field
+                    v-model="form.currentPosition"
+                    label="現任職務"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="4" class="d-flex">
                   <span class="align-self-center mr-6">學歷</span>
-                  <v-text-field label="學歷" outlined hide-details="auto"></v-text-field>
+                  <v-text-field v-model="form.education" label="學歷" dense outlined hide-details="auto"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="d-flex">
                   <span class="align-self-center mr-6">醫院個人介紹連結</span>
-                  <v-text-field label="醫院個人介紹連結" outlined hide-details="auto"></v-text-field>
+                  <v-text-field
+                    v-model="form.introductionLink"
+                    label="醫院個人介紹連結"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="4" class="d-flex" v-if="form.memberClass === '正式會員'">
                   <span class="align-self-center mr-6">個人相片</span>
-                  <v-file-input label="檔案上傳" outlined hide-details="auto"></v-file-input>
+                  <v-file-input
+                    v-model="form.photo"
+                    accept="image/png, image/jpeg, image/bmp"
+                    label="檔案上傳"
+                    outlined
+                    dense
+                    hide-details="auto"
+                  ></v-file-input>
                 </v-col>
                 <v-col cols="6" class="d-flex" v-if="form.memberClass === '正式會員'">
                   <span class="align-self-center mr-6">畢業證書(最高學歷)</span>
-                  <v-file-input label="檔案上傳" outlined hide-details="auto"></v-file-input>
+                  <v-file-input
+                    v-model="form.diploma"
+                    accept="image/png, image/jpeg, image/bmp"
+                    label="檔案上傳"
+                    outlined
+                    dense
+                    hide-details="auto"
+                  ></v-file-input>
                 </v-col>
               </v-row>
             </v-sheet>
@@ -229,6 +311,8 @@
 
 <script>
 import TheTagGroup from "../../components/TheTagGroup";
+import dayjs from "dayjs";
+
 export default {
   name: "SignUp",
   components: { TheTagGroup },
@@ -244,8 +328,29 @@ export default {
       birthdayMenu: false,
       form: {
         memberClass: "學會之友",
-        applyDate: "2019-05-01",
-        birthday: "2019-05-01"
+        applyClass: "個人申請",
+        chName: "",
+        enName: "",
+        gender: "男",
+        identityNumber: "",
+        residenceAddress: "",
+        mailingAddress: "",
+        companyPhone: "",
+        phone: "",
+        email: "",
+        serviceHospital: {
+          county: "",
+          township: "",
+          name: ""
+        },
+        branch: "",
+        currentPosition: "",
+        education: "",
+        introductionLink: "",
+        photo: null,
+        diploma: null,
+        applyDate: dayjs().format("YYYY-MM-DD"),
+        birthday: dayjs().format("YYYY-MM-DD")
       }
     };
   }

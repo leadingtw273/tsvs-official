@@ -44,7 +44,12 @@ export default {
   },
   methods: {
     getContentIndexFromTag(tag) {
-      return this.contentList.findIndex(({ tag: itemTag }) => itemTag === decodeURI(tag));
+      const index = this.contentList.findIndex(({ tag: itemTag }) => itemTag === decodeURI(tag));
+      if (index !== -1) {
+        return index;
+      } else {
+        this.$router.replace(this.$route.path + this.contentList[0].tag);
+      }
     }
   },
   updated() {

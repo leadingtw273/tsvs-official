@@ -5,18 +5,19 @@
 </template>
 
 <script>
-import TheContentCard from "../../components/TheContentCard";
+import TheContentCard from "../../../components/TheContentCard";
 
 export default {
-  name: "WebsitesLink",
+  name: "Events",
   components: { TheContentCard },
   data() {
     return {
       config: {
-        menuTitle: "相關網站",
+        menuTitle: "活動管理",
         menuList: [
-          { text: "合作學會機關", link: { name: "WebsitesLinkCooperativeInstitute" } },
-          { text: "贊助廠商", link: { name: "WebsitesLinkSponsor" } }
+          { text: "訊息登陸", link: "" },
+          { text: "積分申請", link: "" },
+          { text: "活動登陸", link: "" }
         ]
       }
     };

@@ -15,10 +15,10 @@ export default {
       config: {
         menuTitle: "會議課程資訊",
         menuList: [
-          { text: "申請會議課程活動", link: "/events/application" },
-          { text: "今日會議課程活動", link: "/events/today" },
-          { text: "近期會議活動課程", link: "/events/recent" },
-          { text: "會議課程活動介紹", link: "/events/introduction" }
+          { text: "申請會議課程活動", link: { name: "EventsApplication" } },
+          { text: "今日會議課程活動", link: { name: "EventsToday" } },
+          { text: "近期會議活動課程", link: { name: "EventsRecent" } },
+          { text: "會議課程活動介紹", link: { name: "EventsIntroduction" } }
         ]
       }
     };

@@ -95,7 +95,14 @@ export default {
   },
   mounted() {
     const path = this.$route.path;
-    const [, , menuText, subMenuText] = path.split("/");
+
+    let menuText = null;
+    let subMenuText = null;
+    if (this.$store.state.view === "admin") {
+      [, , , menuText, subMenuText] = path.split("/");
+    } else {
+      [, , menuText, subMenuText] = path.split("/");
+    }
 
     const menuFindIndex = this.menuList.findIndex(({ text }) => text === menuText);
     this.menuIndex = menuFindIndex === -1 ? 0 : menuFindIndex;

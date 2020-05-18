@@ -15,11 +15,11 @@ export default {
       config: {
         menuTitle: "會員專區",
         menuList: [
-          { text: "會員入會", link: "/member/sign-up" },
-          { text: "會員登入", link: "/member/sign-in" },
-          { text: "會員中心", link: "/member/center", show: false },
-          { text: "資料搜尋", link: "/member/search", show: false },
-          { text: "會員積分", link: "/member/integral", show: false }
+          { text: "會員入會", link: { name: "MemberSignUp" } },
+          { text: "會員登入", link: { name: "MemberSignIn" } },
+          { text: "會員中心", link: { name: "MemberCenter" }, show: false },
+          { text: "資料搜尋", link: { name: "MemberSearch" }, show: false },
+          { text: "會員積分", link: { name: "MemberIntegral" }, show: false }
         ]
       }
     };

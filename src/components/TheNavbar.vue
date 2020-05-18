@@ -13,7 +13,23 @@
           </div>
         </router-link>
         <div class="d-flex align-self-center">
-          <v-btn outlined rounded :to="{ path: '/member/sign-in' }" color="white">會員登入</v-btn>
+          <v-btn outlined rounded :to="{ name: 'MemberSignIn' }" color="white">會員登入</v-btn>
+          <v-btn
+            rounded
+            class="ml-4"
+            color="accent"
+            @click="pushToPage('Admin')"
+            v-if="userType === 0 && pageType === 'normal'"
+            >後臺管理</v-btn
+          >
+          <v-btn
+            rounded
+            class="ml-4"
+            color="primary"
+            @click="pushToPage('Home')"
+            v-if="userType === 0 && pageType === 'admin'"
+            >一般頁面</v-btn
+          >
           <v-btn text rounded class="ml-2" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
           <v-btn icon large color="#3B5998">
@@ -24,20 +40,31 @@
           </v-btn>
         </div>
       </div>
-      <div class="mt-8">
-        <v-btn text :to="{ path: '/about' }" color="white">學會資訊</v-btn>
+      <div class="mt-8" v-if="pageType === 'admin'">
+        <v-btn text :to="{ name: 'AdminMember' }" color="white">會員管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/news' }" color="white">學會公告</v-btn>
+        <v-btn text :to="{ name: 'AdminContent' }" color="white">內容管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/events' }" color="white">會議課程資訊</v-btn>
+        <v-btn text :to="{ name: 'AdminEvents' }" color="white">活動管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/search' }" color="white">資料查詢</v-btn>
+        <v-btn text :to="{ name: 'AdminAnnualMeeting' }" color="white">年會頁面管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/member' }" color="white">會員專區</v-btn>
+        <v-btn text :to="{ name: 'AdminMoodle' }" color="white">學習專區</v-btn>
+      </div>
+      <div class="mt-8" v-else>
+        <v-btn text :to="{ name: 'About' }" color="white">學會資訊</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/health-education' }" color="white">衛教專區</v-btn>
+        <v-btn text :to="{ name: 'News' }" color="white">學會公告</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ path: '/websites-link' }" color="white">相關網站</v-btn>
+        <v-btn text :to="{ name: 'Events' }" color="white">會議課程資訊</v-btn>
+        <v-divider class="align-self-center mx-1" vertical></v-divider>
+        <v-btn text :to="{ name: 'Search' }" color="white">資料查詢</v-btn>
+        <v-divider class="align-self-center mx-1" vertical></v-divider>
+        <v-btn text :to="{ name: 'Member' }" color="white">會員專區</v-btn>
+        <v-divider class="align-self-center mx-1" vertical></v-divider>
+        <v-btn text :to="{ name: 'HealthEducation' }" color="white">衛教專區</v-btn>
+        <v-divider class="align-self-center mx-1" vertical></v-divider>
+        <v-btn text :to="{ name: 'WebsitesLink' }" color="white">相關網站</v-btn>
       </div>
     </v-container>
   </v-sheet>
@@ -45,7 +72,33 @@
 
 <script>
 export default {
-  name: "TheNavbar"
+  name: "TheNavbar",
+  computed: {
+    userType() {
+      return this.$store.state.userType;
+    },
+    pageType() {
+      return this.$store.state.view;
+    }
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    pushToPage(page) {
+      switch (page) {
+        case "admin":
+          this.$store.commit("checkoutAdminViewPage");
+          break;
+        case "home":
+          this.$store.commit("checkoutNormalViewPage");
+          break;
+        default:
+          this.$store.commit("checkoutNormalViewPage");
+      }
+      this.$router.push({ name: page });
+    }
+  }
 };
 </script>
 

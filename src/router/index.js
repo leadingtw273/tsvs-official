@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 import Home from "../views/Home.vue";
 import About from "../views/About";
 import Events from "../views/Events";
@@ -8,6 +9,7 @@ import Member from "../views/Member";
 import News from "../views/News";
 import Search from "../views/Search";
 import WebsitesLink from "../views/WebsitesLink";
+import Admin from "../views/Admin";
 import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter);
@@ -16,54 +18,248 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    beforeEnter(to, from, next) {
+      store.commit("checkoutNormalViewPage");
+      next();
+    }
   },
   {
-    path: "/about",
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    children: [
+      {
+        path: "member",
+        name: "AdminMember",
+        component() {
+          return import("../views/Admin/Member");
+        }
+      },
+      {
+        path: "內容管理",
+        name: "AdminContent",
+        component() {
+          return import("../views/Admin/Content");
+        },
+        children: [
+          {
+            path: "首頁廣告-重要通知",
+            name: "AdminContentAdvertisingAndNotice",
+            component() {
+              return import("../views/Admin/Content/AdvertisingAndNotice");
+            }
+          },
+          {
+            path: "關於學會內容",
+            name: "AdminContentAbout",
+            component() {
+              return import("../views/Admin/Content/About");
+            },
+            children: [
+              {
+                path: "章程法令規章",
+                name: "AdminContentAboutBylawsRegulations",
+                component() {
+                  return import("../views/Admin/Content/About/BylawsRegulations");
+                }
+              },
+              {
+                path: "組織名單",
+                name: "AdminContentAboutOrganizationList",
+                component() {
+                  return import("../views/Admin/Content/About/OrganizationList");
+                }
+              },
+              {
+                path: "會議記錄",
+                name: "AdminContentAboutMeetingRecord",
+                component() {
+                  return import("../views/Admin/Content/About/MeetingRecord");
+                }
+              },
+              {
+                path: "秘書處公告",
+                name: "AdminContentAboutSecretariat",
+                component() {
+                  return import("../views/Admin/Content/About/Secretariat");
+                }
+              },
+              {
+                path: "活動通知",
+                name: "AdminContentAboutEvents",
+                component() {
+                  return import("../views/Admin/Content/About/Events");
+                }
+              },
+              {
+                path: "醫學新知",
+                name: "AdminContentAboutMedicine",
+                component() {
+                  return import("../views/Admin/Content/About/Medicine");
+                }
+              }
+            ],
+            redirect: { name: "AdminContentAboutBylawsRegulations" }
+          },
+          {
+            path: "資料查詢內容",
+            name: "AdminContentSearch",
+            component() {
+              return import("../views/Admin/Content/Search");
+            },
+            children: [
+              {
+                path: "手術準則",
+                name: "AdminContentSearchGuidelines",
+                component() {
+                  return import("../views/Admin/Content/Search/Guidelines");
+                }
+              },
+              {
+                path: "參考標準",
+                name: "AdminContentSearchReportingStandards",
+                component() {
+                  return import("../views/Admin/Content/Search/ReportingStandards");
+                }
+              },
+              {
+                path: "影片紀錄",
+                name: "AdminContentSearchRecord",
+                component() {
+                  return import("../views/Admin/Content/Search/Record");
+                }
+              },
+              {
+                path: "訓練醫院",
+                name: "AdminContentSearchTrainingHospital",
+                component() {
+                  return import("../views/Admin/Content/Search/TrainingHospital");
+                }
+              },
+              {
+                path: "衛服部",
+                name: "AdminContentSearchLink",
+                component() {
+                  return import("../views/Admin/Content/Search/Link");
+                }
+              },
+              {
+                path: "學術教育資源",
+                name: "AdminContentSearchDownload",
+                component() {
+                  return import("../views/Admin/Content/Search/Download");
+                }
+              }
+            ],
+            redirect: { name: "AdminContentSearchGuidelines" }
+          },
+          {
+            path: "下載資料內容",
+            name: "AdminContentDownload",
+            component() {
+              return import("../views/Admin/Content/Download");
+            }
+          },
+          {
+            path: "衛教專區內容",
+            name: "AdminContentHealthEducation",
+            component() {
+              return import("../views/Admin/Content/HealthEducation");
+            }
+          },
+          {
+            path: "合作學會-贊助廠商",
+            name: "AdminContentCooperativeSocietyAndSponsor",
+            component() {
+              return import("../views/Admin/Content/CooperativeSocietyAndSponsor");
+            }
+          }
+        ],
+        redirect: { name: "AdminContentAdvertisingAndNotice" }
+      },
+      {
+        path: "events",
+        name: "AdminEvents",
+        component() {
+          return import("../views/Admin/Events");
+        }
+      },
+      {
+        path: "annual-meeting",
+        name: "AdminAnnualMeeting",
+        component() {
+          return import("../views/Admin/AnnualMeeting");
+        }
+      },
+      {
+        path: "moodle",
+        name: "AdminMoodle",
+        component() {
+          return import("../views/Admin/Moodle");
+        }
+      }
+    ],
+    beforeEnter(to, from, next) {
+      store.commit("checkoutAdminViewPage");
+      next();
+    },
+    redirect: { name: "AdminMember" }
+  },
+  {
+    path: "/學會資訊",
     name: "About",
     component: About,
     children: [
       {
-        path: "contact-info",
+        path: "聯絡資訊",
+        name: "AboutContactInfo",
         component() {
           return import("../views/About/ContactInfo");
         }
       },
       {
-        path: "account-information",
+        path: "帳號資訊",
+        name: "AboutAccountInformation",
         component() {
           return import("../views/About/AccountInformation");
         }
       },
       {
-        path: "society-introduction",
+        path: "學會簡介",
+        name: "AboutSocietyIntroduction",
         component() {
           return import("../views/About/SocietyIntroduction");
         }
       },
       {
-        path: "mission",
+        path: "主要任務",
+        name: "AboutMission",
         component() {
           return import("../views/About/Mission");
         }
       },
       {
-        path: "bylaws-regulations",
+        path: "章程法令規章",
+        name: "AboutBylawsRegulations",
         children: [
           {
-            path: "society-charter",
+            path: "學會章程",
+            name: "AboutBylawsRegulationsSocietyCharter",
             component() {
               return import("../views/About/BylawsRegulations/SocietyCharter");
             }
           },
           {
-            path: "regulations",
+            path: "規章",
+            name: "AboutBylawsRegulationsRegulations",
             component() {
               return import("../views/About/BylawsRegulations/Regulations");
             }
           },
           {
-            path: "decree",
+            path: "法令",
+            name: "AboutBylawsRegulationsDecree",
             component() {
               return import("../views/About/BylawsRegulations/Decree");
             }
@@ -72,202 +268,226 @@ const routes = [
         component() {
           return import("../views/About/BylawsRegulations");
         },
-        redirect: "bylaws-regulations/society-charter"
+        redirect: { name: "AboutBylawsRegulationsSocietyCharter" }
       },
       {
-        path: "organization-list",
+        path: "組織名單",
+        name: "AboutOrganizationList",
         component() {
           return import("../views/About/OrganizationList");
         }
       },
       {
-        path: "meeting-record",
+        path: "會議紀錄",
+        name: "AboutMeetingRecord",
         component() {
           return import("../views/About/MeetingRecord");
         }
       }
     ],
-    redirect: "about/contact-info"
+    redirect: { name: "AboutContactInfo" }
   },
   {
-    path: "/news",
+    path: "/學會公告",
     name: "News",
     component: News,
     children: [
       {
-        path: "secretariat",
+        path: "秘書處公告",
+        name: "NewsSecretariat",
         component() {
           return import("../views/News/Secretariat");
         }
       },
       {
-        path: "events",
+        path: "活動通知",
+        name: "NewsEvents",
         component() {
           return import("../views/News/Events");
         }
       },
       {
-        path: "medicine",
+        path: "醫學新知",
+        name: "NewsMedicine",
         component() {
           return import("../views/News/Medicine");
         }
       }
     ],
-    redirect: "news/secretariat"
+    redirect: { name: "NewsSecretariat" }
   },
   {
-    path: "/events",
+    path: "/會議課程資訊",
     name: "Events",
     component: Events,
     children: [
       {
-        path: "application",
+        path: "申請會議課程活動",
+        name: "EventsApplication",
         component() {
           return import("../views/Events/Application.vue");
         }
       },
       {
-        path: "today",
+        path: "今日會議課程活動",
+        name: "EventsToday",
         component() {
           return import("../views/Events/Today.vue");
         }
       },
       {
-        path: "recent",
+        path: "近期會議活動課程",
+        name: "EventsRecent",
         component() {
           return import("../views/Events/Recent.vue");
         }
       },
       {
-        path: "introduction",
+        path: "會議課程活動介紹",
+        name: "EventsIntroduction",
         component() {
           return import("../views/Events/Introduction.vue");
         }
       }
     ],
-    redirect: "events/application"
+    redirect: { name: "EventsApplication" }
   },
   {
-    path: "/search",
+    path: "/資料查詢",
     name: "Search",
     component: Search,
     children: [
       {
-        path: "guidelines",
+        path: "手術準則與參考標準",
+        name: "SearchGuidelines",
         component() {
           return import("../views/Search/Guidelines.vue");
         }
       },
       {
-        path: "record",
+        path: "影片紀錄",
+        name: "SearchRecord",
         component() {
           return import("../views/Search/Record.vue");
         }
       },
       {
-        path: "training-hospital",
+        path: "訓練醫院",
+        name: "SearchTrainingHospital",
         component() {
           return import("../views/Search/TrainingHospital.vue");
         }
       },
       {
-        path: "link",
+        path: "衛服部連結",
+        name: "SearchLink",
         component() {
           return import("../views/Search/Link.vue");
         }
       },
       {
-        path: "download",
+        path: "資料下載",
+        name: "SearchDownload",
         component() {
           return import("../views/Search/Download.vue");
         }
       },
       {
-        path: "educational-resources",
+        path: "學術教育資源",
+        name: "SearchEducationalResources",
         component() {
           return import("../views/Search/EducationalResources.vue");
         }
       }
     ],
-    redirect: "search/guidelines"
+    redirect: { name: "SearchGuidelines" }
   },
   {
-    path: "/member",
+    path: "/會員專區",
     name: "Member",
     component: Member,
     children: [
       {
-        path: "sign-up",
+        path: "會員入會",
+        name: "MemberSignUp",
         component() {
           return import("../views/Member/SignUp.vue");
         }
       },
       {
-        path: "sign-in",
+        path: "會員登入",
+        name: "MemberSignIn",
         component() {
           return import("../views/Member/SignIn.vue");
         }
       },
       {
-        path: "center",
+        path: "會員中心",
+        name: "MemberCenter",
         component() {
           return import("../views/Member/Center.vue");
         }
       },
       {
-        path: "search",
+        path: "資料搜尋",
+        name: "MemberSearch",
         component() {
           return import("../views/Member/Search.vue");
         }
       },
       {
-        path: "integral",
+        path: "會員積分",
+        name: "MemberIntegral",
         component() {
           return import("../views/Member/Integral.vue");
         }
       }
     ],
-    redirect: "member/sign-up"
+    redirect: { name: "MemberSignIn" }
   },
   {
-    path: "/health-education",
+    path: "/衛教專區",
     name: "HealthEducation",
     component: HealthEducation,
     children: [
       {
-        path: "search-doctor",
+        path: "尋找醫師",
+        name: "HealthEducationSearchDoctor",
         component() {
           return import("../views/HealthEducation/SearchDoctor.vue");
         }
       },
       {
-        path: "surgery-information",
+        path: "血管手術資訊",
+        name: "HealthEducationSurgeryInformation",
         component() {
           return import("../views/HealthEducation/SurgeryInformation.vue");
         }
       }
     ],
-    redirect: "health-education/search-doctor"
+    redirect: { name: "HealthEducationSearchDoctor" }
   },
   {
-    path: "/websites-link",
+    path: "/相關網站",
     name: "WebsitesLink",
     component: WebsitesLink,
     children: [
       {
-        path: "cooperative-institute",
+        path: "合作學會機關",
+        name: "WebsitesLinkCooperativeInstitute",
         component() {
           return import("../views/WebsitesLink/CooperativeInstitute.vue");
         }
       },
       {
-        path: "sponsor",
+        path: "贊助廠商",
+        name: "WebsitesLinkSponsor",
         component() {
           return import("../views/WebsitesLink/Sponsor.vue");
         }
       }
     ],
-    redirect: "websites-link/cooperative-institute"
+    redirect: { name: "WebsitesLinkCooperativeInstitute" }
   },
   {
     path: "/*",

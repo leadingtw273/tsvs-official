@@ -15,12 +15,12 @@ export default {
       config: {
         menuTitle: "資料查詢",
         menuList: [
-          { text: "手術準則與參考標準", link: "/search/guidelines" },
-          { text: "影片紀錄", link: "/search/record" },
-          { text: "訓練醫院", link: "/search/training-hospital" },
-          { text: "衛服部連結", link: "/search/link" },
-          { text: "資料下載", link: "/search/download" },
-          { text: "學術教育資源", link: "/search/educational-resources" }
+          { text: "手術準則與參考標準", link: { name: "SearchGuidelines" } },
+          { text: "影片紀錄", link: { name: "SearchRecord" } },
+          { text: "訓練醫院", link: { name: "SearchTrainingHospital" } },
+          { text: "衛服部連結", link: { name: "SearchLink" } },
+          { text: "資料下載", link: { name: "SearchDownload" } },
+          { text: "學術教育資源", link: { name: "SearchEducationalResources" } }
         ]
       }
     };

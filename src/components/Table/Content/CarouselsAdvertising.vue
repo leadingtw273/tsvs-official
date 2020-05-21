@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <v-data-table :headers="headers" :items="items" class="elevation-1" dark hide-default-footer>
       <template v-slot:item.image="{ value }">
         <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
@@ -14,33 +14,9 @@
         </v-icon>
       </template>
 
-      <template v-slot:item.content="{ value }">
-        <v-dialog max-width="75%" dark>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on">Preview</v-btn>
-          </template>
-
-          <v-card>
-            <v-card-title class="headline" primary-title>
-              預覽
-            </v-card-title>
-
-            <v-card-text>
-              <v-sheet class="secondary pa-12 black--text" style="border-radius: 40px;">
-                <v-container>
-                  <div v-html="value"></div>
-                </v-container>
-              </v-sheet>
-            </v-card-text>
-
-            <v-divider></v-divider>
-          </v-card>
-        </v-dialog>
-      </template>
-
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>影片紀錄列表</v-toolbar-title>
+          <v-toolbar-title>首頁廣告列表</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -48,21 +24,29 @@
       </template>
     </v-data-table>
 
-    <v-dialog v-model="dialog" max-width="900px" dark>
+    <v-dialog v-model="dialog" max-width="500px" dark>
       <v-card>
         <v-card-title>
           <span class="headline">{{ formTitle }}</span>
         </v-card-title>
 
-        <v-card-text class="black--text">
-          <v-row>
-            <v-col cols="12">
-              <v-text-field v-model="editedItem.date" label="Date"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <ckeditor :editor="editor" v-model="editedItem.content" :config="editorConfig"></ckeditor>
-            </v-col>
-          </v-row>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" v-if="editedItem.image !== ''">
+                <v-img class="ma-auto" :src="editedItem.image" width="70%" aspect-ratio="1.7"></v-img>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-model="editedItem.image" label="Image Link"></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-model="editedItem.title" label="Title"></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-model="editedItem.subTitle" label="Sub Title"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card-text>
 
         <v-card-actions>
@@ -76,44 +60,44 @@
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
 export default {
-  name: "Record",
+  name: "CarouselsAdvertising",
   data() {
     return {
-      editor: ClassicEditor,
-      editorConfig: {
-        toolbar: {
-          shouldNotGroupWhenFull: true
-        }
-      },
       dialog: false,
       headers: [
-        { text: "Date", value: "date" },
-        { text: "Content", value: "content" },
+        { text: "Image Preview", value: "image", align: "center", sortable: false },
+        { text: "Title", value: "title" },
+        { text: "Sub Title", value: "subTitle" },
         { text: "Actions", value: "actions", sortable: false }
       ],
       items: [
         {
-          date: "2019/12/07",
-          content:
-            '<span class="d-flex mb-6">2019年會 / 議程 (需登入即可觀看)</span><div class="video-block v-sheet theme--light primary" style="height: 500px; width: 100%;"></div>'
+          image: "https://cw1.tw/CW/images/article/C1323775766370.jpg",
+          title: "台灣血管外科學會",
+          subTitle: "Taiwan Society for Vascular Surgery"
         },
         {
-          date: "2019/09/02",
-          content:
-            '<span class="d-flex mb-6">2019夏季會 / 議程 (需登入即可觀看)</span><div class="video-block v-sheet theme--light primary" style="height: 500px; width: 100%;"></div>'
+          image: "https://www.medicaltravel.org.tw/img/section1bg1.jpg",
+          title: "醫療大數據",
+          subTitle: "Precision Medicine"
+        },
+        {
+          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          title: "人工智慧的醫療照護應用",
+          subTitle: "小病就跑大醫院？減少醫療浪費"
         }
       ],
       editedIndex: -1,
       editedItem: {
-        date: "",
-        content: ""
+        image: "",
+        title: "",
+        subTitle: ""
       },
       defaultItem: {
-        date: "",
-        content: ""
+        image: "",
+        title: "",
+        subTitle: ""
       }
     };
   },
@@ -135,7 +119,7 @@ export default {
     },
     deleteItem(item) {
       const index = this.items.indexOf(item);
-      confirm("確定刪除這筆資料？") && this.items.splice(index, 1);
+      confirm("確定刪除這廣告？") && this.items.splice(index, 1);
     },
     close() {
       this.dialog = false;

@@ -146,9 +146,9 @@ const routes = [
               },
               {
                 path: "學術教育資源",
-                name: "AdminContentSearchDownload",
+                name: "AdminContentSearchEducationalResources",
                 component() {
-                  return import("../views/Admin/Content/Search/Download");
+                  return import("../views/Admin/Content/Search/EducationalResources.vue");
                 }
               }
             ],

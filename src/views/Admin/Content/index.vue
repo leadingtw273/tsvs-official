@@ -37,7 +37,7 @@ export default {
               { text: "影片紀錄", link: { name: "AdminContentSearchRecord" } },
               { text: "訓練醫院", link: { name: "AdminContentSearchTrainingHospital" } },
               { text: "衛服部", link: { name: "AdminContentSearchLink" } },
-              { text: "學術教育資源", link: { name: "AdminContentSearchDownload" } }
+              { text: "學術教育資源", link: { name: "AdminContentSearchEducationalResources" } }
             ]
           },
           { text: "下載資料內容", link: { name: "AdminContentDownload" } },

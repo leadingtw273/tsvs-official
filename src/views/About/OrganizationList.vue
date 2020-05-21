@@ -6,7 +6,7 @@
 
         <span class="subtitle-1">第八屆理監事暨學會幹部名單</span>
         <div class="d-flex my-6">
-          <v-simple-table class="transparent mr-6" dense v-for="group in list_1.length / 8 + 1" :key="group">
+          <v-simple-table class="transparent mr-6" dense v-for="group in list_1.length / 8" :key="group">
             <template v-slot:default>
               <tbody>
                 <tr v-for="{ name, position } in list_1.slice((group - 1) * 8, group * 8)" :key="name + position">
@@ -20,7 +20,7 @@
 
         <span class="subtitle-1">歷屆名單 / 第七屆</span>
         <div class="d-flex my-6">
-          <v-simple-table class="transparent mr-6" dense v-for="group in list_2.length / 8 + 1" :key="group">
+          <v-simple-table class="transparent mr-6" dense v-for="group in list_2.length / 8" :key="group">
             <template v-slot:default>
               <tbody>
                 <tr v-for="{ name, position } in list_2.slice((group - 1) * 8, group * 8)" :key="name + position">

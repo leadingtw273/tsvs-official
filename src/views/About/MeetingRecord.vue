@@ -6,7 +6,7 @@
         <v-btn text small rounded class="text-lowercase ml-3">more >></v-btn>
       </div>
       <div class="d-flex align-center">
-        <span>2019/9/11 / 第八屆第一次會員大會紀錄</span>
+        <span>2019/09/11 / 第八屆第一次會員大會紀錄</span>
         <v-btn text small rounded class="text-lowercase ml-3">more >></v-btn>
       </div>
     </div>

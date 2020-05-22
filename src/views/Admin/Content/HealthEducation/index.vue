@@ -87,7 +87,7 @@ export default {
       },
       headers: [
         { text: "標題", value: "title" },
-        { text: "內容", value: "content" },
+        { text: "內容", value: "content", align: "center" },
         { text: "執行", value: "actions", sortable: false }
       ],
       items: [

@@ -2,7 +2,7 @@
   <div class="my-12 px-12">
     <v-data-table :headers="headers" :items="items" class="elevation-1" dark>
       <template v-slot:item.image="{ value }">
-        <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
+        <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5" v-if="value !== ''"></v-img>
       </template>
 
       <template v-slot:item.actions="{ item }">

@@ -1,20 +1,21 @@
 <template>
   <the-content-card v-bind="config">
-    <member-table></member-table>
+    <div>
+      {{pascalCase name}}
+    </div>
   </the-content-card>
 </template>
 
 <script>
-import MemberTable from "./components/MemberTable";
 import TheContentCard from "../../../components/TheContentCard";
 
 export default {
-  name: "Member",
-  components: { TheContentCard, MemberTable },
+  name: "{{ pascalCase name }}",
+  components: { TheContentCard },
   data() {
     return {
       config: {
-        menuTitle: "會員管理"
+        menuTitle: "{{ pascalCase name }}"
       }
     };
   }

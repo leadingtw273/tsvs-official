@@ -15,34 +15,44 @@ export default {
       config: {
         menuTitle: "內容管理",
         menuList: [
-          { text: "首頁廣告/重要通知", link: { name: "AdminContentAdvertisingAndNotice" } },
           {
-            text: "關於學會內容",
-            link: { name: "AdminContentAbout" },
+            text: "學會資訊",
+            link: { name: "AdminAbout" },
             items: [
-              { text: "章程法令規章", link: { name: "AdminContentAboutBylawsRegulations" } },
-              { text: "組織名單", link: { name: "AdminContentAboutOrganizationList" } },
-              { text: "會議記錄", link: { name: "AdminContentAboutMeetingRecord" } },
-              { text: "秘書處公告", link: { name: "AdminContentAboutSecretariat" } },
-              { text: "活動通知", link: { name: "AdminContentAboutEvents" } },
-              { text: "醫學新知", link: { name: "AdminContentAboutMedicine" } }
+              { text: "內容編輯", link: { name: "AdminEditorContent" } },
+              { text: "章程法令規章", link: { name: "AdminBylawsRegulations" } },
+              { text: "會議記錄", link: { name: "AdminMeetingRecord" } }
             ]
           },
           {
-            text: "資料查詢內容",
-            link: { name: "AdminContentSearch" },
+            text: "學會公告",
+            link: { name: "AdminNews" }
+          },
+          {
+            text: "會議課程",
+            link: { name: "AdminEvents" },
             items: [
-              { text: "手術準則", link: { name: "AdminContentSearchGuidelines" } },
-              { text: "參考標準", link: { name: "AdminContentSearchReportingStandards" } },
-              { text: "影片紀錄", link: { name: "AdminContentSearchRecord" } },
-              { text: "訓練醫院", link: { name: "AdminContentSearchTrainingHospital" } },
-              { text: "衛服部", link: { name: "AdminContentSearchLink" } },
-              { text: "學術教育資源", link: { name: "AdminContentSearchEducationalResources" } }
+              { text: "課程申請內容編輯", link: { name: "AdminCourseApplicationEditor" } },
+              { text: "課程列表", link: { name: "AdminCourseList" } }
             ]
           },
-          { text: "下載資料內容", link: { name: "AdminContentDownload" } },
-          { text: "衛教專區內容", link: { name: "AdminContentHealthEducation" } },
-          { text: "合作學會/贊助廠商", link: { name: "AdminContentCooperativeSocietyAndSponsor" } }
+          {
+            text: "資料查詢",
+            link: { name: "AdminSearch" },
+            items: [
+              { text: "內容編輯", link: { name: "AdminSearchContentEditor" } },
+              { text: "影片紀錄", link: { name: "AdminRecord" } },
+              { text: "資料下載", link: { name: "AdminDownload" } }
+            ]
+          },
+          {
+            text: "衛教專區",
+            link: { name: "AdminHealthEducation" }
+          },
+          {
+            text: "相關網站",
+            link: { name: "AdminWebsitesLink" }
+          }
         ]
       }
     };

@@ -10,9 +10,13 @@
         </v-icon>
       </template>
 
+      <template v-slot:item.file="{ value }">
+        {{ value == null ? "" : value.name }}
+      </template>
+
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>影片紀錄列表</v-toolbar-title>
+          <v-toolbar-title>下載資料列表</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -20,7 +24,7 @@
       </template>
     </v-data-table>
 
-    <v-dialog v-model="dialog" max-width="900px" dark>
+    <v-dialog v-model="dialog" max-width="700px" dark>
       <v-card>
         <v-card-title>
           <span class="headline"></span>
@@ -28,17 +32,14 @@
 
         <v-card-text class="black--text">
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12">
               <v-text-field v-model="editedItem.title" label="標題"></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.date" label="時間"></v-text-field>
-            </v-col>
             <v-col>
-              <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
+              <v-file-input v-model="editedItem.file" label="檔案"></v-file-input>
             </v-col>
             <v-col cols="auto">
-              <v-checkbox v-model="editedItem.isLogin" label="需登入"></v-checkbox>
+              <v-checkbox v-model="editedItem.isLogin" label="可下載"></v-checkbox>
             </v-col>
           </v-row>
         </v-card-text>
@@ -55,43 +56,38 @@
 
 <script>
 export default {
-  name: "Record",
+  name: "Download",
   data() {
     return {
       dialog: false,
       headers: [
         { text: "標題", value: "title" },
-        { text: "時間", value: "date" },
-        { text: "連結", value: "link" },
-        { text: "需登入", value: "isLogin" },
+        { text: "檔案", value: "file" },
+        { text: "可下載", value: "downloadable" },
         { text: "執行", value: "actions", sortable: false }
       ],
       items: [
         {
-          title: "2019年會 / 議程 (需登入即可觀看)",
-          date: "2019-09-07",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          title: "手術例數申報表",
+          file: null,
+          downloadable: true
         },
         {
-          title: "2019夏季會 / 議程 (需登入即可觀看)",
-          date: "2019-07-05",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          title: "手術例數申報表_使用介紹",
+          file: null,
+          downloadable: true
         }
       ],
       editedIndex: -1,
       editedItem: {
         title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        file: null,
+        downloadable: true
       },
       defaultItem: {
         title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        file: null,
+        downloadable: true
       }
     };
   },

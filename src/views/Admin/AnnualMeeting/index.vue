@@ -13,15 +13,12 @@ export default {
   data() {
     return {
       config: {
-        menuTitle: "年會管理",
+        menuTitle: "年會頁面管理",
         menuList: [
-          { text: "專區外觀", link: "" },
-          { text: "年會資訊", link: "" },
-          { text: "Program 管理", link: "" },
-          { text: "議程管理", link: "" },
-          { text: "講者/工作人員介紹", link: "" },
-          { text: "投稿管理", link: "" },
-          { text: "參展管理", link: "" }
+          { text: "首頁圖上傳", link: { name: "AdminAnnualMeetingBackgroundImage" } },
+          { text: "議程", link: { name: "AdminAnnualMeetingAgenda" } },
+          { text: "人員", link: { name: "AdminAnnualMeetingMember" } },
+          { text: "投稿", link: { name: "AdminAnnualMeetingContribute" } }
         ]
       }
     };

@@ -12,7 +12,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>影片紀錄列表</v-toolbar-title>
+          <v-toolbar-title>議程列表</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -29,16 +29,22 @@
         <v-card-text class="black--text">
           <v-row>
             <v-col cols="6">
+              <v-text-field v-model="editedItem.date" label="日期"></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field v-model="editedItem.timeRange" label="時間區間"></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field v-model="editedItem.title" label="標題"></v-text-field>
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="editedItem.date" label="時間"></v-text-field>
+              <v-text-field v-model="editedItem.location" label="地點"></v-text-field>
             </v-col>
-            <v-col>
-              <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
+            <v-col cols="6">
+              <v-text-field v-model="editedItem.lecturer" label="講者"></v-text-field>
             </v-col>
-            <v-col cols="auto">
-              <v-checkbox v-model="editedItem.isLogin" label="需登入"></v-checkbox>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.remarks" label="備註"></v-text-field>
             </v-col>
           </v-row>
         </v-card-text>
@@ -55,43 +61,45 @@
 
 <script>
 export default {
-  name: "Record",
+  name: "Agenda",
   data() {
     return {
       dialog: false,
       headers: [
+        { text: "日期", value: "date" },
+        { text: "時間區間", value: "timeRange" },
         { text: "標題", value: "title" },
-        { text: "時間", value: "date" },
-        { text: "連結", value: "link" },
-        { text: "需登入", value: "isLogin" },
-        { text: "執行", value: "actions", sortable: false }
+        { text: "地點", value: "location" },
+        { text: "講者", value: "lecturer" },
+        { text: "備註", value: "remarks" },
+        { text: "Actions", value: "actions", sortable: false }
       ],
       items: [
         {
-          title: "2019年會 / 議程 (需登入即可觀看)",
-          date: "2019-09-07",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
-        },
-        {
-          title: "2019夏季會 / 議程 (需登入即可觀看)",
-          date: "2019-07-05",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          date: "2018-12-06",
+          timeRange: "09:10-10:00",
+          title: "周邊動脈論壇",
+          location: "宜華廳",
+          lecturer: "XXX",
+          remarks: ""
         }
       ],
       editedIndex: -1,
       editedItem: {
-        title: "",
         date: "",
-        link: "",
-        isLogin: false
+        timeRange: "",
+        title: "",
+        location: "",
+        lecturer: "",
+        remarks: ""
       },
       defaultItem: {
-        title: "",
         date: "",
-        link: "",
-        isLogin: false
+        timeRange: "",
+        title: "",
+        location: "",
+        lecturer: "",
+        remarks: ""
       }
     };
   },

@@ -41,15 +41,13 @@
         </div>
       </div>
       <div class="mt-8" v-if="pageType === 'admin'">
+        <v-btn text :to="{ name: 'AdminCommonSetting' }" color="white">一般設定</v-btn>
+        <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text :to="{ name: 'AdminMember' }" color="white">會員管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text :to="{ name: 'AdminContent' }" color="white">內容管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ name: 'AdminEvents' }" color="white">活動管理</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text :to="{ name: 'AdminAnnualMeeting' }" color="white">年會頁面管理</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text :to="{ name: 'AdminMoodle' }" color="white">學習專區</v-btn>
       </div>
       <div class="mt-8" v-else>
         <v-btn text :to="{ name: 'About' }" color="white">學會資訊</v-btn>

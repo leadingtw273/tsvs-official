@@ -1,6 +1,10 @@
 <template>
   <div class="my-12 px-12">
-    <v-data-table :headers="headers" :items="items" class="elevation-1" dark>
+    <v-data-table :headers="headers" :items="items" class="elevation-1" dark hide-default-footer>
+      <template v-slot:item.image="{ value }">
+        <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">
           mdi-pencil
@@ -12,7 +16,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>影片紀錄列表</v-toolbar-title>
+          <v-toolbar-title>{{ $ch_name }}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -23,22 +27,16 @@
     <v-dialog v-model="dialog" max-width="900px" dark>
       <v-card>
         <v-card-title>
-          <span class="headline"></span>
+          <span class="headline">{{ formTitle }}</span>
         </v-card-title>
 
         <v-card-text class="black--text">
           <v-row>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.title" label="標題"></v-text-field>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.title" label="Title"></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.date" label="時間"></v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
-            </v-col>
-            <v-col cols="auto">
-              <v-checkbox v-model="editedItem.isLogin" label="需登入"></v-checkbox>
+            <v-col cols="12">
+              <v-file-input v-model="editedItem.file" label="File input"></v-file-input>
             </v-col>
           </v-row>
         </v-card-text>
@@ -55,43 +53,25 @@
 
 <script>
 export default {
-  name: "Record",
+  name: "{{ pascalCase name }}",
   data() {
     return {
       dialog: false,
       headers: [
-        { text: "標題", value: "title" },
-        { text: "時間", value: "date" },
-        { text: "連結", value: "link" },
-        { text: "需登入", value: "isLogin" },
-        { text: "執行", value: "actions", sortable: false }
+        { text: "Title", value: "title" },
+        { text: "Actions", value: "actions", sortable: false }
       ],
       items: [
         {
-          title: "2019年會 / 議程 (需登入即可觀看)",
-          date: "2019-09-07",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
-        },
-        {
-          title: "2019夏季會 / 議程 (需登入即可觀看)",
-          date: "2019-07-05",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          title: ""
         }
       ],
       editedIndex: -1,
       editedItem: {
-        title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        title: ""
       },
       defaultItem: {
-        title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        title: ""
       }
     };
   },

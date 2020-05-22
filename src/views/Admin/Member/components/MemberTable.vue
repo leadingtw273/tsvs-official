@@ -12,7 +12,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>影片紀錄列表</v-toolbar-title>
+          <v-toolbar-title>使用者列表</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -29,16 +29,22 @@
         <v-card-text class="black--text">
           <v-row>
             <v-col cols="6">
-              <v-text-field v-model="editedItem.title" label="標題"></v-text-field>
+              <v-text-field v-model="editedItem.name" label="姓名"></v-text-field>
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="editedItem.date" label="時間"></v-text-field>
+              <v-text-field v-model="editedItem.identityNumber" label="身分證"></v-text-field>
             </v-col>
-            <v-col>
-              <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.phone" label="手機號碼"></v-text-field>
             </v-col>
-            <v-col cols="auto">
-              <v-checkbox v-model="editedItem.isLogin" label="需登入"></v-checkbox>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.email" label="電子信箱"></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field v-model="editedItem.hospital" label="任職醫院"></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field v-model="editedItem.class" label="科別"></v-text-field>
             </v-col>
           </v-row>
         </v-card-text>
@@ -55,43 +61,49 @@
 
 <script>
 export default {
-  name: "Record",
+  name: "MemberTable",
   data() {
     return {
       dialog: false,
       headers: [
-        { text: "標題", value: "title" },
-        { text: "時間", value: "date" },
-        { text: "連結", value: "link" },
-        { text: "需登入", value: "isLogin" },
+        { text: "編號", value: "uid" },
+        { text: "姓名", value: "name" },
+        { text: "身分證", value: "identityNumber" },
+        { text: "電子信箱", value: "email" },
+        { text: "手機號碼", value: "phone" },
+        { text: "任職醫院", value: "hospital" },
+        { text: "科別", value: "class" },
         { text: "執行", value: "actions", sortable: false }
       ],
       items: [
         {
-          title: "2019年會 / 議程 (需登入即可觀看)",
-          date: "2019-09-07",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
-        },
-        {
-          title: "2019夏季會 / 議程 (需登入即可觀看)",
-          date: "2019-07-05",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          uid: "fg87hAsd8465",
+          name: "雲澈",
+          identityNumber: "S458965821",
+          email: "evil@gmail.com",
+          phone: "0946215320",
+          hospital: "聖馬爾定",
+          class: "精神"
         }
       ],
       editedIndex: -1,
       editedItem: {
-        title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        uid: "",
+        name: "",
+        identityNumber: "",
+        email: "",
+        phone: "",
+        hospital: "",
+        class: ""
       },
       defaultItem: {
-        title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        uid: "",
+        name: "",
+        identityNumber: "",
+        email: "",
+        phone: "",
+        hospital: "",
+        class: ""
       }
     };
   },

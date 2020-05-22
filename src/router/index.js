@@ -30,7 +30,14 @@ const routes = [
     component: Admin,
     children: [
       {
-        path: "member",
+        path: "一般設定",
+        name: "AdminCommonSetting",
+        component() {
+          return import("../views/Admin/CommonSetting");
+        }
+      },
+      {
+        path: "會員管理",
         name: "AdminMember",
         component() {
           return import("../views/Admin/Member");
@@ -44,167 +51,159 @@ const routes = [
         },
         children: [
           {
-            path: "首頁廣告-重要通知",
-            name: "AdminContentAdvertisingAndNotice",
-            component() {
-              return import("../views/Admin/Content/AdvertisingAndNotice");
-            }
-          },
-          {
-            path: "關於學會內容",
-            name: "AdminContentAbout",
+            path: "學會資訊",
+            name: "AdminAbout",
             component() {
               return import("../views/Admin/Content/About");
             },
             children: [
               {
-                path: "章程法令規章",
-                name: "AdminContentAboutBylawsRegulations",
+                path: "內容編輯",
+                name: "AdminEditorContent",
                 component() {
-                  return import("../views/Admin/Content/About/BylawsRegulations");
+                  return import("../views/Admin/Content/About/EditorContent.vue");
                 }
               },
               {
-                path: "組織名單",
-                name: "AdminContentAboutOrganizationList",
+                path: "章程法令規章",
+                name: "AdminBylawsRegulations",
                 component() {
-                  return import("../views/Admin/Content/About/OrganizationList");
+                  return import("../views/Admin/Content/About/BylawsRegulations.vue");
                 }
               },
               {
                 path: "會議記錄",
-                name: "AdminContentAboutMeetingRecord",
+                name: "AdminMeetingRecord",
                 component() {
-                  return import("../views/Admin/Content/About/MeetingRecord");
-                }
-              },
-              {
-                path: "秘書處公告",
-                name: "AdminContentAboutSecretariat",
-                component() {
-                  return import("../views/Admin/Content/About/Secretariat");
-                }
-              },
-              {
-                path: "活動通知",
-                name: "AdminContentAboutEvents",
-                component() {
-                  return import("../views/Admin/Content/About/Events");
-                }
-              },
-              {
-                path: "醫學新知",
-                name: "AdminContentAboutMedicine",
-                component() {
-                  return import("../views/Admin/Content/About/Medicine");
+                  return import("../views/Admin/Content/About/MeetingRecord.vue");
                 }
               }
             ],
-            redirect: { name: "AdminContentAboutBylawsRegulations" }
+            redirect: { name: "AdminEditorContent" }
           },
           {
-            path: "資料查詢內容",
-            name: "AdminContentSearch",
+            path: "學會公告",
+            name: "AdminNews",
+            component() {
+              return import("../views/Admin/Content/News");
+            }
+          },
+          {
+            path: "會議課程",
+            name: "AdminEvents",
+            component() {
+              return import("../views/Admin/Content/Events");
+            },
+            children: [
+              {
+                path: "課程申請內容編輯",
+                name: "AdminCourseApplicationEditor",
+                component() {
+                  return import("../views/Admin/Content/Events/CourseApplicationEditor.vue");
+                }
+              },
+              {
+                path: "課程列表",
+                name: "AdminCourseList",
+                component() {
+                  return import("../views/Admin/Content/Events/CourseList.vue");
+                }
+              }
+            ],
+            redirect: { name: "AdminCourseApplicationEditor" }
+          },
+          {
+            path: "資料查詢",
+            name: "AdminSearch",
             component() {
               return import("../views/Admin/Content/Search");
             },
             children: [
               {
-                path: "手術準則",
-                name: "AdminContentSearchGuidelines",
+                path: "內容編輯",
+                name: "AdminSearchContentEditor",
                 component() {
-                  return import("../views/Admin/Content/Search/Guidelines");
-                }
-              },
-              {
-                path: "參考標準",
-                name: "AdminContentSearchReportingStandards",
-                component() {
-                  return import("../views/Admin/Content/Search/ReportingStandards");
+                  return import("../views/Admin/Content/Search/SearchContentEditor");
                 }
               },
               {
                 path: "影片紀錄",
-                name: "AdminContentSearchRecord",
+                name: "AdminRecord",
                 component() {
                   return import("../views/Admin/Content/Search/Record");
                 }
               },
               {
-                path: "訓練醫院",
-                name: "AdminContentSearchTrainingHospital",
+                path: "資料下載",
+                name: "AdminDownload",
                 component() {
-                  return import("../views/Admin/Content/Search/TrainingHospital");
-                }
-              },
-              {
-                path: "衛服部",
-                name: "AdminContentSearchLink",
-                component() {
-                  return import("../views/Admin/Content/Search/Link");
-                }
-              },
-              {
-                path: "學術教育資源",
-                name: "AdminContentSearchEducationalResources",
-                component() {
-                  return import("../views/Admin/Content/Search/EducationalResources.vue");
+                  return import("../views/Admin/Content/Search/Download");
                 }
               }
             ],
-            redirect: { name: "AdminContentSearchGuidelines" }
+            redirect: { name: "AdminSearchContentEditor" }
           },
           {
-            path: "下載資料內容",
-            name: "AdminContentDownload",
-            component() {
-              return import("../views/Admin/Content/Download");
-            }
-          },
-          {
-            path: "衛教專區內容",
-            name: "AdminContentHealthEducation",
+            path: "衛教專區",
+            name: "AdminHealthEducation",
             component() {
               return import("../views/Admin/Content/HealthEducation");
             }
           },
           {
-            path: "合作學會-贊助廠商",
-            name: "AdminContentCooperativeSocietyAndSponsor",
+            path: "相關網站",
+            name: "AdminWebsitesLink",
             component() {
-              return import("../views/Admin/Content/CooperativeSocietyAndSponsor");
+              return import("../views/Admin/Content/WebsitesLink");
             }
           }
         ],
-        redirect: { name: "AdminContentAdvertisingAndNotice" }
+        redirect: { name: "AdminAbout" }
       },
       {
-        path: "events",
-        name: "AdminEvents",
-        component() {
-          return import("../views/Admin/Events");
-        }
-      },
-      {
-        path: "annual-meeting",
+        path: "年會頁面管理",
         name: "AdminAnnualMeeting",
         component() {
           return import("../views/Admin/AnnualMeeting");
-        }
-      },
-      {
-        path: "moodle",
-        name: "AdminMoodle",
-        component() {
-          return import("../views/Admin/Moodle");
-        }
+        },
+        children: [
+          {
+            path: "首頁圖",
+            name: "AdminAnnualMeetingBackgroundImage",
+            component() {
+              return import("../views/Admin/AnnualMeeting/BackgroundImage");
+            }
+          },
+          {
+            path: "議程",
+            name: "AdminAnnualMeetingAgenda",
+            component() {
+              return import("../views/Admin/AnnualMeeting/Agenda");
+            }
+          },
+          {
+            path: "人員",
+            name: "AdminAnnualMeetingMember",
+            component() {
+              return import("../views/Admin/AnnualMeeting/Member");
+            }
+          },
+          {
+            path: "投稿",
+            name: "AdminAnnualMeetingContribute",
+            component() {
+              return import("../views/Admin/AnnualMeeting/Contribute");
+            }
+          }
+        ],
+        redirect: { name: "AdminAnnualMeetingBackgroundImage" }
       }
     ],
     beforeEnter(to, from, next) {
       store.commit("checkoutAdminViewPage");
       next();
     },
-    redirect: { name: "AdminMember" }
+    redirect: { name: "AdminCommonSetting" }
   },
   {
     path: "/學會資訊",

@@ -1,6 +1,6 @@
 <template>
   <div class="the-content-card d-flex flex-row mx-12 mb-12">
-    <v-sheet color="primary" class="side-bar px-8 py-12" dark>
+    <v-sheet color="primary" class="side-bar px-8 py-12" v-if="hasSidebar" dark>
       <span class="d-flex headline mb-2 ml-4">{{ menuTitle }}</span>
 
       <v-btn-toggle class="d-flex flex-column" v-model="menuIndex" color="active" mandatory group>
@@ -30,13 +30,13 @@
         </template>
       </v-btn-toggle>
     </v-sheet>
-    <v-sheet color="secondary" class="content py-12 px-8">
+    <v-sheet color="secondary" :class="[hasSidebar ? 'sidebar-content' : 'content', 'py-12', 'px-8']">
       <div class="d-flex flex-row mb-6">
         <div>
           <v-divider class="mx-6" color="black" vertical></v-divider>
-          <span class="headline">{{ menuList[menuIndex].text }}</span>
+          <span class="headline">{{ hasSidebar ? menuList[menuIndex].text : menuTitle }}</span>
         </div>
-        <div v-if="subMenuList[subMenuIndex] != null">
+        <div v-if="hasSidebar && subMenuList[subMenuIndex] != null">
           <v-divider class="mx-6" color="black" vertical></v-divider>
           <span class="headline">{{ subMenuList[subMenuIndex].text }}</span>
         </div>
@@ -61,23 +61,7 @@ export default {
     menuList: {
       type: Array,
       default() {
-        return [
-          { id: "0", text: "聯絡資訊" },
-          { id: "1", text: "帳號資訊" },
-          { id: "2", text: "學會簡介" },
-          { id: "3", text: "主要任務" },
-          {
-            id: "4",
-            text: "章程法令規章",
-            items: [
-              { id: "0", text: "學會章程" },
-              { id: "1", text: "規章" },
-              { id: "2", text: "法令" }
-            ]
-          },
-          { id: "5", text: "組織名單" },
-          { id: "6", text: "會議記錄" }
-        ];
+        return [];
       }
     }
   },
@@ -89,26 +73,35 @@ export default {
   },
   computed: {
     subMenuList() {
+      if (!this.hasSidebar) return [];
       if (!Object.prototype.hasOwnProperty.call(this.menuList[this.menuIndex], "items")) return [];
       return this.menuList[this.menuIndex].items;
+    },
+    hasSidebar() {
+      return this.menuList.length !== 0;
+    }
+  },
+  methods: {
+    setMenuIndex() {
+      const path = this.$route.path;
+
+      let menuText = null;
+      let subMenuText = null;
+      if (this.$store.state.view === "admin") {
+        [, , , menuText, subMenuText] = path.split("/");
+      } else {
+        [, , menuText, subMenuText] = path.split("/");
+      }
+
+      const menuFindIndex = this.menuList.findIndex(({ text }) => text === menuText);
+      this.menuIndex = menuFindIndex === -1 ? 0 : menuFindIndex;
+
+      const subMenuFindIndex = this.subMenuList.findIndex(({ text }) => text === subMenuText);
+      this.subMenuIndex = subMenuFindIndex === -1 ? 0 : subMenuFindIndex;
     }
   },
   mounted() {
-    const path = this.$route.path;
-
-    let menuText = null;
-    let subMenuText = null;
-    if (this.$store.state.view === "admin") {
-      [, , , menuText, subMenuText] = path.split("/");
-    } else {
-      [, , menuText, subMenuText] = path.split("/");
-    }
-
-    const menuFindIndex = this.menuList.findIndex(({ text }) => text === menuText);
-    this.menuIndex = menuFindIndex === -1 ? 0 : menuFindIndex;
-
-    const subMenuFindIndex = this.subMenuList.findIndex(({ text }) => text === subMenuText);
-    this.subMenuIndex = subMenuFindIndex === -1 ? 0 : subMenuFindIndex;
+    if (this.hasSidebar) this.setMenuIndex();
   }
 };
 </script>
@@ -123,16 +116,19 @@ export default {
 
     .item-divider {
       width: 65px;
+      margin: 10px;
 
       opacity: 0.6;
       background-color: white;
     }
 
     .main-menu {
-      height: 46px !important;
+      height: 30px !important;
     }
 
     .sub-menu {
+      margin: 0;
+      margin-left: 20px;
       height: 30px !important;
     }
 
@@ -141,9 +137,14 @@ export default {
     }
   }
 
-  .content {
+  .sidebar-content {
     border-radius: 0 40px 40px 0;
     width: 80%;
+  }
+
+  .content {
+    border-radius: 40px;
+    width: 100%;
   }
 }
 </style>

@@ -1,6 +1,10 @@
 <template>
   <div class="my-12 px-12">
     <v-data-table :headers="headers" :items="items" class="elevation-1" dark>
+      <template v-slot:item.image="{ value }">
+        <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">
           mdi-pencil
@@ -12,7 +16,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>影片紀錄列表</v-toolbar-title>
+          <v-toolbar-title>相關網站列表</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -20,7 +24,7 @@
       </template>
     </v-data-table>
 
-    <v-dialog v-model="dialog" max-width="900px" dark>
+    <v-dialog v-model="dialog" max-width="700px" dark>
       <v-card>
         <v-card-title>
           <span class="headline"></span>
@@ -28,17 +32,17 @@
 
         <v-card-text class="black--text">
           <v-row>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.title" label="標題"></v-text-field>
+            <v-col cols="12" v-if="editedItem.image !== ''">
+              <v-img class="ma-auto" :src="editedItem.image" width="70%" aspect-ratio="1.7"></v-img>
             </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.date" label="時間"></v-text-field>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.image" label="圖片"></v-text-field>
             </v-col>
-            <v-col>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.name" label="名稱"></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
-            </v-col>
-            <v-col cols="auto">
-              <v-checkbox v-model="editedItem.isLogin" label="需登入"></v-checkbox>
             </v-col>
           </v-row>
         </v-card-text>
@@ -55,43 +59,38 @@
 
 <script>
 export default {
-  name: "Record",
+  name: "WebsitesLink",
   data() {
     return {
       dialog: false,
       headers: [
-        { text: "標題", value: "title" },
-        { text: "時間", value: "date" },
+        { text: "圖片", value: "image" },
+        { text: "名稱", value: "name" },
         { text: "連結", value: "link" },
-        { text: "需登入", value: "isLogin" },
         { text: "執行", value: "actions", sortable: false }
       ],
       items: [
         {
-          title: "2019年會 / 議程 (需登入即可觀看)",
-          date: "2019-09-07",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          image: "https://fbcd.co/images/products/0479bfbf54a9cdb35d8a51b824ee0fcc_resize.png",
+          name: "company.inc",
+          link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         },
         {
-          title: "2019夏季會 / 議程 (需登入即可觀看)",
-          date: "2019-07-05",
-          link: "https://www.tsvs.org/news_detail.php?id=281",
-          isLogin: true
+          image: "https://cdn.logojoy.com/wp-content/uploads/2017/08/onlinelogomaker2@2x.png",
+          name: "companyABC.inc",
+          link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         }
       ],
       editedIndex: -1,
       editedItem: {
-        title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        image: "",
+        name: "",
+        link: ""
       },
       defaultItem: {
-        title: "",
-        date: "",
-        link: "",
-        isLogin: false
+        image: "",
+        name: "",
+        link: ""
       }
     };
   },

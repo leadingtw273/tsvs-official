@@ -63,6 +63,8 @@
         <v-btn text :to="{ name: 'HealthEducation' }" color="white">衛教專區</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text :to="{ name: 'WebsitesLink' }" color="white">相關網站</v-btn>
+        <v-divider class="align-self-center mx-1" vertical></v-divider>
+        <v-btn text color="white">學習專區</v-btn>
       </div>
     </v-container>
   </v-sheet>

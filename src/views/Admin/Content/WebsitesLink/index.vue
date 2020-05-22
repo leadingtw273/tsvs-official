@@ -42,6 +42,9 @@
               <v-text-field v-model="editedItem.name" label="名稱"></v-text-field>
             </v-col>
             <v-col cols="12">
+              <v-text-field v-model="editedItem.class" label="類別"></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
             </v-col>
           </v-row>
@@ -66,6 +69,7 @@ export default {
       headers: [
         { text: "圖片", value: "image" },
         { text: "名稱", value: "name" },
+        { text: "類別", value: "class" },
         { text: "連結", value: "link" },
         { text: "執行", value: "actions", sortable: false }
       ],
@@ -73,11 +77,13 @@ export default {
         {
           image: "https://fbcd.co/images/products/0479bfbf54a9cdb35d8a51b824ee0fcc_resize.png",
           name: "company.inc",
+          class: "贊助廠商",
           link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         },
         {
           image: "https://cdn.logojoy.com/wp-content/uploads/2017/08/onlinelogomaker2@2x.png",
           name: "companyABC.inc",
+          class: "合作學會機關",
           link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         }
       ],
@@ -85,11 +91,13 @@ export default {
       editedItem: {
         image: "",
         name: "",
+        class: "",
         link: ""
       },
       defaultItem: {
         image: "",
         name: "",
+        class: "",
         link: ""
       }
     };

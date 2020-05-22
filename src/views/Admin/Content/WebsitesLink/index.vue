@@ -70,6 +70,7 @@ export default {
         { text: "圖片", value: "image" },
         { text: "名稱", value: "name" },
         { text: "類別", value: "class" },
+        { text: "順位", value: "order" },
         { text: "連結", value: "link" },
         { text: "執行", value: "actions", sortable: false }
       ],
@@ -78,12 +79,21 @@ export default {
           image: "https://fbcd.co/images/products/0479bfbf54a9cdb35d8a51b824ee0fcc_resize.png",
           name: "company.inc",
           class: "贊助廠商",
+          order: 0,
+          link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
+        },
+        {
+          image: "https://i.pinimg.com/originals/7c/65/74/7c6574e2103f21ae65ff3a090a285ac4.gif",
+          name: "company123.inc",
+          class: "合作學會機關",
+          order: 1,
           link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         },
         {
           image: "https://cdn.logojoy.com/wp-content/uploads/2017/08/onlinelogomaker2@2x.png",
           name: "companyABC.inc",
           class: "合作學會機關",
+          order: 0,
           link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         }
       ],

@@ -8,8 +8,8 @@
     <v-sheet class="content d-flex flex-column justify-center px-12" color="primary">
       <div v-for="({ text }, i) in items" :key="text.title">
         <div class="d-flex flex-column" v-if="i === targetContent">
-          <span class="d-inline-block text-truncate display-2 white--text mb-1">{{ text.title }}</span>
-          <span class="title d-inline-block text-truncate font-weight-light white--text">{{ text.subTitle }}</span>
+          <span class="d-inline-block display-1 white--text mb-1">{{ text.title }}</span>
+          <span class="title d-inline-block font-weight-light white--text">{{ text.subTitle }}</span>
         </div>
       </div>
       <v-radio-group row v-model="targetContent">

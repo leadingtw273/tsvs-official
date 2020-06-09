@@ -31,6 +31,29 @@ export default {
   background-color: transparent !important;
   box-shadow: 0 0 0 0 !important;
 
+  > * {
+    width: 350px !important;
+    height: 350px !important;
+
+    font-size: 20px !important;
+  }
+
+  .v-date-picker-table {
+    height: 100% !important;
+
+    table {
+      height: 100% !important;
+    }
+
+    th {
+      font-size: 18px !important;
+    }
+
+    .v-btn {
+      font-size: 18px !important;
+    }
+  }
+
   .v-picker__body {
     background-color: transparent !important;
   }

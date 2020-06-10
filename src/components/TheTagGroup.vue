@@ -8,7 +8,7 @@
     group
   >
     <v-btn
-      :class="[ItemIndex === i ? 'v-btn--active' : '']"
+      :class="[ItemIndex === i ? 'v-btn--active' : 'primary--text', 'title']"
       :to="$route.path + tag"
       v-for="({ text, tag }, i) in contentList"
       :key="text"

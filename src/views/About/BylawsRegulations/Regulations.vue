@@ -4,7 +4,7 @@
 
     <div class="my-12 px-12" v-if="contentItemIndex === 0">
       <div class="章程法令規章-規章-教育積分認定辦法內容">
-        <div class="章程法令規章-規章-教育積分認定辦法內容__4329e61acb4d4577a97742849d337ef4">
+        <div class="章程法令規章-規章-教育積分認定辦法內容__4329e61acb4d4577a97742849d337ef4 headline">
           教育積分認定辦法
           <br />
           <br />民國九十五年一月十四日 / 第一屆第二次理監事會通過
@@ -75,7 +75,7 @@
     </div>
     <div class="my-12 px-12" v-if="contentItemIndex === 1">
       <div class="章程法令規章-規章-專科醫師甄審辦法內容">
-        <div class="章程法令規章-規章-專科醫師甄審辦法內容__40fbfc27b4614f3b885ea493128a180c">
+        <div class="章程法令規章-規章-專科醫師甄審辦法內容__40fbfc27b4614f3b885ea493128a180c headline">
           專科醫師甄審辦法
           <br />
           <br />台灣血管外科學會專科醫師甄審辦法 / 民國九十五年一月十四日 / 第一屆第二次理監事會通過
@@ -194,7 +194,7 @@
     </div>
     <div class="my-12 px-12" v-if="contentItemIndex === 2">
       <div class="章程法令規章-規章-專科醫師訓練內容內容">
-        <div class="章程法令規章-規章-專科醫師訓練內容內容__b54b51dffbb549ff820c502baa21fcf3">
+        <div class="章程法令規章-規章-專科醫師訓練內容內容__b54b51dffbb549ff820c502baa21fcf3 headline">
           專科醫師訓練內容
           <br />
           <br />台灣血管外科學會專科醫師訓練內容 / 民國九十五年一月十四日 / 第一屆第二次理監事會通過
@@ -233,7 +233,7 @@
     </div>
     <div class="my-12 px-12" v-if="contentItemIndex === 3">
       <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容">
-        <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容__77933e59914847a3a803400707f7a915">
+        <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容__77933e59914847a3a803400707f7a915 headline">
           智慧深耕獎(IUA)甄選辦法
           <br />
           <br />2009/3/8
@@ -273,7 +273,7 @@
     </div>
     <div class="my-12 px-12" v-if="contentItemIndex === 4">
       <div class="章程法令規章-規章-委員會組織簡則內容">
-        <div class="章程法令規章-規章-委員會組織簡則內容__e4e3f8936d4d4089b24d9df59dc79d05">
+        <div class="章程法令規章-規章-委員會組織簡則內容__e4e3f8936d4d4089b24d9df59dc79d05 headline">
           委員會組織簡則
           <br />
           <br />甄審委員會 <br />(Membership committee)
@@ -395,6 +395,7 @@
 
 <script>
 import TheTagGroup from "../../../components/TheTagGroup";
+
 export default {
   name: "Regulations",
   components: { TheTagGroup },
@@ -416,32 +417,27 @@ export default {
 <style lang="scss">
 .章程法令規章-規章-教育積分認定辦法內容 {
   &__4329e61acb4d4577a97742849d337ef4 {
-    font-size: 11px;
     color: #121a33;
   }
 }
 
 .章程法令規章-規章-專科醫師甄審辦法內容 {
   &__40fbfc27b4614f3b885ea493128a180c {
-    font-size: 11px;
     color: #121a33;
   }
 }
 .章程法令規章-規章-專科醫師訓練內容內容 {
   &__b54b51dffbb549ff820c502baa21fcf3 {
-    font-size: 15px;
     color: #121a33;
   }
 }
 .章程法令規章-規章-智慧深耕獎甄選辦法內容 {
   &__77933e59914847a3a803400707f7a915 {
-    font-size: 15px;
     color: #121a33;
   }
 }
 .章程法令規章-規章-委員會組織簡則內容 {
   &__e4e3f8936d4d4089b24d9df59dc79d05 {
-    font-size: 11px;
     color: #121a33;
   }
 }

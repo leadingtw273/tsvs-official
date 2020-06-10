@@ -1,7 +1,7 @@
 <template>
   <div class="my-12 px-12">
     <div class="帳號資訊內容">
-      <div class="帳號資訊內容__5c566ca8621241bb9326bc0564c145d3">
+      <div class="帳號資訊內容__5c566ca8621241bb9326bc0564c145d3 headline">
         抬頭：台灣血管外科學會 <br />統編：48682216
         <br />
         <br />中華郵政劃撥 <br />帳號：19944001 <br />戶名：台灣血管外科學會

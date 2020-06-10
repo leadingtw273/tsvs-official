@@ -1,7 +1,7 @@
 <template>
   <div class="my-12 px-12">
     <div class="聯絡資訊內容">
-      <div class="聯絡資訊內容__f4ce9c22999a4ef4ab30c60988a4dd65">
+      <div class="聯絡資訊內容__f4ce9c22999a4ef4ab30c60988a4dd65 headline">
         台內社字第0940037888號
         <br />
         <br />秘書 Secretary <br />許心慈 Hsin-Tzu Hsu <br />台灣血管外科學會 Taiwan Society for Vascular Surgery (TSVS)

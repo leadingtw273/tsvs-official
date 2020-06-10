@@ -6,7 +6,7 @@
       <v-btn-toggle class="d-flex flex-column" v-model="menuIndex" color="active" mandatory group>
         <template v-for="({ text, items, link, show = true }, i) in menuList">
           <v-divider class="item-divider ml-4" :key="text + '_divider'" v-if="show && i !== 0"></v-divider>
-          <v-btn :to="link" class="main-menu justify-start subtitle-1" :key="text" v-if="show">
+          <v-btn :to="link" class="main-menu justify-start title" :key="text" v-if="show">
             {{ text }}
           </v-btn>
           <v-btn-toggle
@@ -19,7 +19,7 @@
             group
           >
             <v-btn
-              class="sub-menu justify-start"
+              class="sub-menu subtitle-1 justify-start"
               v-for="{ text: subText, link: subLink } in subMenuList"
               :to="subLink"
               :key="subText"

@@ -2,66 +2,110 @@
   <div class="my-12 px-12">
     <div class="組織名單">
       <div class="組織名單__b93efead07ab4f5783b42d8d1ebad4dc d-flex flex-column">
-        <span class="title">理監事</span>
+        <span class="display-1">理監事</span>
 
-        <span class="subtitle-1">第八屆理監事暨學會幹部名單</span>
+        <span class="headline">第八屆理監事暨學會幹部名單</span>
         <div class="d-flex my-6">
           <v-simple-table class="transparent mr-6" dense v-for="group in list_1.length / 8" :key="group">
             <template v-slot:default>
               <tbody>
                 <tr v-for="{ name, position } in list_1.slice((group - 1) * 8, group * 8)" :key="name + position">
-                  <td>{{ name }}</td>
-                  <td>{{ position }}</td>
+                  <td>
+                    <v-btn class="title" rounded text small>{{ name }}</v-btn>
+                  </td>
+                  <td class="title">{{ position }}</td>
                 </tr>
               </tbody>
             </template>
           </v-simple-table>
         </div>
 
-        <span class="subtitle-1">歷屆名單 / 第七屆</span>
+        <span class="headline">{{ "歷屆名單 / " + supervisorList[supervisorItemIndex].text }}</span>
+        <v-btn-toggle
+          class="d-flex flex-wrap"
+          v-model="supervisorItemIndex"
+          v-if="supervisorList.length !== 0"
+          color="accent"
+          mandatory
+          group
+        >
+          <v-btn
+            :class="[supervisorItemIndex === i ? 'v-btn--active' : 'primary--text', 'title']"
+            @click="supervisorItemIndex = i"
+            v-for="({ text, tag }, i) in supervisorList"
+            :key="text"
+          >
+            {{ text }}
+          </v-btn>
+        </v-btn-toggle>
+
         <div class="d-flex my-6">
           <v-simple-table class="transparent mr-6" dense v-for="group in list_2.length / 8" :key="group">
             <template v-slot:default>
               <tbody>
                 <tr v-for="{ name, position } in list_2.slice((group - 1) * 8, group * 8)" :key="name + position">
-                  <td>{{ name }}</td>
-                  <td>{{ position }}</td>
+                  <td>
+                    <v-btn class="title" rounded text small>{{ name }}</v-btn>
+                  </td>
+                  <td class="title">{{ position }}</td>
                 </tr>
               </tbody>
             </template>
           </v-simple-table>
         </div>
 
-        <span class="title">委員會</span>
+        <span class="display-1">委員會</span>
 
-        <span class="subtitle-1">第八屆委員會名單</span>
+        <span class="headline">第八屆委員會名單</span>
         <div class="d-flex flex-wrap my-6">
-          <v-simple-table class="transparent mr-6" dense v-for="{ title, list } in list_3" :key="title">
+          <v-simple-table class="transparent mr-6 mb-6" dense v-for="{ title, list } in list_3" :key="title">
             <template v-slot:default>
               <thead>
-                <th class="text-left">{{ title }}</th>
+                <th class="text-left headline">{{ title }}</th>
               </thead>
               <tbody>
                 <tr v-for="{ name, position } in list" :key="name + position">
-                  <td>{{ name }}</td>
-                  <td>{{ position }}</td>
+                  <td>
+                    <v-btn class="title" rounded text small>{{ name }}</v-btn>
+                  </td>
+                  <td class="title">{{ position }}</td>
                 </tr>
               </tbody>
             </template>
           </v-simple-table>
         </div>
 
-        <span class="subtitle-1">歷屆名單 / 第七屆</span>
+        <span class="headline">{{ "歷屆名單 / " + committeeList[committeeItemIndex].text }}</span>
+        <v-btn-toggle
+          class="d-flex flex-wrap"
+          v-model="committeeItemIndex"
+          v-if="committeeList.length !== 0"
+          color="accent"
+          mandatory
+          group
+        >
+          <v-btn
+            :class="[committeeItemIndex === i ? 'v-btn--active' : 'primary--text', 'title']"
+            @click="committeeItemIndex = i"
+            v-for="({ text, tag }, i) in committeeList"
+            :key="text"
+          >
+            {{ text }}
+          </v-btn>
+        </v-btn-toggle>
+
         <div class="d-flex flex-wrap my-6">
-          <v-simple-table class="transparent mr-6" dense v-for="{ title, list } in list_4" :key="title">
+          <v-simple-table class="transparent mr-6 mb-6" dense v-for="{ title, list } in list_4" :key="title">
             <template v-slot:default>
               <thead>
-                <th class="text-left">{{ title }}</th>
+                <th class="text-left headline">{{ title }}</th>
               </thead>
               <tbody>
                 <tr v-for="{ name, position } in list" :key="name + position">
-                  <td>{{ name }}</td>
-                  <td>{{ position }}</td>
+                  <td>
+                    <v-btn class="title" rounded text small>{{ name }}</v-btn>
+                  </td>
+                  <td class="title">{{ position }}</td>
                 </tr>
               </tbody>
             </template>
@@ -77,6 +121,20 @@ export default {
   name: "OrganizationList",
   data() {
     return {
+      supervisorItemIndex: 0,
+      supervisorList: [
+        { text: "第七屆", tag: "#第七屆" },
+        { text: "第六屆", tag: "#第六屆" },
+        { text: "第五屆", tag: "#第五屆" },
+        { text: "第四屆", tag: "#第四屆" }
+      ],
+      committeeItemIndex: 0,
+      committeeList: [
+        { text: "第七屆", tag: "#第七屆" },
+        { text: "第六屆", tag: "#第六屆" },
+        { text: "第五屆", tag: "#第五屆" },
+        { text: "第四屆", tag: "#第四屆" }
+      ],
       list_1: [
         { name: "甘宗旦", position: "理事長" },
         { name: "李芳艷", position: "副理事長" },
@@ -314,5 +372,9 @@ export default {
     font-size: 15px;
     color: #121a33;
   }
+}
+
+.v-btn:before {
+  background-color: transparent !important;
 }
 </style>

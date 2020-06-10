@@ -1,7 +1,7 @@
 <template>
   <div class="my-12 px-12">
     <div class="章程法令規章-學會章程內容">
-      <div class="章程法令規章-學會章程內容__a2188fc3e9ea4b7d93eda3732877116e">
+      <div class="章程法令規章-學會章程內容__a2188fc3e9ea4b7d93eda3732877116e headline">
         一、 總則
         <br />
         <br />( 民國九十四年九月十一日第一屆第一次會員大會通過 )

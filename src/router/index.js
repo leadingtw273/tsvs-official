@@ -296,21 +296,39 @@ const routes = [
         name: "NewsSecretariat",
         component() {
           return import("../views/News/Secretariat");
-        }
+        },
+        children: [
+          {
+            path: ":id",
+            name: "NewsSecretariatItem"
+          }
+        ]
       },
       {
         path: "活動通知",
         name: "NewsEvents",
         component() {
           return import("../views/News/Events");
-        }
+        },
+        children: [
+          {
+            path: ":id",
+            name: "NewsEventsItem"
+          }
+        ]
       },
       {
         path: "醫學新知",
         name: "NewsMedicine",
         component() {
           return import("../views/News/Medicine");
-        }
+        },
+        children: [
+          {
+            path: ":id",
+            name: "NewsMedicineItem"
+          }
+        ]
       }
     ],
     redirect: { name: "NewsSecretariat" }

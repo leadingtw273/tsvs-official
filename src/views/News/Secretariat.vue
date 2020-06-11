@@ -1,131 +1,90 @@
 <template>
-  <div>
-    <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
-    <div class="my-12 px-12" v-if="contentItemIndex === 0">
-      <div class="秘書處公告-2019-12-7-內容">
-        <div class="秘書處公告-2019-12-7-內容__cbcf27669f044543949e95337ed33020">
-          第八屆理監事暨學會幹部名單
-          <div class="d-flex mt-6">
-            <v-simple-table class="transparent mr-6" dense v-for="group in list_1.length / 8" :key="group">
-              <template v-slot:default>
-                <tbody>
-                  <tr v-for="{ name, position } in list_1.slice((group - 1) * 8, group * 8)" :key="name + position">
-                    <td>{{ name }}</td>
-                    <td>{{ position }}</td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 1">
-      <div class="秘書處公告-2019-9-2-內容">
-        <div class="秘書處公告-2019-9-2-內容__2d816ef2330144048cf6878c3d77e421">
-          2019 血管外科專科醫師甄試 通過名單
-          <br />
-          <br />(依會員編號順序排列)
-          <br />
-          <div class="d-flex mt-6">
-            <v-simple-table class="transparent mr-6" dense>
-              <template v-slot:default>
-                <tbody>
-                  <tr v-for="{ name, hospital, id } in list_2" :key="id">
-                    <td>{{ id }}</td>
-                    <td>{{ name }}</td>
-                    <td>{{ hospital }}</td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </div>
-          <br />◎會員編號自動由Ａ→Ｓ
-          <br />
-          <br />◎請9/5(四)前劃撥繳交專科醫師考試證書費：3000元 / 郵局劃撥帳號: 19944001 台灣血管外科學會 /
-          劃撥單上請註明(姓名/專科證書費)
-          <br />
-          <br />◎收據上傳：email收據圖檔至4tsvs@tsvs.org，方完成繳費程序
-          <br />
-          <br />◎專科醫師證書將於2019/9/7(六) 11:40 會員大會頒發 (因事無法出席, 請由專人代領)
-        </div>
-      </div>
-    </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 2">
-      <div class="秘書處公告-2019-9-1-內容">
-        <div class="秘書處公告-2019-9-1-內容__7bf59c8eeef446f0a2d8ce2d5b664552">
-          血管外科健保申報共識
-          <br />
-          <br />檔案載點 (需登入)
-        </div>
-      </div>
-    </div>
+  <div class="px-12">
+    <v-simple-table class="transparent" v-if="viewItem == null">
+      <template v-slot:default>
+        <tbody>
+          <tr v-for="{ id, title, date } in dataList" :key="id">
+            <td class="title">{{ date }}</td>
+            <td>
+              <v-btn text rounded @click="showContent(id)" class="text-lowercase title ml-3">{{ title }}</v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+
+    <template v-else>
+      <the-base-view-data v-bind="viewItem"></the-base-view-data>
+    </template>
   </div>
 </template>
 
 <script>
-import TheTagGroup from "../../components/TheTagGroup";
+import TheBaseViewData from "../../components/TheBaseViewData";
+import dayjs from "dayjs";
+
 export default {
   name: "Secretariat",
-  components: { TheTagGroup },
+  components: {
+    TheBaseViewData
+  },
   data() {
     return {
-      contentItemIndex: 0,
-      contentList: [
-        { text: "2019/12/7", tag: "#2019/12/7" },
-        { text: "2019/9/2", tag: "#2019/9/2" },
-        { text: "2019/9/1", tag: "#2019/9/1" }
-      ],
-      list_1: [
-        { name: "甘宗旦", position: "理事長" },
-        { name: "李芳艷", position: "副理事長" },
-        { name: "陳益祥", position: "副理事長" },
-        { name: "吳毅暉", position: "常務理事" },
-        { name: "魏崢", position: "常務理事" },
-        { name: "柯博仁", position: "常務理事" },
-        { name: "張睿智", position: "常務理事" },
-        { name: "李國楨", position: "理事" },
-        { name: "林致源", position: "理事" },
-        { name: "張兼華", position: "理事" },
-        { name: "陳沂名", position: "理事" },
-        { name: "陳映澄", position: "理事" },
-        { name: "陳哲伸", position: "理事" },
-        { name: "黃耀廣", position: "理事" },
-        { name: "詹志洋", position: "理事" },
-        { name: "劉國聖", position: "理事" },
-        { name: "蔡宜廷", position: "理事" },
-        { name: "鄭伯智", position: "理事" },
-        { name: "謝世榮", position: "理事" },
-        { name: "顏旭霆", position: "理事" },
-        { name: "李中毅", position: "理事" },
-        { name: "張忠毅", position: "常務監事" },
-        { name: "李秋陽", position: "監事" },
-        { name: "林暉翰", position: "監事" },
-        { name: "許傳智", position: "監事" },
-        { name: "陳柏霖", position: "監事" },
-        { name: "蔡忠霖", position: "監事" },
-        { name: "羅健洺", position: "監事" },
-        { name: "許喬博", position: "秘書長" },
-        { name: "劉國聖", position: "副秘書長" },
-        { name: "黃建偉", position: "副秘書長" },
-        { name: "曾政哲", position: "財務長" }
-      ],
-      list_2: [
-        { hospital: "屏東醫院", name: "吳欣岱", id: "S00622" },
-        { hospital: "台北馬偕", name: "林俊閔", id: "S00638" },
-        { hospital: "三軍總醫院", name: "張瑞宗", id: "S00642" },
-        { hospital: "三軍總醫院", name: "林敬惟", id: "S00643" },
-        { hospital: "成大醫院", name: "陳迪詠", id: "S00650" },
-        { hospital: "台北榮總", name: "陳泰位", id: "S00654" },
-        { hospital: "台北榮總", name: "陳嘉葦", id: "S00660" },
-        { hospital: "台北馬偕", name: "陳宇恒", id: "S00665" },
-        { hospital: "安南醫院", name: "黃俊銘", id: "S00669" },
-        { hospital: "林口長庚", name: "吳崇丞", id: "S00673" },
-        { hospital: "林口長庚", name: "蘇以理", id: "S00677" },
-        { hospital: "台北榮總", name: "孟繁傑", id: "S00686" },
-        { hospital: "成大醫院", name: "文豪", id: "S00689" }
+      resourceList: [
+        {
+          id: "01",
+          class: "秘書處公告",
+          image: "",
+          title: "第八屆理監事暨學會幹部名單",
+          date: "2019-12-17",
+          content:
+            '<div class="秘書處公告-2019-12-7-內容"><div class="秘書處公告-2019-12-7-內容__cbcf27669f044543949e95337ed33020"> 第八屆理監事暨學會幹部名單 <div class="d-flex mt-6"><div class="v-data-table transparent mr-6 v-data-table--dense theme--light"><div class="v-data-table__wrapper"><table><tbody><tr><td>甘宗旦</td><td>理事長</td></tr><tr><td>李芳艷</td><td>副理事長</td></tr><tr><td>陳益祥</td><td>副理事長</td></tr><tr><td>吳毅暉</td><td>常務理事</td></tr><tr><td>魏崢</td><td>常務理事</td></tr><tr><td>柯博仁</td><td>常務理事</td></tr><tr><td>張睿智</td><td>常務理事</td></tr><tr><td>李國楨</td><td>理事</td></tr></tbody></table></div></div><div class="v-data-table transparent mr-6 v-data-table--dense theme--light"><div class="v-data-table__wrapper"><table><tbody><tr><td>林致源</td><td>理事</td></tr><tr><td>張兼華</td><td>理事</td></tr><tr><td>陳沂名</td><td>理事</td></tr><tr><td>陳映澄</td><td>理事</td></tr><tr><td>陳哲伸</td><td>理事</td></tr><tr><td>黃耀廣</td><td>理事</td></tr><tr><td>詹志洋</td><td>理事</td></tr><tr><td>劉國聖</td><td>理事</td></tr></tbody></table></div></div><div class="v-data-table transparent mr-6 v-data-table--dense theme--light"><div class="v-data-table__wrapper"><table><tbody><tr><td>蔡宜廷</td><td>理事</td></tr><tr><td>鄭伯智</td><td>理事</td></tr><tr><td>謝世榮</td><td>理事</td></tr><tr><td>顏旭霆</td><td>理事</td></tr><tr><td>李中毅</td><td>理事</td></tr><tr><td>張忠毅</td><td>常務監事</td></tr><tr><td>李秋陽</td><td>監事</td></tr><tr><td>林暉翰</td><td>監事</td></tr></tbody></table></div></div><div class="v-data-table transparent mr-6 v-data-table--dense theme--light"><div class="v-data-table__wrapper"><table><tbody><tr><td>許傳智</td><td>監事</td></tr><tr><td>陳柏霖</td><td>監事</td></tr><tr><td>蔡忠霖</td><td>監事</td></tr><tr><td>羅健洺</td><td>監事</td></tr><tr><td>許喬博</td><td>秘書長</td></tr><tr><td>劉國聖</td><td>副秘書長</td></tr><tr><td>黃建偉</td><td>副秘書長</td></tr><tr><td>曾政哲</td><td>財務長</td></tr></tbody></table></div></div></div></div></div>',
+          isAdvertising: false,
+          isLogin: false
+        },
+        {
+          id: "02",
+          class: "秘書處公告",
+          image: "",
+          title: "2019 血管外科專科醫師甄試 通過名單",
+          date: "2019-09-02",
+          content:
+            '<div class="秘書處公告-2019-9-2-內容"><div class="秘書處公告-2019-9-2-內容__2d816ef2330144048cf6878c3d77e421"> 2019 血管外科專科醫師甄試 通過名單 <br><br>(依會員編號順序排列) <br><div class="d-flex mt-6"><div class="v-data-table transparent mr-6 v-data-table--dense theme--light"><div class="v-data-table__wrapper"><table><tbody><tr><td>S00622</td><td>吳欣岱</td><td>屏東醫院</td></tr><tr><td>S00638</td><td>林俊閔</td><td>台北馬偕</td></tr><tr><td>S00642</td><td>張瑞宗</td><td>三軍總醫院</td></tr><tr><td>S00643</td><td>林敬惟</td><td>三軍總醫院</td></tr><tr><td>S00650</td><td>陳迪詠</td><td>成大醫院</td></tr><tr><td>S00654</td><td>陳泰位</td><td>台北榮總</td></tr><tr><td>S00660</td><td>陳嘉葦</td><td>台北榮總</td></tr><tr><td>S00665</td><td>陳宇恒</td><td>台北馬偕</td></tr><tr><td>S00669</td><td>黃俊銘</td><td>安南醫院</td></tr><tr><td>S00673</td><td>吳崇丞</td><td>林口長庚</td></tr><tr><td>S00677</td><td>蘇以理</td><td>林口長庚</td></tr><tr><td>S00686</td><td>孟繁傑</td><td>台北榮總</td></tr><tr><td>S00689</td><td>文豪</td><td>成大醫院</td></tr></tbody></table></div></div></div><br>◎會員編號自動由Ａ→Ｓ <br><br>◎請9/5(四)前劃撥繳交專科醫師考試證書費：3000元 / 郵局劃撥帳號: 19944001 台灣血管外科學會 / 劃撥單上請註明(姓名/專科證書費) <br><br>◎收據上傳：email收據圖檔至4tsvs@tsvs.org，方完成繳費程序 <br><br>◎專科醫師證書將於2019/9/7(六) 11:40 會員大會頒發 (因事無法出席, 請由專人代領) </div></div>',
+          isAdvertising: false,
+          isLogin: false
+        },
+        {
+          id: "03",
+          class: "秘書處公告",
+          image: "",
+          title: "血管外科健保申報共識",
+          date: "2019-09-01",
+          content:
+            '<div class="秘書處公告-2019-9-1-內容"><div class="秘書處公告-2019-9-1-內容__7bf59c8eeef446f0a2d8ce2d5b664552"> 血管外科健保申報共識 <br><br>檔案載點 (需登入) </div></div>',
+          isAdvertising: false,
+          isLogin: true
+        }
       ]
     };
+  },
+  computed: {
+    dataList() {
+      return this.resourceList
+        .map(({ id, title, date }) => ({ id, title, date }))
+        .sort(({ date: mainDate }, { date: subDate }) => {
+          if (dayjs(mainDate).isBefore(dayjs(subDate))) return 1;
+          if (dayjs(subDate).isBefore(dayjs(mainDate))) return -1;
+          return 0;
+        });
+    },
+    viewItem() {
+      return this.resourceList.find(({ id }) => id === this.$route.params.id);
+    }
+  },
+  methods: {
+    showContent(targetId) {
+      this.$router.push({ name: "NewsSecretariatItem", params: { id: targetId } });
+    }
   }
 };
 </script>

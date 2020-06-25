@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="d-flex align-center mb-6">
-      <v-btn icon text large class="primary--text" @click="$router.go(-1)">
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-
-      <span class="ml-6 headline primary--text">{{ date }}</span>
+      <span class=" headline primary--text">{{ date }}</span>
       <span class="ml-6 headline accent--text">{{ title }}</span>
     </div>
     <the-login-request :enable="isLogin">

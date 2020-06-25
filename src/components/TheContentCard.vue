@@ -32,13 +32,16 @@
     </v-sheet>
     <v-sheet color="secondary" :class="[hasSidebar ? 'sidebar-content' : 'content', 'py-12', 'px-8']">
       <div class="d-flex flex-row mb-6">
-        <div>
+        <v-btn icon text large class="primary--text" @click="$router.go(-1)">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+        <div class="d-flex">
           <v-divider class="mx-6" color="black" vertical></v-divider>
-          <span class="headline">{{ hasSidebar ? menuList[menuIndex].text : menuTitle }}</span>
+          <span class="headline align-self-center">{{ hasSidebar ? menuList[menuIndex].text : menuTitle }}</span>
         </div>
-        <div v-if="hasSidebar && subMenuList[subMenuIndex] != null">
+        <div class="d-flex" v-if="hasSidebar && subMenuList[subMenuIndex] != null">
           <v-divider class="mx-6" color="black" vertical></v-divider>
-          <span class="headline">{{ subMenuList[subMenuIndex].text }}</span>
+          <span class="headline align-self-center">{{ subMenuList[subMenuIndex].text }}</span>
         </div>
       </div>
       <slot>

@@ -374,6 +374,13 @@ const routes = [
         }
       },
       {
+        path: "近期會議活動課程/:id",
+        name: "EventsView",
+        component() {
+          return import("../views/Events/EventItem.vue");
+        }
+      },
+      {
         path: "活動花絮",
         name: "EventsIntroduction",
         component() {

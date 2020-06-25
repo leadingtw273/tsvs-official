@@ -14,10 +14,6 @@
         <v-col cols="3" class="d-flex">
           <v-text-field label="醫院" outlined hide-details="auto"></v-text-field>
         </v-col>
-        <v-col cols="12" class="d-flex">
-          <span class="align-self-center mr-6">醫院個人介紹連結</span>
-          <v-text-field label="醫院個人介紹連結" outlined hide-details="auto"></v-text-field>
-        </v-col>
         <v-col class="d-flex">
           <span class="align-self-center mr-6">查詢姓名</span>
           <v-text-field label="查詢姓名" outlined hide-details="auto"></v-text-field>

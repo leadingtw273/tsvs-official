@@ -98,10 +98,10 @@
                     :to="{ name: 'EventsView', params: { id: selectedEvent.id } }"
                     @click="selectedOpen = false"
                   >
-                    View
+                    查看
                   </v-btn>
                   <v-btn text color="secondary" @click="selectedOpen = false">
-                    Cancel
+                    取消
                   </v-btn>
                 </v-card-actions>
               </v-card>

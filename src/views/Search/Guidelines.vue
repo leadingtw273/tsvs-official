@@ -37,8 +37,8 @@
       </div>
     </div>
     <div class="my-12 px-12" v-if="contentItemIndex === 1">
-      <div class="手術準則與參考標準-文獻報告參考內容">
-        <div class="手術準則與參考標準-文獻報告參考內容__f82593d92a69425b93383c46fb2c79d3">
+      <div class="手術準則與參考標準-參考資料內容">
+        <div class="手術準則與參考標準-參考資料內容__f82593d92a69425b93383c46fb2c79d3">
           Reporting standards of the Society for Vascular Surgery for thoracic outlet syndrome
           <br />
           <br />J Vasc Surg. 2016 Sep;64(3):e23–e35.
@@ -58,7 +58,7 @@ export default {
       contentItemIndex: 0,
       contentList: [
         { text: "手術準則", tag: "#手術準則" },
-        { text: "文獻報告參考", tag: "#文獻報告參考" }
+        { text: "參考資料", tag: "#參考資料" }
       ]
     };
   }
@@ -74,7 +74,7 @@ export default {
     color: #121a33;
   }
 }
-.手術準則與參考標準-文獻報告參考內容 {
+.手術準則與參考標準-參考資料內容 {
   &__f82593d92a69425b93383c46fb2c79d3 {
     font-size: 16px;
     line-height: (34 / 23);

@@ -1,6 +1,5 @@
 <template>
   <div class="px-12">
-    <v-btn color="primary" class="mb-4">活動通知申請</v-btn>
     <v-simple-table class="transparent" v-if="viewItem == null">
       <template v-slot:default>
         <tbody>

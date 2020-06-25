@@ -16,7 +16,7 @@ export default {
         menuTitle: "相關網站",
         menuList: [
           { text: "合作學會機關", link: { name: "WebsitesLinkCooperativeInstitute" } },
-          { text: "贊助廠商", link: { name: "WebsitesLinkSponsor" } }
+          { text: "醫藥設備廠商", link: { name: "WebsitesLinkSponsor" } }
         ]
       }
     };

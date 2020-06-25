@@ -329,6 +329,13 @@ const routes = [
             name: "NewsMedicineItem"
           }
         ]
+      },
+      {
+        path: "申請公告活動資訊",
+        name: "NewsApplyEvent",
+        component() {
+          return import("../views/News/ApplyEvent");
+        }
       }
     ],
     redirect: { name: "NewsSecretariat" }
@@ -339,14 +346,21 @@ const routes = [
     component: Events,
     children: [
       {
-        path: "申請會議課程活動",
+        path: "申請繼續教育積分",
         name: "EventsApplication",
         component() {
           return import("../views/Events/Application.vue");
         }
       },
       {
-        path: "今日會議課程活動",
+        path: "申請進度查詢",
+        name: "EventsProgressQuery",
+        component() {
+          return import("../views/Events/ProgressQuery.vue");
+        }
+      },
+      {
+        path: "今日活動內容",
         name: "EventsToday",
         component() {
           return import("../views/Events/Today.vue");
@@ -360,7 +374,7 @@ const routes = [
         }
       },
       {
-        path: "會議課程活動介紹",
+        path: "活動花絮",
         name: "EventsIntroduction",
         component() {
           return import("../views/Events/Introduction.vue");
@@ -396,7 +410,7 @@ const routes = [
         }
       },
       {
-        path: "衛服部連結",
+        path: "衛福部資訊",
         name: "SearchLink",
         component() {
           return import("../views/Search/Link.vue");
@@ -475,7 +489,7 @@ const routes = [
         }
       },
       {
-        path: "血管手術資訊",
+        path: "血管手術介紹",
         name: "HealthEducationSurgeryInformation",
         component() {
           return import("../views/HealthEducation/SurgeryInformation.vue");
@@ -497,7 +511,7 @@ const routes = [
         }
       },
       {
-        path: "贊助廠商",
+        path: "醫藥設備廠商",
         name: "WebsitesLinkSponsor",
         component() {
           return import("../views/WebsitesLink/Sponsor.vue");

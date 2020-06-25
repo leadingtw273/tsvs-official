@@ -3,7 +3,7 @@
     <v-sheet color="primary" class="side-bar px-8 py-12" v-if="hasSidebar" dark>
       <span class="d-flex headline mb-2 ml-4">{{ menuTitle }}</span>
 
-      <v-btn-toggle class="d-flex flex-column" v-model="menuIndex" color="active" mandatory group>
+      <v-btn-toggle class="d-flex flex-column" v-model="menuIndex" color="confirm" mandatory group>
         <template v-for="({ text, items, link, show = true }, i) in menuList">
           <v-divider class="item-divider ml-4" :key="text + '_divider'" v-if="show && i !== 0"></v-divider>
           <v-btn :to="link" class="main-menu justify-start title" :key="text" v-if="show">
@@ -13,7 +13,7 @@
             class="d-flex flex-column"
             v-model="subMenuIndex"
             v-if="menuIndex === i && subMenuList.length !== 0"
-            color="active"
+            color="confirm"
             :key="text + '_subGroup'"
             mandatory
             group

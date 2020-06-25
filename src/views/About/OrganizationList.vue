@@ -30,7 +30,7 @@
           group
         >
           <v-btn
-            :class="[supervisorItemIndex === i ? 'v-btn--active' : 'primary--text', 'title']"
+            :class="[supervisorItemIndex === i ? 'v-btn--confirm' : 'primary--text', 'title']"
             @click="supervisorItemIndex = i"
             v-for="({ text, tag }, i) in supervisorList"
             :key="text"
@@ -85,7 +85,7 @@
           group
         >
           <v-btn
-            :class="[committeeItemIndex === i ? 'v-btn--active' : 'primary--text', 'title']"
+            :class="[committeeItemIndex === i ? 'v-btn--confirm' : 'primary--text', 'title']"
             @click="committeeItemIndex = i"
             v-for="({ text, tag }, i) in committeeList"
             :key="text"

@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss">
-.衛服部連結內容 {
+.衛福部資訊內容 {
   &__0497399d91f141c6aefd225d39503cc4 {
     font-size: 23px;
     line-height: (34 / 23);

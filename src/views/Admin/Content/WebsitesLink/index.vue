@@ -78,7 +78,7 @@ export default {
         {
           image: "https://fbcd.co/images/products/0479bfbf54a9cdb35d8a51b824ee0fcc_resize.png",
           name: "company.inc",
-          class: "贊助廠商",
+          class: "醫藥設備廠商",
           order: 0,
           link: "https://hackmd.io/LZl49RtvR_ObQkWl5bwVzg?view"
         },

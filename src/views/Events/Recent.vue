@@ -1,132 +1,88 @@
 <template>
   <div class="my-12 px-12">
-    <div class="d-flex px-6">
+    <v-sheet tile height="54" class="d-flex" dark>
+      <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
       <v-select
-        class="align-self-start mr-6"
-        :items="['所有', '課程', '講座', '分享', '考試']"
-        label="搜索類別"
         v-model="searchClass"
-        style="max-width: 200px;"
+        :items="searchClassList"
+        dense
+        outlined
+        hide-details
+        label="搜索類別"
+        class="align-self-start ma-2"
       ></v-select>
-      <v-menu v-model="searchDateMenu" :close-on-content-click="false" max-width="290px" min-width="290px">
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="date"
-            label="搜索日期"
-            readonly
-            hide-details="auto"
-            style="max-width: 200px;"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker v-model="date" color="primary" @input="searchDateMenu = false" range></v-date-picker>
-      </v-menu>
-    </div>
-
-    <v-row class="mb-2">
-      <v-col cols="4">
-        <v-hover v-slot:default="{ hover }">
-          <v-card :elevation="hover ? 12 : 0" class="mx-auto" max-width="344" color="transparent">
-            <div class="d-flex pa-4">
-              <v-img class="" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
-            </div>
-
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
-
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text small rounded class="text-lowercase ml-auto">more >></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      </v-col>
-      <v-col cols="4">
-        <v-hover v-slot:default="{ hover }">
-          <v-card :elevation="hover ? 12 : 0" class="mx-auto" max-width="344" color="transparent">
-            <div class="d-flex pa-4">
-              <v-img class="" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
-            </div>
-
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
-
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text small rounded class="text-lowercase ml-auto">more >></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      </v-col>
-      <v-col cols="4">
-        <v-hover v-slot:default="{ hover }">
-          <v-card :elevation="hover ? 12 : 0" class="mx-auto" max-width="344" color="transparent">
-            <div class="d-flex pa-4">
-              <v-img class="" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
-            </div>
-
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
-
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text small rounded class="text-lowercase ml-auto">more >></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      </v-col>
-      <v-col cols="4">
-        <v-hover v-slot:default="{ hover }">
-          <v-card :elevation="hover ? 12 : 0" class="mx-auto" max-width="344" color="transparent">
-            <div class="d-flex pa-4">
-              <v-img class="" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
-            </div>
-
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
-
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text small rounded class="text-lowercase ml-auto">more >></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      </v-col>
-    </v-row>
-    <v-pagination v-model="page" :length="6" color="primary"></v-pagination>
+      <v-spacer></v-spacer>
+      <v-btn icon class="ma-2" @click="$refs.calendar.next()">
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-btn>
+    </v-sheet>
+    <v-sheet height="600" dark>
+      <v-calendar
+        ref="calendar"
+        v-model="value"
+        :weekdays="[0, 1, 2, 3, 4, 5, 6]"
+        type="month"
+        :events="events"
+        :event-color="getEventColor"
+        @change="getEvents"
+        dark
+      ></v-calendar>
+    </v-sheet>
   </div>
 </template>
 
 <script>
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 export default {
   name: "Recent",
   data() {
     return {
-      page: 1,
-      searchDateMenu: false,
-      searchClass: "所有",
-      date: [dayjs().format("YYYY-MM-DD")]
+      searchClass: "TSVS 主辦",
+      searchClassList: ["TSVS 主辦", "會議", "課程", "甄試", "其他"],
+      value: "",
+      events: [],
+      colors: ["blue", "indigo", "deep-purple"],
+      names: ["Meeting", "Holiday", "PTO", "Travel", "Event", "Birthday", "Conference", "Party"]
     };
+  },
+  methods: {
+    getEvents({ start, end }) {
+      const events = [];
+
+      const min = new Date(`${start.date}T00:00:00`);
+      const max = new Date(`${end.date}T23:59:59`);
+      const days = (max.getTime() - min.getTime()) / 86400000;
+      const eventCount = this.rnd(days, days + 20);
+
+      for (let i = 0; i < eventCount; i++) {
+        const allDay = this.rnd(0, 3) === 0;
+        const firstTimestamp = this.rnd(min.getTime(), max.getTime());
+        const first = new Date(firstTimestamp - (firstTimestamp % 900000));
+        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
+        const second = new Date(first.getTime() + secondTimestamp);
+
+        events.push({
+          name: this.names[this.rnd(0, this.names.length - 1)],
+          start: first,
+          end: second,
+          color: this.colors[this.rnd(0, this.colors.length - 1)],
+          timed: !allDay
+        });
+      }
+
+      this.events = events;
+    },
+    getEventColor(event) {
+      return event.color;
+    },
+    rnd(a, b) {
+      return Math.floor((b - a + 1) * Math.random()) + a;
+    }
   }
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scope></style>

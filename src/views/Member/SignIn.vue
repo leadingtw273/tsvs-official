@@ -15,6 +15,7 @@
       </div>
       <div class="d-flex flex-column">
         <span class="primary--text">＊第一次登入時帳號及密碼為身份證號碼，建議同時更改密碼</span>
+        <span class="primary--text">＊會員的帳號為身份證字號, 密碼為 9 位數: 身分證後五碼緊接著生日四碼 mmdd</span>
         <span class="accent--text">＊帳號或密碼輸入錯誤，請重新輸入。</span>
       </div>
     </v-sheet>

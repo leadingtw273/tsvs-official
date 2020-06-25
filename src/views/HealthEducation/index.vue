@@ -16,7 +16,7 @@ export default {
         menuTitle: "衛教專區",
         menuList: [
           { text: "尋找醫師", link: { name: "HealthEducationSearchDoctor" } },
-          { text: "血管手術資訊", link: { name: "HealthEducationSurgeryInformation" } }
+          { text: "血管手術介紹", link: { name: "HealthEducationSurgeryInformation" } }
         ]
       }
     };

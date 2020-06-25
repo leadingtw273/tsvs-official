@@ -8,13 +8,20 @@
       <span class="ml-6 headline primary--text">{{ date }}</span>
       <span class="ml-6 headline accent--text">{{ title }}</span>
     </div>
-    <div v-html="content"></div>
+    <the-login-request :enable="isLogin">
+      <div v-html="content"></div>
+    </the-login-request>
   </div>
 </template>
 
 <script>
+import TheLoginRequest from "./TheLoginRequest";
+
 export default {
   name: "TheBaseViewData",
+  components: {
+    TheLoginRequest
+  },
   props: {
     title: {
       type: String,
@@ -27,6 +34,10 @@ export default {
     content: {
       type: String,
       required: true
+    },
+    isLogin: {
+      type: Boolean,
+      default: false
     }
   }
 };

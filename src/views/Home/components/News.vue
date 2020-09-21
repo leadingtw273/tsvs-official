@@ -115,7 +115,7 @@
       </v-col>
     </v-row>
 
-    <v-btn text small rounded class="text-lowercase d-flex ml-auto mb-6">more >></v-btn>
+    <btn-more class="d-flex ml-auto mb-6" :to="{ name: 'News' }"></btn-more>
   </v-container>
 </template>
 

@@ -74,7 +74,7 @@
       </div>
     </v-sheet>
     <v-sheet class="d-flex justify-end px-12 py-6" color="transparent" height="23%">
-      <v-btn text small rounded class="text-lowercase white--text">more >></v-btn>
+      <btn-more textColor="white" :to="{ name: 'EventsRecent' }"></btn-more>
     </v-sheet>
   </v-sheet>
 </template>

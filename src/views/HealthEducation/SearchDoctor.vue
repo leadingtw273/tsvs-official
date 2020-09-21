@@ -33,21 +33,21 @@
               <td>主治醫師兼主任</td>
               <td>現任</td>
               <td>血液腫瘤科主治醫師</td>
-              <td><v-btn text small rounded class="text-lowercase">more >></v-btn></td>
+              <td><btn-more></btn-more></td>
             </tr>
             <tr>
               <td>陳仁亮</td>
               <td>主治醫師兼主任</td>
               <td>現任</td>
               <td>血液腫瘤科主治醫師</td>
-              <td><v-btn text small rounded class="text-lowercase">more >></v-btn></td>
+              <td><btn-more></btn-more></td>
             </tr>
             <tr>
               <td>陳仁亮</td>
               <td>主治醫師兼主任</td>
               <td>現任</td>
               <td>血液腫瘤科主治醫師</td>
-              <td><v-btn text small rounded class="text-lowercase">more >></v-btn></td>
+              <td><btn-more></btn-more></td>
             </tr>
           </tbody>
         </template>

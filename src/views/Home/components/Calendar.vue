@@ -7,7 +7,7 @@
       <v-date-picker v-model="picker" color="primary" class="date-picker ma-0" no-title></v-date-picker>
     </v-sheet>
     <v-sheet class="px-12 py-6 d-flex justify-end" color="transparent" height="23%">
-      <v-btn text small rounded class="text-lowercase white--text">more >></v-btn>
+      <btn-more textColor="white" :to="{ name: 'EventsRecent' }"></btn-more>
     </v-sheet>
   </v-sheet>
 </template>

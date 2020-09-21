@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import HomeCarousel from "../components/Home/HomeCarousel";
-import HomeNews from "../components/Home/HomeNews";
-import HomeCalendar from "../components/Home/HomeCalendar";
-import HomeEvents from "../components/Home/HomeEvents";
-import HomeLink from "../components/Home/HomeLink";
+import HomeCarousel from "./components/Carousel";
+import HomeNews from "./components/News";
+import HomeCalendar from "./components/Calendar";
+import HomeEvents from "./components/Events";
+import HomeLink from "./components/Link";
 
 export default {
   name: "Home",

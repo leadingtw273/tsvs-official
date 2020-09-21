@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "TheContentCard",
+  name: "TheTageGroup",
   props: {
     contentItemIndex: {
       type: Number

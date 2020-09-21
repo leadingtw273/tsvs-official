@@ -213,7 +213,7 @@
 </template>
 
 <script>
-import DatePicker from "../../components/Picker/DatePicker";
+import DatePicker from "@/components/Picker/DatePicker";
 import dayjs from "dayjs";
 
 export default {

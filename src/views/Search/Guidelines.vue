@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import TheTagGroup from "../../components/TheTagGroup";
+import TheTagGroup from "@/components/TheTagGroup";
 export default {
   name: "Guidelines",
   components: { TheTagGroup },

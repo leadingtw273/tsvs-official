@@ -6,7 +6,7 @@
 
 <script>
 import MemberTable from "./components/MemberTable";
-import TheViewContentCard from "../../../components/TheViewContentCard";
+import TheViewContentCard from "@/components/TheViewContentCard";
 
 export default {
   name: "Member",

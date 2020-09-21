@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import TheViewContentCard from "../../../components/TheViewContentCard";
+import TheViewContentCard from "@/components/TheViewContentCard";
 
 export default {
   name: "CommonSetting",

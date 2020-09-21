@@ -310,7 +310,7 @@
 </template>
 
 <script>
-import TheTagGroup from "../../components/TheTagGroup";
+import TheTagGroup from "@/components/TheTagGroup";
 import dayjs from "dayjs";
 
 export default {

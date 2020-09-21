@@ -149,8 +149,8 @@
 
 <script>
 import dayjs from "dayjs";
-import DatePicker from "../../components/Picker/DatePicker";
-import TimePicker from "../../components/Picker/TimePicker";
+import DatePicker from "@/components/Picker/DatePicker";
+import TimePicker from "@/components/Picker/TimePicker";
 
 export default {
   name: "Application",

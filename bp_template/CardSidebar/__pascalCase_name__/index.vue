@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TheContentCard from "../../../components/TheContentCard";
+import TheContentCard from "@/components/TheContentCard";
 
 export default {
   name: "{{ pascalCase name }}",

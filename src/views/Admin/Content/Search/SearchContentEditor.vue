@@ -11,7 +11,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import TheTagGroup from "../../../../components/TheTagGroup";
+import TheTagGroup from "@/components/TheTagGroup";
 
 export default {
   name: "SearchContentEditor",

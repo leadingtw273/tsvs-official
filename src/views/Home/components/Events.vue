@@ -5,11 +5,13 @@
     </v-sheet>
     <v-sheet class="d-flex flex-column justify-space-around px-12" color="primary" height="54%">
       <div class="d-flex align-center">
-        <div class="d-flex flex-column justify-center align-center px-6 mr-6" style="width: 20%;">
-          <span class="display-2 text-center">21</span>
-          <div class="d-flex justify-space-between" style="width: 100%;">
-            <span class="headline">Dec.</span>
-            <span class="headline">2019</span>
+        <div class="d-flex justify-center mr-6" style="width: 20%;">
+          <div class="d-flex flex-column text-subtitle-1" style="width: 100px;">
+            <span class="text-center text-h4">21</span>
+            <div class="d-flex justify-space-between" style="width: 100%;">
+              <span>Dec.</span>
+              <span>2019</span>
+            </div>
           </div>
         </div>
         <div class="d-flex flex-column justify-center" style="width: 80%;">
@@ -20,11 +22,13 @@
         </div>
       </div>
       <div class="d-flex align-center">
-        <div class="d-flex flex-column justify-center align-center px-6 mr-6" style="width: 20%;">
-          <span class="display-2 text-center">13-21</span>
-          <div class="d-flex justify-space-between" style="width: 100%;">
-            <span class="headline">Dec.</span>
-            <span class="headline">2019</span>
+        <div class="d-flex justify-center mr-6" style="width: 20%;">
+          <div class="d-flex flex-column text-subtitle-1" style="width: 100px;">
+            <span class="text-center text-h4">13-21</span>
+            <div class="d-flex justify-space-between">
+              <span>Dec.</span>
+              <span>2019</span>
+            </div>
           </div>
         </div>
         <div class="d-flex flex-column justify-center" style="width: 80%;">
@@ -35,11 +39,13 @@
         </div>
       </div>
       <div class="d-flex align-center">
-        <div class="d-flex flex-column justify-center align-center px-6 mr-6" style="width: 20%;">
-          <span class="display-2 text-center">3-15</span>
-          <div class="d-flex justify-space-between" style="width: 100%;">
-            <span class="headline">Dec.</span>
-            <span class="headline">2019</span>
+        <div class="d-flex justify-center mr-6" style="width: 20%;">
+          <div class="d-flex flex-column text-subtitle-1" style="width: 100px;">
+            <span class="text-center text-h4">3-15</span>
+            <div class="d-flex justify-space-between">
+              <span>Dec.</span>
+              <span>2019</span>
+            </div>
           </div>
         </div>
         <div class="d-flex flex-column justify-center" style="width: 80%;">
@@ -50,11 +56,13 @@
         </div>
       </div>
       <div class="d-flex align-center">
-        <div class="d-flex flex-column justify-center align-center px-6 mr-6" style="width: 20%;">
-          <span class="display-2 text-center">5</span>
-          <div class="d-flex justify-space-between" style="width: 100%;">
-            <span class="headline">Dec.</span>
-            <span class="headline">2019</span>
+        <div class="d-flex justify-center mr-6" style="width: 20%;">
+          <div class="d-flex flex-column text-subtitle-1" style="width: 100px;">
+            <span class="text-center text-h4">5</span>
+            <div class="d-flex justify-space-between">
+              <span>Dec.</span>
+              <span>2019</span>
+            </div>
           </div>
         </div>
         <div class="d-flex flex-column justify-center" style="width: 80%;">

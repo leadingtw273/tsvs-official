@@ -1,6 +1,6 @@
 <template>
   <div class="px-12">
-    <v-simple-table class="transparent" v-if="viewItem == null">
+    <v-simple-table class="transparent">
       <template v-slot:default>
         <tbody>
           <tr v-for="{ id, title, date } in dataList" :key="id">
@@ -12,22 +12,14 @@
         </tbody>
       </template>
     </v-simple-table>
-
-    <template v-else>
-      <the-base-view-data v-bind="viewItem"></the-base-view-data>
-    </template>
   </div>
 </template>
 
 <script>
-import TheBaseViewData from "../../components/TheBaseViewData";
 import dayjs from "dayjs";
 
 export default {
   name: "Medicine",
-  components: {
-    TheBaseViewData
-  },
   data() {
     return {
       resourceList: [

@@ -1,25 +1,21 @@
 <template>
   <div class="px-12">
-    <v-simple-table class="transparent">
-      <template v-slot:default>
-        <tbody>
-          <tr v-for="{ id, title, date } in dataList" :key="id">
-            <td class="title">{{ date }}</td>
-            <td>
-              <v-btn text rounded @click="showContent(id)" class="text-lowercase title ml-3">{{ title }}</v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <template v-if="viewItem == null">
+      <the-view-item-list :itemList="dataList" @select="showContent"></the-view-item-list>
+    </template>
+    <template v-else>
+      <div v-html="viewItem.content"></div>
+    </template>
   </div>
 </template>
 
 <script>
+import TheViewItemList from "@/components/TheViewItemList";
 import dayjs from "dayjs";
 
 export default {
   name: "Events",
+  components: { TheViewItemList },
   data() {
     return {
       resourceList: [

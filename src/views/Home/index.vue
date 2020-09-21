@@ -13,6 +13,8 @@
     </div>
 
     <home-link></home-link>
+
+    <home-information></home-information>
   </v-container>
 </template>
 
@@ -22,10 +24,11 @@ import HomeNews from "./components/News";
 import HomeCalendar from "./components/Calendar";
 import HomeEvents from "./components/Events";
 import HomeLink from "./components/Link";
+import HomeInformation from "./components/Information";
 
 export default {
   name: "Home",
-  components: { HomeCarousel, HomeNews, HomeCalendar, HomeEvents, HomeLink }
+  components: { HomeCarousel, HomeNews, HomeCalendar, HomeEvents, HomeLink, HomeInformation }
 };
 </script>
 

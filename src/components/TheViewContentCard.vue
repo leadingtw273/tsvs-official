@@ -1,5 +1,5 @@
 <template>
-  <div class="the-content-card d-flex flex-row mx-12 mb-12">
+  <div class="the-view-content-card d-flex flex-row mx-12 mb-12">
     <v-sheet color="primary" class="side-bar px-8 py-12" v-if="hasSidebar" dark>
       <span class="d-flex headline mb-2 ml-4">{{ menuTitle }}</span>
 
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: "TheContentCard",
+  name: "TheViewContentCard",
   props: {
     menuTitle: {
       type: String,
@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.the-content-card {
+.the-view-content-card {
   min-height: 500px;
 
   .side-bar {

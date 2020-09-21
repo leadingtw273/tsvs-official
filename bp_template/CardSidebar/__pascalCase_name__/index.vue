@@ -1,7 +1,7 @@
 <template>
-  <the-content-card v-bind="config">
+  <the-view-content-card v-bind="config">
     <router-view></router-view>
-  </the-content-card>
+  </the-view-content-card>
 </template>
 
 <script>

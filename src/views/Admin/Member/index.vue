@@ -1,16 +1,16 @@
 <template>
-  <the-content-card v-bind="config">
+  <the-view-content-card v-bind="config">
     <member-table></member-table>
-  </the-content-card>
+  </the-view-content-card>
 </template>
 
 <script>
 import MemberTable from "./components/MemberTable";
-import TheContentCard from "../../../components/TheContentCard";
+import TheViewContentCard from "../../../components/TheViewContentCard";
 
 export default {
   name: "Member",
-  components: { TheContentCard, MemberTable },
+  components: { TheViewContentCard, MemberTable },
   data() {
     return {
       config: {

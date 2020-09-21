@@ -1,9 +1,9 @@
 <template>
-  <the-content-card v-bind="config">
+  <the-view-content-card v-bind="config">
     <div>
       {{pascalCase name}}
     </div>
-  </the-content-card>
+  </the-view-content-card>
 </template>
 
 <script>

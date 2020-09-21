@@ -1,5 +1,5 @@
 <template>
-  <the-content-card v-bind="config">
+  <the-view-content-card v-bind="config">
     <div class="my-6 px-6">
       <v-sheet class="d-flex px-4 mb-6" style="width: 500px;" dark>
         <span class="align-self-center mr-6 title">頁首圖片</span>
@@ -10,15 +10,15 @@
         <v-img src="../../../assets/index.jpg"></v-img>
       </v-sheet>
     </div>
-  </the-content-card>
+  </the-view-content-card>
 </template>
 
 <script>
-import TheContentCard from "../../../components/TheContentCard";
+import TheViewContentCard from "../../../components/TheViewContentCard";
 
 export default {
   name: "CommonSetting",
-  components: { TheContentCard },
+  components: { TheViewContentCard },
   data() {
     return {
       config: {

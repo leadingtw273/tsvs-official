@@ -1,15 +1,15 @@
 <template>
-  <the-content-card v-bind="config">
+  <the-view-content-card v-bind="config">
     <router-view></router-view>
-  </the-content-card>
+  </the-view-content-card>
 </template>
 
 <script>
-import TheContentCard from "../../components/TheContentCard";
+import TheViewContentCard from "../../components/TheViewContentCard";
 
 export default {
   name: "Search",
-  components: { TheContentCard },
+  components: { TheViewContentCard },
   data() {
     return {
       config: {

@@ -15,10 +15,10 @@ export default {
       config: {
         menuTitle: "年會頁面管理",
         menuList: [
-          { text: "首頁圖上傳", link: { name: "AdminAnnualMeetingBackgroundImage" } },
-          { text: "議程", link: { name: "AdminAnnualMeetingAgenda" } },
-          { text: "人員", link: { name: "AdminAnnualMeetingMember" } },
-          { text: "投稿", link: { name: "AdminAnnualMeetingContribute" } }
+          { text: "首頁圖上傳", displayType: "page", pageName: "AdminAnnualMeetingBackgroundImage" },
+          { text: "議程", displayType: "page", pageName: "AdminAnnualMeetingAgenda" },
+          { text: "人員", displayType: "page", pageName: "AdminAnnualMeetingMember" },
+          { text: "投稿", displayType: "page", pageName: "AdminAnnualMeetingContribute" }
         ]
       }
     };

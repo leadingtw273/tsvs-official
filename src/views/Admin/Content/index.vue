@@ -1,7 +1,5 @@
 <template>
-  <the-view-content-card v-bind="config">
-    <router-view></router-view>
-  </the-view-content-card>
+  <the-view-content-card v-bind="config"> </the-view-content-card>
 </template>
 
 <script>
@@ -17,41 +15,47 @@ export default {
         menuList: [
           {
             text: "學會資訊",
-            link: { name: "AdminAbout" },
+            displayType: "page",
+            pageName: "AdminAbout",
             items: [
-              { text: "內容編輯", link: { name: "AdminEditorContent" } },
-              { text: "章程法令規章", link: { name: "AdminBylawsRegulations" } },
-              { text: "會議記錄", link: { name: "AdminMeetingRecord" } }
+              { text: "內容編輯", displayType: "page", pageName: "AdminEditorContent" },
+              { text: "章程法令規章", displayType: "page", pageName: "AdminBylawsRegulations" },
+              { text: "會議記錄", displayType: "page", pageName: "AdminMeetingRecord" }
             ]
           },
           {
             text: "學會公告",
-            link: { name: "AdminNews" }
+            displayType: "page",
+            pageName: "AdminNews"
           },
           {
             text: "會議課程",
-            link: { name: "AdminEvents" },
+            displayType: "page",
+            pageName: "AdminEvents",
             items: [
-              { text: "課程申請內容編輯", link: { name: "AdminCourseApplicationEditor" } },
-              { text: "課程列表", link: { name: "AdminCourseList" } }
+              { text: "課程申請內容編輯", displayType: "page", pageName: "AdminCourseApplicationEditor" },
+              { text: "課程列表", displayType: "page", pageName: "AdminCourseList" }
             ]
           },
           {
             text: "資料查詢",
-            link: { name: "AdminSearch" },
+            displayType: "page",
+            pageName: "AdminSearch",
             items: [
-              { text: "內容編輯", link: { name: "AdminSearchContentEditor" } },
-              { text: "影片紀錄", link: { name: "AdminRecord" } },
-              { text: "資料下載", link: { name: "AdminDownload" } }
+              { text: "內容編輯", displayType: "page", pageName: "AdminSearchContentEditor" },
+              { text: "影片紀錄", displayType: "page", pageName: "AdminRecord" },
+              { text: "資料下載", displayType: "page", pageName: "AdminDownload" }
             ]
           },
           {
             text: "衛教專區",
-            link: { name: "AdminHealthEducation" }
+            displayType: "page",
+            pageName: "AdminHealthEducation"
           },
           {
             text: "相關網站",
-            link: { name: "AdminWebsitesLink" }
+            displayType: "page",
+            pageName: "AdminWebsitesLink"
           }
         ]
       }

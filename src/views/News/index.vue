@@ -15,10 +15,10 @@ export default {
       config: {
         menuTitle: "學會公告",
         menuList: [
-          { text: "秘書處公告", link: { name: "NewsSecretariat" } },
-          { text: "活動通知", link: { name: "NewsEvents" } },
-          { text: "醫學新知", link: { name: "NewsMedicine" } },
-          { text: "申請公告活動資訊", link: { name: "NewsApplyEvent" } }
+          { text: "秘書處公告", displayType: "page", pageName: "NewsSecretariat" },
+          { text: "活動通知", displayType: "page", pageName: "NewsEvents" },
+          { text: "醫學新知", displayType: "page", pageName: "NewsMedicine" },
+          { text: "申請公告活動資訊", displayType: "page", pageName: "NewsApplyEvent" }
         ]
       }
     };

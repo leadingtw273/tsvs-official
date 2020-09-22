@@ -4,14 +4,34 @@ export default [
     name: "AdminCommonSetting",
     component() {
       return import("@/views/Admin/CommonSetting");
-    }
+    },
+    children: [
+      {
+        path: "背景圖片",
+        name: "AdminBackgroundImage",
+        component() {
+          return import("@/views/Admin/CommonSetting/BackgroundImage");
+        }
+      }
+    ],
+    redirect: { name: "AdminBackgroundImage" }
   },
   {
     path: "會員管理",
     name: "AdminMember",
     component() {
       return import("@/views/Admin/Member");
-    }
+    },
+    children: [
+      {
+        path: "使用者列表",
+        name: "AdminMemberList",
+        component() {
+          return import("@/views/Admin/Member/MemberList");
+        }
+      }
+    ],
+    redirect: { name: "AdminMemberList" }
   },
   {
     path: "內容管理",

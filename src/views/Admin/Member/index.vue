@@ -1,20 +1,20 @@
 <template>
   <the-view-content-card v-bind="config">
-    <member-table></member-table>
+    <router-view></router-view>
   </the-view-content-card>
 </template>
 
 <script>
-import MemberTable from "./components/MemberTable";
 import TheViewContentCard from "@/components/TheViewContentCard";
 
 export default {
   name: "Member",
-  components: { TheViewContentCard, MemberTable },
+  components: { TheViewContentCard },
   data() {
     return {
       config: {
-        menuTitle: "會員管理"
+        menuTitle: "會員管理",
+        menuList: [{ text: "會員列表", displayType: "page", pageName: "AdminMemberList" }]
       }
     };
   }

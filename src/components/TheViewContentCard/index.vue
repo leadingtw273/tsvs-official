@@ -7,14 +7,14 @@
       :subMenuIndex.sync="subMenuIndex"
     ></side-bar>
     <v-sheet color="secondary" class="sidebar-content py-12 px-8">
-      <content-header :mainText="mainItem.text" :subText="subItem != null ? subItem.text : ''"></content-header>
+      <card-header :mainText="mainItem.text" :subText="subItem != null ? subItem.text : ''"></card-header>
 
       <div class="my-12 px-12">
         <template v-if="targetItem.displayType === 'content'">
-          <span>displayType: content</span>
+          <card-content :fetchUrl="targetItem.fetchUrl"></card-content>
         </template>
         <template v-else-if="targetItem.displayType === 'list'">
-          <span>displayType: list</span>
+          <card-content-list :fetchUrl="targetItem.fetchUrl"></card-content-list>
         </template>
         <template v-else>
           <router-view></router-view>
@@ -26,11 +26,13 @@
 
 <script>
 import SideBar from "./components/SideBar";
-import ContentHeader from "./components/ContentHeader";
+import CardHeader from "./components/CardHeader";
+import CardContent from "./components/CardContent";
+import CardContentList from "./components/CardContentList";
 
 export default {
   name: "TheViewContentCard",
-  components: { SideBar, ContentHeader },
+  components: { SideBar, CardHeader, CardContent, CardContentList },
   props: {
     menuTitle: {
       type: String,

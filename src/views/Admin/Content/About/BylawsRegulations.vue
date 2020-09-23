@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <v-data-table :headers="headers" :items="items" class="elevation-1" dark hide-default-footer>
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">

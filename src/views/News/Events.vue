@@ -1,5 +1,5 @@
 <template>
-  <div class="px-12">
+  <div>
     <template v-if="viewItem == null">
       <the-view-item-list :itemList="dataList" @select="showContent"></the-view-item-list>
     </template>

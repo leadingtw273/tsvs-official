@@ -1,11 +1,11 @@
 <template>
   <div>
     <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
-    <div class="my-12 px-12" v-if="contentItemIndex === 0">
+    <div v-if="contentItemIndex === 0">
       <span class="d-flex mb-6">2019年會 / 議程 (需登入即可觀看)</span>
       <v-sheet class="video-block" color="primary" width="100%" height="500px"></v-sheet>
     </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 1">
+    <div v-if="contentItemIndex === 1">
       <span class="d-flex mb-6">2019夏季會 / 議程 (需登入即可觀看)</span>
       <v-sheet class="video-block" color="primary" width="100%" height="500px"></v-sheet>
     </div>

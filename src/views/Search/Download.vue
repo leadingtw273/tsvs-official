@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column my-12 px-12">
+  <div class="d-flex flex-column">
     <span class="mb-6">手術例數申報表</span>
     <span class="mb-6 accent--text">點此下載 : Excel_手術例數申報表</span>
     <span class="mb-6">手術例數申報表_使用介紹</span>

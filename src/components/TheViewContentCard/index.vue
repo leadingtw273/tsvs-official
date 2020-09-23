@@ -9,8 +9,8 @@
     <v-sheet color="secondary" class="sidebar-content py-12 px-8">
       <card-header :mainText="mainItem.text" :subText="subItem != null ? subItem.text : ''"></card-header>
 
-      <div class="my-12 px-12">
-        <component :is="displayComponent" :fetchUrl="targetItem.fetchUrl"></component>
+      <div class="ma-12">
+        <component class="px-12" :is="displayComponent" :fetchUrl="targetItem.fetchUrl"></component>
       </div>
     </v-sheet>
   </div>

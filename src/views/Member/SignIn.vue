@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <v-sheet color="transparent" max-width="500px">
       <div class="d-flex mb-6">
         <span class="align-self-center mr-6">帳號</span>

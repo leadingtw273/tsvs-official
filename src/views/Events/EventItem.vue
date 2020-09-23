@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <span class="headline accent--text">【會議】TSVS 第八屆第二次夏季學術研討會</span>
     <v-divider class="my-6"></v-divider>
     <v-row dense>

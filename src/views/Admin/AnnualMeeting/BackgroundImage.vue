@@ -1,5 +1,5 @@
 <template>
-  <div class="my-6 px-6">
+  <div>
     <v-sheet class="d-flex pa-2 mb-6" style="width: 500px;" dark>
       <v-file-input label="首頁背景圖上傳"></v-file-input>
       <v-btn class="ml-6 align-self-center" color="primary" large>Save</v-btn>

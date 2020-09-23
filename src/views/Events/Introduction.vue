@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <div class="d-flex">
       <div style="width: 200px;">
         <v-select v-model="selectedClass" :items="eventClass" label="類別" outlined dense hide-details></v-select>

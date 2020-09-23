@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <template v-if="targetId == null">
       <the-view-item-list :itemList="resource" @select="selectId"></the-view-item-list>
     </template>

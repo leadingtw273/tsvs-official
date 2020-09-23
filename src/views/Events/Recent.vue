@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <v-sheet dark>
       <v-row class="fill-height">
         <v-col>

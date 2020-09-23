@@ -2,7 +2,7 @@
   <div>
     <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
 
-    <div class="my-12 px-12" v-if="contentItemIndex === 0">
+    <div v-if="contentItemIndex === 0">
       <div class="章程法令規章-法令內容">
         <div class="章程法令規章-法令內容__7028bec7bbd04b04955871f46e11e1fc headline">
           主動脈支架置放術_操作人員資格 (衛福部報備資料要求)

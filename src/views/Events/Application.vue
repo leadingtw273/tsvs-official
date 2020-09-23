@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <span class="title primary--text">(免費申請，請於活動前兩周提出申請)</span>
     <v-divider class="my-2"></v-divider>
     <v-form v-model="valid">

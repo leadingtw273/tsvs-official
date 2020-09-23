@@ -1,5 +1,5 @@
 <template>
-  <div class="my-6 px-6">
+  <div>
     <v-sheet class="d-flex px-4 mb-6" style="width: 500px;" dark>
       <span class="align-self-center mr-6 title">頁首圖片</span>
       <v-file-input label="首頁背景圖上傳"></v-file-input>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
-    <div class="my-12 px-12" v-if="contentItemIndex === 0">
+    <div v-if="contentItemIndex === 0">
       <div class="會員入會-入會須知內容">
         <div class="會員入會-入會須知內容__900a60fcb5654a30abe17c932d39abb5">
           本會會員分類及入會方式如下：
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 1">
+    <div v-if="contentItemIndex === 1">
       <v-stepper v-model="signUpStep">
         <v-stepper-header>
           <v-stepper-step :complete="signUpStep > 0" :step="1" :editable="true">選擇會員別</v-stepper-step>

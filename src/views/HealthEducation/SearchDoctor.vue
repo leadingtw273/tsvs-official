@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <v-sheet color="transparent" max-width="600px">
       <v-row>
         <v-col cols="auto" class="d-flex">

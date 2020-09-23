@@ -1,5 +1,5 @@
 <template>
-  <div class="my-12 px-12">
+  <div>
     <div class="章程法令規章-學會章程內容">
       <div class="章程法令規章-學會章程內容__a2188fc3e9ea4b7d93eda3732877116e headline">
         一、 總則

@@ -2,7 +2,7 @@
   <div>
     <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
 
-    <div class="my-12 px-12" v-if="contentItemIndex === 0">
+    <div v-if="contentItemIndex === 0">
       <div class="章程法令規章-規章-教育積分認定辦法內容">
         <div class="章程法令規章-規章-教育積分認定辦法內容__4329e61acb4d4577a97742849d337ef4 headline">
           教育積分認定辦法
@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 1">
+    <div v-if="contentItemIndex === 1">
       <div class="章程法令規章-規章-專科醫師甄審辦法內容">
         <div class="章程法令規章-規章-專科醫師甄審辦法內容__40fbfc27b4614f3b885ea493128a180c headline">
           專科醫師甄審辦法
@@ -192,7 +192,7 @@
         </div>
       </div>
     </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 2">
+    <div v-if="contentItemIndex === 2">
       <div class="章程法令規章-規章-專科醫師訓練內容內容">
         <div class="章程法令規章-規章-專科醫師訓練內容內容__b54b51dffbb549ff820c502baa21fcf3 headline">
           專科醫師訓練內容
@@ -231,7 +231,7 @@
         </div>
       </div>
     </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 3">
+    <div v-if="contentItemIndex === 3">
       <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容">
         <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容__77933e59914847a3a803400707f7a915 headline">
           智慧深耕獎(IUA)甄選辦法
@@ -271,7 +271,7 @@
         </div>
       </div>
     </div>
-    <div class="my-12 px-12" v-if="contentItemIndex === 4">
+    <div v-if="contentItemIndex === 4">
       <div class="章程法令規章-規章-委員會組織簡則內容">
         <div class="章程法令規章-規章-委員會組織簡則內容__e4e3f8936d4d4089b24d9df59dc79d05 headline">
           委員會組織簡則

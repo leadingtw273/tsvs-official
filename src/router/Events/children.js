@@ -7,20 +7,6 @@ export default [
     }
   },
   {
-    path: "申請進度查詢",
-    name: "EventsProgressQuery",
-    component() {
-      return import("@/views/Events/ProgressQuery.vue");
-    }
-  },
-  {
-    path: "今日活動內容",
-    name: "EventsToday",
-    component() {
-      return import("@/views/Events/Today.vue");
-    }
-  },
-  {
     path: "近期會議活動課程",
     name: "EventsRecent",
     component() {

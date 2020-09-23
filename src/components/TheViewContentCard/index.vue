@@ -10,15 +10,7 @@
       <card-header :mainText="mainItem.text" :subText="subItem != null ? subItem.text : ''"></card-header>
 
       <div class="my-12 px-12">
-        <template v-if="targetItem.displayType === 'content'">
-          <card-content :fetchUrl="targetItem.fetchUrl"></card-content>
-        </template>
-        <template v-else-if="targetItem.displayType === 'list'">
-          <card-content-list :fetchUrl="targetItem.fetchUrl"></card-content-list>
-        </template>
-        <template v-else>
-          <router-view></router-view>
-        </template>
+        <component :is="displayComponent" :fetchUrl="targetItem.fetchUrl"></component>
       </div>
     </v-sheet>
   </div>
@@ -72,6 +64,15 @@ export default {
     },
     currentPath() {
       return this.$route.path;
+    },
+    displayComponent() {
+      const componentMap = new Map([
+        ["content", "CardContent"],
+        ["list", "CardContentList"],
+        ["page", "RouterView"]
+      ]);
+
+      return componentMap.get(this.targetItem.displayType);
     }
   },
   watch: {

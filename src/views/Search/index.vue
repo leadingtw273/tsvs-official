@@ -15,7 +15,8 @@ export default {
       config: {
         menuTitle: "資料查詢",
         menuList: [
-          { text: "手術準則與參考標準", displayType: "page", pageName: "SearchGuidelines" },
+          { text: "手術準則", displayType: "page", pageName: "SearchSurgicalGuidelines" },
+          { text: "參考標準", displayType: "page", pageName: "SearchGuidelines" },
           { text: "影片紀錄", displayType: "page", pageName: "SearchRecord" },
           { text: "訓練醫院", displayType: "page", pageName: "SearchTrainingHospital" },
           { text: "衛福部資訊", displayType: "page", pageName: "SearchLink" },

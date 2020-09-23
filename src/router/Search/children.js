@@ -1,9 +1,16 @@
 export default [
   {
-    path: "手術準則與參考標準",
+    path: "參考標準",
     name: "SearchGuidelines",
     component() {
       return import("@/views/Search/Guidelines.vue");
+    }
+  },
+  {
+    path: "手術準則",
+    name: "SearchSurgicalGuidelines",
+    component() {
+      return import("@/views/Search/SurgicalGuidelines.vue");
     }
   },
   {

@@ -24,10 +24,24 @@ export default [
     },
     children: [
       {
-        path: "使用者列表",
+        path: "會員列表",
         name: "AdminMemberList",
         component() {
           return import("@/views/Admin/Member/MemberList");
+        }
+      },
+      {
+        path: "會員審核",
+        name: "AdminMemberApply",
+        component() {
+          return import("@/views/Admin/Member/MemberApply");
+        }
+      },
+      {
+        path: "積分申請",
+        name: "AdminMemberQuantityApply",
+        component() {
+          return import("@/views/Admin/Member/QuantityApply");
         }
       }
     ],
@@ -149,43 +163,5 @@ export default [
       }
     ],
     redirect: { name: "AdminAbout" }
-  },
-  {
-    path: "年會頁面管理",
-    name: "AdminAnnualMeeting",
-    component() {
-      return import("@/views/Admin/AnnualMeeting");
-    },
-    children: [
-      {
-        path: "首頁圖",
-        name: "AdminAnnualMeetingBackgroundImage",
-        component() {
-          return import("@/views/Admin/AnnualMeeting/BackgroundImage");
-        }
-      },
-      {
-        path: "議程",
-        name: "AdminAnnualMeetingAgenda",
-        component() {
-          return import("@/views/Admin/AnnualMeeting/Agenda");
-        }
-      },
-      {
-        path: "人員",
-        name: "AdminAnnualMeetingMember",
-        component() {
-          return import("@/views/Admin/AnnualMeeting/Member");
-        }
-      },
-      {
-        path: "投稿",
-        name: "AdminAnnualMeetingContribute",
-        component() {
-          return import("@/views/Admin/AnnualMeeting/Contribute");
-        }
-      }
-    ],
-    redirect: { name: "AdminAnnualMeetingBackgroundImage" }
   }
 ];

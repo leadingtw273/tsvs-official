@@ -45,7 +45,7 @@
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text class="title text-shadow" :to="{ name: 'AdminContent' }" color="white">內容管理</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'AdminAnnualMeeting' }" color="white">年會頁面管理</v-btn>
+        <v-btn text class="title text-shadow" href="https://tsvs-admin.netlify.app/" color="white">年會頁面管理</v-btn>
       </div>
       <div class="mt-8" v-else>
         <v-btn text class="title text-shadow" :to="{ name: 'About' }" color="white">學會資訊</v-btn>

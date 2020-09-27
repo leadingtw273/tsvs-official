@@ -1,7 +1,28 @@
 <template>
   <div>
     <template v-if="viewItem == null">
+      <div class="d-flex mb-4">
+        <span class="ml-auto mr-2 align-self-center text-h6 ">查詢： </span>
+        <v-text-field
+          style="max-width: 300px;"
+          v-model="searchText"
+          label="關鍵字"
+          hide-details="auto"
+          outlined
+          dense
+        ></v-text-field>
+      </div>
+
       <the-view-item-list :itemList="dataList" @select="showContent"></the-view-item-list>
+
+      <v-pagination
+        v-if="resourceList.length > 10"
+        class="mt-4"
+        v-model="page"
+        :length="6"
+        color="primary_light_1"
+        dark
+      ></v-pagination>
     </template>
     <template v-else>
       <div v-html="viewItem.content"></div>
@@ -18,6 +39,8 @@ export default {
   components: { TheViewItemList },
   data() {
     return {
+      searchText: "",
+      page: 1,
       resourceList: [
         {
           id: "01",

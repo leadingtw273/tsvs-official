@@ -33,14 +33,21 @@ export default {
         console.error("store/user/actions/login => 無法取得用戶資訊");
       }
     },
-    signOut({ commit }) {
-      commit("SET_USER", {
-        name: null,
-        authenticate: null,
-        type: 999
-      });
+    async signOut({ commit, state }) {
+      const member = new apiMember();
+      const { success } = await member.signOut(state.authenticate.token);
 
-      store.remove("authenticate");
+      if (success) {
+        commit("SET_USER", {
+          name: null,
+          authenticate: null,
+          type: 999
+        });
+
+        store.remove("authenticate");
+      } else {
+        console.error("store/user/actions/signOut => 無法正確登出");
+      }
     },
     async reGetStatus({ dispatch }) {
       if (!store.has("authenticate")) return;

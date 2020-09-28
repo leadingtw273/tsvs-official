@@ -1,6 +1,16 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" class="elevation-1" dark>
+    <v-data-table
+      dark
+      :headers="headers"
+      :items="user.data"
+      class="elevation-1"
+      :loading="user.loading"
+      :footer-props="footerProps"
+      :options.sync="pageOptions"
+      :server-items-length="user.total"
+      @update:options="fetchUsers"
+    >
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">
           mdi-pencil
@@ -13,11 +23,13 @@
       <template v-slot:top>
         <v-toolbar flat dark>
           <v-toolbar-title>使用者列表</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
+          <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
+          <!-- <v-spacer></v-spacer> -->
+          <!-- <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn> -->
         </v-toolbar>
       </template>
+
+      <template v-slot:top> </template>
     </v-data-table>
 
     <v-dialog v-model="dialog" max-width="900px" dark>
@@ -28,31 +40,22 @@
 
         <v-card-text class="black--text">
           <v-row>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.name" label="姓名"></v-text-field>
-            </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.identityNumber" label="身分證"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="editedItem.phone" label="手機號碼"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="editedItem.email" label="電子信箱"></v-text-field>
-            </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.hospital" label="任職醫院"></v-text-field>
-            </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.class" label="科別"></v-text-field>
+            <v-col v-for="key in Object.keys(defaultItem)" v-bind:key="key" cols="6">
+              <v-text-field v-if="typeof editedItem[key] === 'string'" v-model="editedItem[key]" :label="schema[key]" />
+
+              <v-text-field
+                v-else-if="typeof editedItem[key] === 'number'"
+                v-model.number="editedItem[key]"
+                :label="schema[key]"
+              />
             </v-col>
           </v-row>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="close">取消</v-btn>
+          <v-btn color="blue darken-1" text @click="save">更新</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -60,56 +63,98 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "MemberTable",
   data() {
     return {
+      loading: true,
       dialog: false,
+      footerProps: {
+        "items-per-page-options": [1, 5, 10, 30]
+      },
       headers: [
-        { text: "編號", value: "uid" },
-        { text: "姓名", value: "name" },
-        { text: "身分證", value: "identityNumber" },
-        { text: "電子信箱", value: "email" },
-        { text: "手機號碼", value: "phone" },
-        { text: "任職醫院", value: "hospital" },
-        { text: "科別", value: "class" },
+        { text: "編號", value: "id" },
+        { text: "姓名", value: "name_zh" },
+        { text: "身分證", value: "username" },
+        { text: "電子信箱", value: "mail" },
+        { text: "手機號碼", value: "phone_mobile" },
+        { text: "任職醫院", value: "org_name" },
+        { text: "科別", value: "org_department" },
         { text: "執行", value: "actions", sortable: false }
       ],
-      items: [
-        {
-          uid: "fg87hAsd8465",
-          name: "雲澈",
-          identityNumber: "S458965821",
-          email: "evil@gmail.com",
-          phone: "0946215320",
-          hospital: "聖馬爾定",
-          class: "精神"
-        }
-      ],
-      editedIndex: -1,
-      editedItem: {
-        uid: "",
-        name: "",
-        identityNumber: "",
-        email: "",
-        phone: "",
-        hospital: "",
-        class: ""
+      pageOptions: {},
+      schema: {
+        username: "帳號",
+        name_zh: "中文姓名/單位名稱",
+        name_en: "英文姓名",
+        mail: "電子信箱",
+        gender: "性別",
+        class: "會員類別",
+        link: "介紹連結",
+        adddress_contact: "通訊地址",
+        address_official: "戶籍地址",
+        applyDate: "申請日期",
+        birthDate: "生日",
+        cover_image: "個人照片/Logo",
+        diplomacy_image: "證明文件",
+        education: "學歷",
+        org_name: "醫院名稱",
+        org_address: "醫院地址",
+        org_contact_person: "醫院連絡人",
+        org_department: "醫院科別",
+        org_position: "現任職務",
+        phone_mobile: "行動電話",
+        phone_office: "公司電話",
+        role: "權限",
+        type: "身分別"
       },
+      items: [],
+      editedIndex: -1,
+      editedItem: {},
       defaultItem: {
-        uid: "",
-        name: "",
-        identityNumber: "",
-        email: "",
-        phone: "",
-        hospital: "",
-        class: ""
+        username: "",
+        name_zh: "",
+        name_en: "",
+        mail: "",
+        gender: 0,
+        class: 1,
+        link: "",
+        adddress_contact: "",
+        address_official: "",
+        applyDate: "",
+        birthDate: "",
+        cover_image: "",
+        diplomacy_image: "",
+        education: "",
+        org_name: "",
+        org_address: "",
+        org_contact_person: "",
+        org_department: "",
+        org_position: "",
+        phone_mobile: "",
+        phone_office: "",
+        role: 999,
+        type: 1
       }
     };
   },
+  created() {
+    this.fetchUsers();
+  },
   computed: {
+    ...mapState({
+      user: state => state.admin.user.user
+    }),
     formTitle() {
       return this.editedIndex === -1 ? "新增" : "編輯";
+    },
+    pagination() {
+      return {
+        size: this.pageOptions.itemsPerPage || 10,
+        page: this.pageOptions.page || 1
+      };
     }
   },
   watch: {
@@ -118,14 +163,17 @@ export default {
     }
   },
   methods: {
+    fetchUsers() {
+      this.$store.dispatch("admin/user/getUserList", this.pagination);
+    },
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-    deleteItem(item) {
-      const index = this.items.indexOf(item);
-      confirm("確定刪除這筆資料？") && this.items.splice(index, 1);
+    async deleteItem(item) {
+      confirm("確定刪除這筆資料？") && (await this.$store.dispatch("admin/user/deleteUser", item.id));
+      this.fetchUsers();
     },
     close() {
       this.dialog = false;
@@ -134,13 +182,14 @@ export default {
         this.editedIndex = -1;
       });
     },
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
         Object.assign(this.items[this.editedIndex], this.editedItem);
       } else {
-        this.items.push(this.editedItem);
+        await this.$store.dispatch("admin/user/updateUser", this.editedItem);
       }
       this.close();
+      this.fetchUsers();
     }
   }
 };

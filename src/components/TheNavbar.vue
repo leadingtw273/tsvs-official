@@ -89,10 +89,10 @@ export default {
   name: "TheNavbar",
   computed: {
     userName() {
-      return this.$store.getters.userName;
+      return this.$store.getters["user/name"];
     },
     userRole() {
-      return this.$store.getters.userRole;
+      return this.$store.getters["user/role"];
     },
     pageType() {
       return this.$store.state.view;
@@ -113,7 +113,7 @@ export default {
       this.$router.push({ name: page });
     },
     signOut() {
-      this.$store.dispatch("signOut");
+      this.$store.dispatch("user/signOut");
       this.$router.push({ name: "Home" });
     }
   }

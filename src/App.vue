@@ -23,7 +23,7 @@ export default {
   name: "App",
   components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog },
   async created() {
-    await this.$store.dispatch("reGetUserStatus");
+    await this.$store.dispatch("user/reGetStatus");
   }
 };
 </script>

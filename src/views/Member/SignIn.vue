@@ -49,7 +49,7 @@ export default {
       });
 
       if (success) {
-        this.$store.dispatch("login", data);
+        this.$store.dispatch("user/login", data);
         this.$router.replace({ name: "Home" });
       } else {
         this.success = success;

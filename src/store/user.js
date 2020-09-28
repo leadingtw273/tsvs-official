@@ -30,6 +30,8 @@ export default {
         });
         store.set("authenticate", JSON.stringify(authenticate));
       } else {
+        if (store.has("authenticate")) store.remove("authenticate");
+
         console.error("store/user/actions/login => 無法取得用戶資訊");
       }
     },

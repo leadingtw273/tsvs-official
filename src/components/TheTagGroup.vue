@@ -1,6 +1,6 @@
 <template>
   <v-btn-toggle
-    class="d-flex flex-wrap mb-6 mx-8"
+    class="d-flex flex-wrap mb-6"
     v-model="ItemIndex"
     v-if="contentList.length !== 0"
     color="accent"

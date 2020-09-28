@@ -7,16 +7,20 @@
     </v-main>
 
     <the-footer></the-footer>
+
+    <network-error-dialog></network-error-dialog>
+    <response-error-dialog></response-error-dialog>
   </v-app>
 </template>
 
 <script>
-import TheNavbar from "./components/TheNavbar";
-import TheFooter from "./components/TheFooter";
+import TheNavbar from "@/components/TheNavbar";
+import TheFooter from "@/components/TheFooter";
+import NetworkErrorDialog from "@/components/Dialog/NetworkError";
+import ResponseErrorDialog from "@/components/Dialog/ResponseError";
 
 export default {
   name: "App",
-  components: { TheNavbar, TheFooter },
-  data: () => ({})
+  components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog }
 };
 </script>

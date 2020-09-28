@@ -1,10 +1,10 @@
 import axios from "axios";
+import store from "@/store";
 
 const getBaseUrl = env => {
   let base = {
-    production: "/",
-    development: "http://localhost:3000",
-    test: "http://localhost:3001"
+    production: "https://3ccc447e8f8f.ngrok.io",
+    development: "https://3ccc447e8f8f.ngrok.io"
   }[env];
   if (!base) {
     base = "/";
@@ -39,12 +39,25 @@ export default class Api {
       function(response) {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data
-        return response;
+        return response.data;
       },
       function(error) {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
-        return Promise.reject(error);
+        if (error.response == null) {
+          store.dispatch("dialog/setNetworkError", true);
+          return { success: false };
+        } else {
+          const { code, msg, detail } = error.response.data;
+          store.dispatch("dialog/setResponseError", {
+            show: true,
+            code,
+            msg,
+            detail
+          });
+
+          return error.response.data;
+        }
       }
     );
   }
@@ -59,23 +72,23 @@ export default class Api {
     this._interceptorsResponse = this._instance.interceptors.response.use(interceptors);
   }
 
-  async get(url, params = {}) {
-    return await this._instance.get(url, { params });
+  async get(url, option = {}) {
+    return await this._instance.get(url, option);
   }
 
-  async post(url, data, params = {}) {
-    return await this._instance.post(url, data, { params });
+  async post(url, data, option = {}) {
+    return await this._instance.post(url, data, option);
   }
 
-  async put(url, data, params = {}) {
-    return await this._instance.put(url, data, { params });
+  async put(url, data, option = {}) {
+    return await this._instance.put(url, data, option);
   }
 
-  async patch(url, data, params = {}) {
-    return await this._instance.patch(url, data, { params });
+  async patch(url, data, option = {}) {
+    return await this._instance.patch(url, data, option);
   }
 
-  async delete(url, params = {}) {
-    return await this._instance.delete(url, { params });
+  async delete(url, option = {}) {
+    return await this._instance.delete(url, option);
   }
 }

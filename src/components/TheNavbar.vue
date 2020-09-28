@@ -11,23 +11,39 @@
           </div>
         </router-link>
         <div class="d-flex align-self-center">
-          <v-btn outlined class="text-shadow" rounded :to="{ name: 'MemberSignIn' }" color="white">會員登入</v-btn>
+          <v-btn outlined class="text-shadow" rounded color="white" @click="signOut()" v-if="userName != null">
+            會員登出
+          </v-btn>
           <v-btn
+            outlined
+            class="text-shadow"
             rounded
-            class="ml-4 text-shadow"
-            color="accent"
-            @click="pushToPage('Admin')"
-            v-if="userType === 0 && pageType === 'normal'"
-            >後臺管理</v-btn
+            :to="{ name: 'MemberSignIn' }"
+            color="white"
+            v-if="userName == null"
           >
-          <v-btn
-            rounded
-            class="ml-4 text-shadow"
-            color="primary"
-            @click="pushToPage('Home')"
-            v-if="userType === 0 && pageType === 'admin'"
-            >一般頁面</v-btn
-          >
+            會員登入
+          </v-btn>
+          <template v-if="userName != null && userRole != 999">
+            <v-btn
+              rounded
+              class="ml-4 text-shadow"
+              color="accent"
+              @click="pushToPage('Admin')"
+              v-if="pageType === 'normal'"
+            >
+              後臺管理
+            </v-btn>
+            <v-btn
+              rounded
+              class="ml-4 text-shadow"
+              color="primary"
+              @click="pushToPage('Home')"
+              v-if="pageType === 'admin'"
+            >
+              一般頁面
+            </v-btn>
+          </template>
           <v-btn text rounded class="ml-2 text-shadow" color="white">English</v-btn>
           <v-divider class="align-self-center mx-5" vertical></v-divider>
           <v-btn icon large color="#3B5998">
@@ -72,15 +88,15 @@
 export default {
   name: "TheNavbar",
   computed: {
-    userType() {
-      return this.$store.state.userType;
+    userName() {
+      return this.$store.getters.userName;
+    },
+    userRole() {
+      return this.$store.getters.userRole;
     },
     pageType() {
       return this.$store.state.view;
     }
-  },
-  data() {
-    return {};
   },
   methods: {
     pushToPage(page) {
@@ -95,6 +111,10 @@ export default {
           this.$store.commit("checkoutNormalViewPage");
       }
       this.$router.push({ name: page });
+    },
+    signOut() {
+      this.$store.dispatch("signOut");
+      this.$router.push({ name: "Home" });
     }
   }
 };

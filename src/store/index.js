@@ -12,7 +12,7 @@ export default new Vuex.Store({
     user: {
       name: null,
       authenticate: null,
-      type: 999
+      role: 999
     },
     view: "normal"
   },
@@ -33,12 +33,12 @@ export default new Vuex.Store({
       const { success, data } = await member.getSelf(authenticate.token);
 
       if (success) {
-        const { username, type } = data;
+        const { username, role } = data;
 
         commit("SET_USER", {
           name: username,
           authenticate,
-          type
+          role
         });
         store.set("authenticate", JSON.stringify(authenticate));
       } else {
@@ -57,6 +57,14 @@ export default new Vuex.Store({
     async reGetUserStatus({ dispatch }) {
       const authenticate = JSON.parse(store.get("authenticate"));
       await dispatch("login", authenticate);
+    }
+  },
+  getters: {
+    userRole(state) {
+      return state.user.role;
+    },
+    userName(state) {
+      return state.user.name;
     }
   },
   modules: {

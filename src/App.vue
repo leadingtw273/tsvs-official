@@ -21,6 +21,9 @@ import ResponseErrorDialog from "@/components/Dialog/ResponseError";
 
 export default {
   name: "App",
-  components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog }
+  components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog },
+  async created() {
+    await this.$store.dispatch("reGetUserStatus");
+  }
 };
 </script>

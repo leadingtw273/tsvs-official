@@ -26,6 +26,8 @@ export default class Api {
     this._interceptorsRequest = this._instance.interceptors.request.use(
       function(config) {
         // Do something before request is sent
+
+        store.dispatch("setLoading", true);
         return config;
       },
       function(error) {
@@ -39,11 +41,17 @@ export default class Api {
       function(response) {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data
+
+        store.dispatch("setLoading", false);
+
         return response.data;
       },
       function(error) {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
+
+        store.dispatch("setLoading", false);
+
         if (error.response == null) {
           store.dispatch("dialog/setNetworkError", true);
           return { success: false };

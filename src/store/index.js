@@ -8,7 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    view: "normal"
+    view: "normal",
+    loading: false
   },
   mutations: {
     checkoutAdminViewPage(state) {
@@ -16,9 +17,16 @@ export default new Vuex.Store({
     },
     checkoutNormalViewPage(state) {
       state.view = "normal";
+    },
+    SET_LOADING(state, payload) {
+      state.loading = payload;
     }
   },
-  actions: {},
+  actions: {
+    setLoading({ commit }, payload) {
+      commit("SET_LOADING", payload);
+    }
+  },
   modules: {
     user,
     dialog

@@ -10,6 +10,10 @@
 
     <network-error-dialog></network-error-dialog>
     <response-error-dialog></response-error-dialog>
+
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-app>
 </template>
 
@@ -22,6 +26,11 @@ import ResponseErrorDialog from "@/components/Dialog/ResponseError";
 export default {
   name: "App",
   components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog },
+  computed: {
+    loading() {
+      return this.$store.state.loading;
+    }
+  },
   async created() {
     await this.$store.dispatch("user/reGetStatus");
   }

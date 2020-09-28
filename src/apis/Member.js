@@ -26,10 +26,12 @@ export default class MemberApi extends Api {
     return await super.post(`${this.url}/login`, { username, password });
   }
 
-  async signUp() {}
+  async signUp(formData) {
+    return await super.post(`${this.url}/register`, formData);
+  }
 
   async signOut(token) {
-    return await super.post(`${this.url}/logout`, { headers: { Authorization: `Bearer ${token}` } });
+    return await super.post(`${this.url}/logout`, {}, { headers: { Authorization: `Bearer ${token}` } });
   }
 
   async getSelf(token) {

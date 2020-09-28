@@ -2,16 +2,16 @@
   <v-dialog v-model="show" width="500">
     <v-card dark>
       <v-card-title class="headline">
-        操作錯誤
+        {{ content.detail === "" ? "操作錯誤" : content.msg }}
         <v-spacer></v-spacer>
-        <v-btn @click.stop="dialog = false" icon>
+        <v-btn @click.stop="show = false" icon>
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
 
       <v-card-text class="d-flex flex-column align-center">
         <v-icon color="error" size="150">mdi-alert-circle</v-icon>
-        <span class="white--text text-h6">{{ content.msg }}</span>
+        <span class="white--text text-h6">{{ content.detail === "" ? content.msg : content.detail }}</span>
       </v-card-text>
 
       <v-divider></v-divider>

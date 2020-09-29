@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store";
 import Home from "../views/Home";
 import NotFound from "../views/NotFound";
 
@@ -19,11 +18,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
-    beforeEnter(to, from, next) {
-      store.commit("checkoutNormalViewPage");
-      next();
-    }
+    component: Home
   },
   ...Admin,
   ...About,

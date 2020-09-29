@@ -86,10 +86,11 @@ export default {
 
       let mainMenuText = null;
       let subMenuText = null;
-      if (this.$store.state.view === "admin") {
-        [, , , mainMenuText, subMenuText] = path.split("/");
+      const pathItems = path.split("/");
+      if (pathItems.find(item => item === "admin") != undefined) {
+        [, , , mainMenuText, subMenuText] = pathItems;
       } else {
-        [, , mainMenuText, subMenuText] = path.split("/");
+        [, , mainMenuText, subMenuText] = pathItems;
       }
 
       return { mainMenuText, subMenuText };

@@ -10,8 +10,11 @@ export default [
     },
     children,
     beforeEnter(to, from, next) {
-      store.commit("checkoutAdminViewPage");
-      next();
+      if (store.getters["user/role"] === 0 || store.getters["user/role"] === 1) {
+        next();
+      } else {
+        next({ name: "Home" });
+      }
     },
     redirect: { name: "AdminCommonSetting" }
   }

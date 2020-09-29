@@ -26,27 +26,21 @@
             會員登入
           </v-btn>
 
-          <v-btn class="ml-4 text-shadow" rounded color="primary" v-if="userStatus === 'success'">
+          <v-btn
+            class="ml-4 text-shadow"
+            rounded
+            color="primary"
+            :to="{ name: 'Member' }"
+            v-if="userStatus === 'success'"
+          >
             會員中心
           </v-btn>
 
-          <template v-if="userStatus === 'success' && userRole != 999">
-            <v-btn
-              rounded
-              class="ml-4 text-shadow"
-              color="accent"
-              @click="pushToPage('Admin')"
-              v-if="pageType === 'normal'"
-            >
+          <template v-if="userStatus === 'success' && (userRole === 0 || userRole === 1)">
+            <v-btn rounded class="ml-4 text-shadow" color="accent" :to="{ name: 'Admin' }" v-if="pageType === 'normal'">
               後臺管理
             </v-btn>
-            <v-btn
-              rounded
-              class="ml-4 text-shadow"
-              color="primary"
-              @click="pushToPage('Home')"
-              v-if="pageType === 'admin'"
-            >
+            <v-btn rounded class="ml-4 text-shadow" color="primary" :to="{ name: 'Home' }" v-if="pageType === 'admin'">
               一般頁面
             </v-btn>
           </template>
@@ -60,7 +54,7 @@
           </v-btn>
         </div>
       </div>
-      <div class="mt-8" v-if="pageType === 'admin'">
+      <div class="mt-8" v-if="pageType === 'admin' && userStatus === 'success' && (userRole === 0 || userRole === 1)">
         <v-btn text class="title text-shadow" :to="{ name: 'AdminCommonSetting' }" color="white">一般設定</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text class="title text-shadow" :to="{ name: 'AdminMember' }" color="white">會員管理</v-btn>
@@ -101,23 +95,11 @@ export default {
       return this.$store.getters["user/role"];
     },
     pageType() {
-      return this.$store.state.view;
+      const [, path] = this.$route.path.split("/");
+      return path === "admin" ? "admin" : "normal";
     }
   },
   methods: {
-    pushToPage(page) {
-      switch (page) {
-        case "admin":
-          this.$store.commit("checkoutAdminViewPage");
-          break;
-        case "home":
-          this.$store.commit("checkoutNormalViewPage");
-          break;
-        default:
-          this.$store.commit("checkoutNormalViewPage");
-      }
-      this.$router.push({ name: page });
-    },
     signOut() {
       this.$store.dispatch("user/signOut");
       this.$router.push({ name: "Home" });

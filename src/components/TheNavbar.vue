@@ -11,20 +11,26 @@
           </div>
         </router-link>
         <div class="d-flex align-self-center">
-          <v-btn outlined class="text-shadow" rounded color="white" @click="signOut()" v-if="userName != null">
+          <v-btn outlined class="text-shadow" rounded color="white" @click="signOut()" v-if="userStatus === 'success'">
             會員登出
           </v-btn>
+
           <v-btn
             outlined
             class="text-shadow"
             rounded
             :to="{ name: 'MemberSignIn' }"
             color="white"
-            v-if="userName == null"
+            v-if="userStatus === 'notSigned'"
           >
             會員登入
           </v-btn>
-          <template v-if="userName != null && userRole != 999">
+
+          <v-btn class="ml-4 text-shadow" rounded color="primary" v-if="userStatus === 'success'">
+            會員中心
+          </v-btn>
+
+          <template v-if="userStatus === 'success' && userRole != 999">
             <v-btn
               rounded
               class="ml-4 text-shadow"
@@ -88,8 +94,8 @@
 export default {
   name: "TheNavbar",
   computed: {
-    userName() {
-      return this.$store.getters["user/name"];
+    userStatus() {
+      return this.$store.getters["user/status"];
     },
     userRole() {
       return this.$store.getters["user/role"];

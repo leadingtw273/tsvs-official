@@ -1,5 +1,5 @@
 <template>
-  <router-view v-if="$store.state.user.name && $store.state.user.name.length > 0"></router-view>
+  <router-view v-if="$store.getters['user/status'] === 'success'"></router-view>
 </template>
 
 <script>

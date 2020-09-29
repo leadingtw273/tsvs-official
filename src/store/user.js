@@ -6,6 +6,7 @@ export default {
   state: {
     name: null,
     authenticate: null,
+    status: "notSigned",
     role: 999
   },
   mutations: {
@@ -13,10 +14,15 @@ export default {
       state.name = name;
       state.authenticate = authenticate;
       state.role = role;
+    },
+    SET_STATUS(state, payload) {
+      state.status = payload;
     }
   },
   actions: {
     async login({ commit }, authenticate) {
+      commit("SET_STATUS", "loading");
+
       const member = new apiMember();
       const { success, data } = await member.getSelf(authenticate.token);
 
@@ -28,6 +34,7 @@ export default {
           authenticate,
           role
         });
+        commit("SET_STATUS", "success");
         store.set("authenticate", JSON.stringify(authenticate));
       } else {
         if (store.has("authenticate")) store.remove("authenticate");
@@ -46,6 +53,7 @@ export default {
           type: 999
         });
 
+        commit("SET_STATUS", "notSigned");
         store.remove("authenticate");
       } else {
         console.error("store/user/actions/signOut => 無法正確登出");
@@ -64,6 +72,9 @@ export default {
     },
     name(state) {
       return state.name;
+    },
+    status(state) {
+      return state.status;
     }
   }
 };

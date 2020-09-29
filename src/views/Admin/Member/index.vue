@@ -1,5 +1,6 @@
 <template>
   <the-view-content-card v-bind="config">
+    <div>sdfsdfs</div>
     <router-view></router-view>
   </the-view-content-card>
 </template>

@@ -153,17 +153,25 @@
                       hide-details="auto"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="8" class="d-flex">
+                  <v-col cols="9" class="d-flex">
                     <span class="align-self-center mr-6">現職服務醫院</span>
                     <v-text-field
-                      v-model="form.org_address"
-                      label="地點"
+                      v-model="address.county"
+                      class="pr-2"
+                      label="縣市"
+                      dense
+                      outlined
+                      hide-details="auto"
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="address.town"
+                      label="區鄉鎮"
                       dense
                       outlined
                       hide-details="auto"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4" class="d-flex">
+                  <v-col cols="3" class="d-flex">
                     <v-text-field
                       v-model="form.org_name"
                       label="醫院"
@@ -211,7 +219,8 @@
                     <v-file-input
                       v-model="coverFile"
                       accept="image/png, image/jpeg, image/bmp"
-                      label="檔案上傳"
+                      label="大頭照上傳"
+                      @change="uploadImage"
                       outlined
                       dense
                       hide-details="auto"
@@ -223,6 +232,7 @@
                       v-model="diplomacyFile"
                       accept="image/png, image/jpeg, image/bmp"
                       label="醫學院畢業證書上傳"
+                      @change="uploadImage"
                       outlined
                       dense
                       hide-details="auto"
@@ -386,6 +396,7 @@
 import TheTagGroup from "@/components/TheTagGroup";
 import DatePicker from "@/components/Picker/DatePicker";
 import apiMember from "@/apis/Member";
+import apiFile from "@/apis/File";
 import dayjs from "dayjs";
 
 export default {
@@ -400,6 +411,10 @@ export default {
       ],
       signUpStep: 1,
       birthdayMenu: false,
+      address: {
+        county: "",
+        town: ""
+      },
       coverFile: null,
       diplomacyFile: null,
       registrationStatus: null,
@@ -440,12 +455,21 @@ export default {
     password() {
       // 身分證後五碼 + 生日日期
       return this.form.username.slice(-5) + dayjs(this.form.birthDate).format("MMDD");
+    },
+    orgAddress() {
+      return this.address.county + this.address.town;
     }
   },
   watch: {
-    formClass(val) {
-      if (val === 1) this.form.gender = 1;
-      if (val === 2) this.form.gender = 0;
+    formClass(type) {
+      if (type === 1) this.form.gender = 1;
+      if (type === 2) this.form.gender = 0;
+    },
+    async coverFile(image) {
+      this.form.cover_image = await this.uploadImage(image);
+    },
+    async diplomacyFile(image) {
+      this.form.diplomacy_image = await this.uploadImage(image);
     }
   },
   methods: {
@@ -453,7 +477,8 @@ export default {
       const member = new apiMember();
 
       const password = this.password;
-      const { success } = await member.signUp({ password, ...this.form });
+      const org_address = this.orgAddress;
+      const { success } = await member.signUp({ ...this.form, password, org_address });
 
       if (success) {
         this.signUpStep = 3;
@@ -461,7 +486,13 @@ export default {
         this.registrationStatus = "failed";
       }
     },
-    uploadFile() {}
+    async uploadImage(file) {
+      const fileApi = new apiFile();
+
+      const { url } = await fileApi.uploadImage(file);
+
+      return url;
+    }
   },
   created() {}
 };

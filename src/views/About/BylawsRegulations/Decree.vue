@@ -1,9 +1,54 @@
 <template>
   <div>
-    <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
+    <template v-if="viewItem == null">
+      <div class="d-flex mb-4">
+        <span class="ml-auto mr-2 align-self-center text-h6 ">查詢： </span>
+        <v-text-field
+          style="max-width: 300px;"
+          v-model="searchText"
+          label="關鍵字"
+          hide-details="auto"
+          outlined
+          dense
+        ></v-text-field>
+      </div>
 
-    <div v-if="contentItemIndex === 0">
-      <div class="章程法令規章-法令內容">
+      <the-view-item-list :itemList="dataList" @select="showContent"></the-view-item-list>
+
+      <v-pagination
+        v-if="resourceList.length > 10"
+        class="mt-4"
+        v-model="page"
+        :length="6"
+        color="primary_light_1"
+        dark
+      ></v-pagination>
+    </template>
+    <template v-else>
+      <div v-html="viewItem.content"></div>
+    </template>
+  </div>
+</template>
+
+<script>
+import TheViewItemList from "@/components/TheViewItemList";
+import dayjs from "dayjs";
+
+export default {
+  name: "Decree",
+  components: { TheViewItemList },
+  data() {
+    return {
+      searchText: "",
+      page: 1,
+      resourceList: [
+        {
+          id: "01",
+          class: "章程法令規章",
+          image: "",
+          title: "主動脈支架置放術_操作人員資格",
+          date: "2019-12-17",
+          content: `<div class="章程法令規章-法令內容">
         <div class="章程法令規章-法令內容__7028bec7bbd04b04955871f46e11e1fc headline">
           主動脈支架置放術_操作人員資格 (衛福部報備資料要求)
           <br />
@@ -29,22 +74,31 @@
           <br />
           <br />⾃⼀百零六年三⽉⼀⽇⽣效
         </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import TheTagGroup from "@/components/TheTagGroup";
-
-export default {
-  name: "Decree",
-  components: { TheTagGroup },
-  data() {
-    return {
-      contentItemIndex: 0,
-      contentList: [{ text: "主動脈支架置放術_操作人員資格", tag: "#主動脈支架置放術_操作人員資格" }]
+      </div>`,
+          isAdvertising: false,
+          isLogin: true
+        }
+      ]
     };
+  },
+  computed: {
+    dataList() {
+      return this.resourceList
+        .map(({ id, title, date }) => ({ id, title, date }))
+        .sort(({ date: mainDate }, { date: subDate }) => {
+          if (dayjs(mainDate).isBefore(dayjs(subDate))) return 1;
+          if (dayjs(subDate).isBefore(dayjs(mainDate))) return -1;
+          return 0;
+        });
+    },
+    viewItem() {
+      return this.resourceList.find(({ id }) => id === this.$route.params.id);
+    }
+  },
+  methods: {
+    showContent(targetId) {
+      this.$router.push({ name: "AboutBylawsRegulationsDecreeItem", params: { id: targetId } });
+    }
   }
 };
 </script>

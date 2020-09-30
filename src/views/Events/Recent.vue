@@ -62,7 +62,6 @@
               @click:event="showEvent"
               @click:more="viewDay"
               @click:date="viewDay"
-              @change="updateRange"
             ></v-calendar>
             <v-menu
               v-model="selectedOpen"
@@ -92,6 +91,14 @@
                   </div>
                 </v-card-text>
                 <v-card-actions>
+                  <div>
+                    <v-btn color="white" text>
+                      匯入至 Google 日歷
+                    </v-btn>
+                    <v-btn color="white" text>
+                      下載 ics 日歷檔
+                    </v-btn>
+                  </div>
                   <v-spacer></v-spacer>
                   <v-btn
                     color="primary"
@@ -114,8 +121,6 @@
 </template>
 
 <script>
-import dayjs from "dayjs";
-
 export default {
   name: "Recent",
   data() {
@@ -133,8 +138,7 @@ export default {
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
-      events: [],
-      names: ["Meeting", "Holiday", "PTO", "Travel", "Event", "Birthday", "Conference", "Party"]
+      events: []
     };
   },
   computed: {
@@ -185,38 +189,47 @@ export default {
       }
 
       nativeEvent.stopPropagation();
-    },
-    updateRange({ start, end }) {
-      const events = [];
-
-      const min = new Date(`${start.date}T00:00:00`);
-      const max = new Date(`${end.date}T23:59:59`);
-      const days = (max.getTime() - min.getTime()) / 86400000;
-      const eventCount = this.rnd(days, days + 20);
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0;
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime());
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000));
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        const second = new Date(first.getTime() + secondTimestamp);
-
-        events.push({
-          id: this.rnd(0, 9999),
-          image: "https://fakeimg.pl/250x100/",
-          class: this.searchClassList[this.rnd(1, this.searchClassList.length - 1)],
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: dayjs(first).format("YYYY-MM-DD hh:mm:ss"),
-          end: dayjs(second).format("YYYY-MM-DD hh:mm:ss"),
-          timed: !allDay
-        });
-      }
-
-      this.events = events;
-    },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
     }
+  },
+  created() {
+    this.events = [
+      {
+        id: 0,
+        image: "https://fakeimg.pl/250x100/",
+        class: "TSVS 主辦",
+        name: "測試活動01",
+        start: "2020-09-21 09:30:00",
+        end: "2020-09-22 17:30:00",
+        timed: true
+      },
+      {
+        id: 1,
+        image: "https://fakeimg.pl/250x100/",
+        class: "課程",
+        name: "測試活動02",
+        start: "2020-09-16 09:30:00",
+        end: "2020-09-16 17:30:00",
+        timed: true
+      },
+      {
+        id: 2,
+        image: "https://fakeimg.pl/250x100/",
+        class: "TSVS 主辦",
+        name: "測試活動03",
+        start: "2020-09-12 09:30:00",
+        end: "2020-09-13 17:30:00",
+        timed: true
+      },
+      {
+        id: 3,
+        image: "https://fakeimg.pl/250x100/",
+        class: "甄試",
+        name: "測試活動04",
+        start: "2020-09-15 09:30:00",
+        end: "2020-09-16 17:30:00",
+        timed: true
+      }
+    ];
   }
 };
 </script>

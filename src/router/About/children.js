@@ -43,14 +43,26 @@ export default [
         name: "AboutBylawsRegulationsRegulations",
         component() {
           return import("@/views/About/BylawsRegulations/Regulations");
-        }
+        },
+        children: [
+          {
+            path: ":id",
+            name: "AboutBylawsRegulationsRegulationsItem"
+          }
+        ]
       },
       {
         path: "法令",
         name: "AboutBylawsRegulationsDecree",
         component() {
           return import("@/views/About/BylawsRegulations/Decree");
-        }
+        },
+        children: [
+          {
+            path: ":id",
+            name: "AboutBylawsRegulationsDecreeItem"
+          }
+        ]
       }
     ],
     component() {

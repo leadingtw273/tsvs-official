@@ -40,6 +40,20 @@ export default {
             title: "人工智慧的醫療照護應用",
             subTitle: "小病就跑大醫院？減少醫療浪費"
           }
+        },
+        {
+          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          text: {
+            title: "人工智慧的醫療照護應用",
+            subTitle: "小病就跑大醫院？減少醫療浪費"
+          }
+        },
+        {
+          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          text: {
+            title: "人工智慧的醫療照護應用",
+            subTitle: "小病就跑大醫院？減少醫療浪費"
+          }
         }
       ]
     };

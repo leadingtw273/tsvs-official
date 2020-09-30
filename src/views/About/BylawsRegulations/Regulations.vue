@@ -1,9 +1,54 @@
 <template>
   <div>
-    <the-tag-group :contentList="contentList" :contentItemIndex.sync="contentItemIndex"></the-tag-group>
+    <template v-if="viewItem == null">
+      <div class="d-flex mb-4">
+        <span class="ml-auto mr-2 align-self-center text-h6 ">查詢： </span>
+        <v-text-field
+          style="max-width: 300px;"
+          v-model="searchText"
+          label="關鍵字"
+          hide-details="auto"
+          outlined
+          dense
+        ></v-text-field>
+      </div>
 
-    <div v-if="contentItemIndex === 0">
-      <div class="章程法令規章-規章-教育積分認定辦法內容">
+      <the-view-item-list :itemList="dataList" @select="showContent"></the-view-item-list>
+
+      <v-pagination
+        v-if="resourceList.length > 10"
+        class="mt-4"
+        v-model="page"
+        :length="6"
+        color="primary_light_1"
+        dark
+      ></v-pagination>
+    </template>
+    <template v-else>
+      <div v-html="viewItem.content"></div>
+    </template>
+  </div>
+</template>
+
+<script>
+import TheViewItemList from "@/components/TheViewItemList";
+import dayjs from "dayjs";
+
+export default {
+  name: "Regulations",
+  components: { TheViewItemList },
+  data() {
+    return {
+      searchText: "",
+      page: 1,
+      resourceList: [
+        {
+          id: "01",
+          class: "章程法令規章",
+          image: "",
+          title: "教育積分認定辦法",
+          date: "2019-12-17",
+          content: `<div class="章程法令規章-規章-教育積分認定辦法內容">
         <div class="章程法令規章-規章-教育積分認定辦法內容__4329e61acb4d4577a97742849d337ef4 headline">
           教育積分認定辦法
           <br />
@@ -71,10 +116,17 @@
           <br />
           <br />d. 排名25%以內者（或I.F3.000以
         </div>
-      </div>
-    </div>
-    <div v-if="contentItemIndex === 1">
-      <div class="章程法令規章-規章-專科醫師甄審辦法內容">
+      </div>`,
+          isAdvertising: false,
+          isLogin: true
+        },
+        {
+          id: "02",
+          class: "章程法令規章",
+          image: "",
+          title: "專科醫師甄審辦法",
+          date: "2019-09-02",
+          content: `<div class="章程法令規章-規章-專科醫師甄審辦法內容">
         <div class="章程法令規章-規章-專科醫師甄審辦法內容__40fbfc27b4614f3b885ea493128a180c headline">
           專科醫師甄審辦法
           <br />
@@ -190,10 +242,17 @@
           <br />第三十四條 <br />本規則定於中華民國九十四年訂定，九十五年一月一日起施行。 <br />第三十五條
           <br />本規則如有未盡善處，由甄審委員會建議，經台灣血管外科學會理監事會議決後，修改或增訂之，並呈內政部備案後實施。
         </div>
-      </div>
-    </div>
-    <div v-if="contentItemIndex === 2">
-      <div class="章程法令規章-規章-專科醫師訓練內容內容">
+      </div>`,
+          isAdvertising: false,
+          isLogin: true
+        },
+        {
+          id: "03",
+          class: "章程法令規章",
+          image: "",
+          title: "專科醫師訓練內容",
+          date: "2019-09-01",
+          content: `<div class="章程法令規章-規章-專科醫師訓練內容內容">
         <div class="章程法令規章-規章-專科醫師訓練內容內容__b54b51dffbb549ff820c502baa21fcf3 headline">
           專科醫師訓練內容
           <br />
@@ -229,10 +288,17 @@
           renal arteries, central and peripheral veins, <br />
           hemodialysis accesses.
         </div>
-      </div>
-    </div>
-    <div v-if="contentItemIndex === 3">
-      <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容">
+      </div>`,
+          isAdvertising: false,
+          isLogin: false
+        },
+        {
+          id: "04",
+          class: "章程法令規章",
+          image: "",
+          title: "智慧深耕獎(IUA)甄選辦法",
+          date: "2019-09-01",
+          content: `<div class="章程法令規章-規章-智慧深耕獎甄選辦法內容">
         <div class="章程法令規章-規章-智慧深耕獎甄選辦法內容__77933e59914847a3a803400707f7a915 headline">
           智慧深耕獎(IUA)甄選辦法
           <br />
@@ -269,10 +335,17 @@
           <br />8. 申請截止日期：優秀論文（paper）獎年會前2個月。傑出研究（investigation）獎在年會截稿日。 <br />
           其他未盡事宜或修改由委員會決定，經理事會通過。修改事項亦同。
         </div>
-      </div>
-    </div>
-    <div v-if="contentItemIndex === 4">
-      <div class="章程法令規章-規章-委員會組織簡則內容">
+      </div>`,
+          isAdvertising: false,
+          isLogin: false
+        },
+        {
+          id: "05",
+          class: "章程法令規章",
+          image: "",
+          title: "委員會組織簡則",
+          date: "2019-09-01",
+          content: `<div class="章程法令規章-規章-委員會組織簡則內容">
         <div class="章程法令規章-規章-委員會組織簡則內容__e4e3f8936d4d4089b24d9df59dc79d05 headline">
           委員會組織簡則
           <br />
@@ -388,28 +461,31 @@
           <br />第六條：本簡則如有未盡事宜，悉依本會章程及有關法令規定辦理。
           <br />第七條：本簡則經本會理事會通過，報請主管機關核准後實施，修改時亦同。
         </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import TheTagGroup from "@/components/TheTagGroup";
-
-export default {
-  name: "Regulations",
-  components: { TheTagGroup },
-  data() {
-    return {
-      contentItemIndex: 0,
-      contentList: [
-        { text: "教育積分認定辦法", tag: "#教育積分認定辦法" },
-        { text: "專科醫師甄審辦法", tag: "#專科醫師甄審辦法" },
-        { text: "專科醫師訓練內容", tag: "#專科醫師訓練內容" },
-        { text: "智慧深耕獎(IUA)甄選辦法", tag: "#智慧深耕獎(IUA)甄選辦法" },
-        { text: "委員會組織簡則", tag: "#委員會組織簡則" }
+      </div>`,
+          isAdvertising: false,
+          isLogin: false
+        }
       ]
     };
+  },
+  computed: {
+    dataList() {
+      return this.resourceList
+        .map(({ id, title, date }) => ({ id, title, date }))
+        .sort(({ date: mainDate }, { date: subDate }) => {
+          if (dayjs(mainDate).isBefore(dayjs(subDate))) return 1;
+          if (dayjs(subDate).isBefore(dayjs(mainDate))) return -1;
+          return 0;
+        });
+    },
+    viewItem() {
+      return this.resourceList.find(({ id }) => id === this.$route.params.id);
+    }
+  },
+  methods: {
+    showContent(targetId) {
+      this.$router.push({ name: "AboutBylawsRegulationsRegulationsItem", params: { id: targetId } });
+    }
   }
 };
 </script>

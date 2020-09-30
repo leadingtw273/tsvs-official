@@ -28,7 +28,7 @@ export default {
         loading: true
       });
       const api = new apiAdminMember({
-        token: rootState.user.authenticate.token
+        token: rootState.user.authenticate
       });
       const res = await api.getUserList(params);
 
@@ -45,13 +45,13 @@ export default {
     },
     async updateUser({ rootState }, params) {
       const api = new apiAdminMember({
-        token: rootState.user.authenticate.token
+        token: rootState.user.authenticate
       });
       await api.updateUser(params);
     },
     async deleteUser({ rootState }, id) {
       const api = new apiAdminMember({
-        token: rootState.user.authenticate.token
+        token: rootState.user.authenticate
       });
       await api.deleteUser(id);
     }

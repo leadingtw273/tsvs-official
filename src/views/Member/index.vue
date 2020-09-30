@@ -17,8 +17,10 @@ export default {
         menuList: [
           { text: "會員入會", displayType: "page", pageName: "MemberSignUp" },
           { text: "會員登入", displayType: "page", pageName: "MemberSignIn" },
-          { text: "會員中心", displayType: "page", pageName: "MemberCenter" },
-          { text: "資料搜尋", displayType: "page", pageName: "MemberSearch" },
+          { text: "忘記密碼", displayType: "page", pageName: "MemberCenter" },
+
+          { text: "會員基本資料", displayType: "page", pageName: "MemberCenter" },
+          { text: "變更密碼", displayType: "page", pageName: "MemberSearch" },
           { text: "會員積分", displayType: "page", pageName: "MemberIntegral" }
         ]
       }

@@ -2,12 +2,12 @@
   <div>
     <v-sheet color="transparent" max-width="500px">
       <div class="d-flex mb-6">
-        <span class="align-self-center mr-6">帳號</span>
-        <v-text-field label="帳號" v-model="username" outlined hide-details="auto"></v-text-field>
+        <span class="align-self-center mr-6 text-h5">帳號</span>
+        <v-text-field label="請輸入帳號" v-model="username" outlined hide-details="auto"></v-text-field>
       </div>
       <div class="d-flex mb-6">
-        <span class="align-self-center mr-6">密碼</span>
-        <v-text-field label="密碼" v-model="password" type="password" outlined hide-details="auto"></v-text-field>
+        <span class="align-self-center mr-6 text-h5">密碼</span>
+        <v-text-field label="請輸入密碼" v-model="password" type="password" outlined hide-details="auto"></v-text-field>
       </div>
       <div class="d-flex justify-end mb-4">
         <v-btn class="mr-6" color="primary" @click="signIn()" rounded>登入</v-btn>
@@ -19,19 +19,22 @@
         <span class="accent--text" v-show="faileTextShow">＊帳號或密碼輸入錯誤，請重新輸入。</span>
       </div>
     </v-sheet>
+
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
 <script>
-import apiMember from "@/apis/Member.js";
-
 export default {
   name: "SignIn",
   data() {
     return {
       username: "",
       password: "",
-      success: null
+      success: null,
+      loading: false
     };
   },
   computed: {
@@ -41,19 +44,20 @@ export default {
   },
   methods: {
     async signIn() {
-      const member = new apiMember();
+      this.loading = true;
 
-      const { success, data } = await member.signIn({
+      await this.$store.dispatch("user/login", {
         username: this.username,
         password: this.password
       });
 
-      if (success) {
-        this.$store.dispatch("user/login", data);
+      if (this.$store.getters["user/status"] === "success") {
         this.$router.replace({ name: "Home" });
       } else {
-        this.success = success;
+        this.success = false;
       }
+
+      this.loading = false;
     }
   }
 };

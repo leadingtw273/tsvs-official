@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-navbar></the-navbar>
+    <the-navbar :loading.sync="loading"></the-navbar>
 
     <v-main>
       <router-view></router-view>
@@ -26,13 +26,14 @@ import ResponseErrorDialog from "@/components/Dialog/ResponseError";
 export default {
   name: "App",
   components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog },
-  computed: {
-    loading() {
-      return this.$store.state.loading;
-    }
+  data() {
+    return {
+      loading: true
+    };
   },
   async created() {
     await this.$store.dispatch("user/reGetStatus");
+    this.loading = false;
   }
 };
 </script>

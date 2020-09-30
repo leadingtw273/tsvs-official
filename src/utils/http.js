@@ -3,8 +3,8 @@ import store from "@/store";
 
 const getBaseUrl = env => {
   let base = {
-    production: "https://cf516cea60c9.ngrok.io",
-    development: "https://cf516cea60c9.ngrok.io"
+    production: "https://5d7601f06531.ngrok.io",
+    development: "https://5d7601f06531.ngrok.io"
   }[env];
   if (!base) {
     base = "/";
@@ -26,8 +26,6 @@ export default class Api {
     this._interceptorsRequest = this._instance.interceptors.request.use(
       function(config) {
         // Do something before request is sent
-
-        store.dispatch("setLoading", true);
         return config;
       },
       function(error) {
@@ -42,15 +40,11 @@ export default class Api {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data
 
-        store.dispatch("setLoading", false);
-
         return response.data;
       },
       function(error) {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
-
-        store.dispatch("setLoading", false);
 
         if (error.response == null) {
           store.dispatch("dialog/setNetworkError", true);

@@ -54,7 +54,7 @@
           </v-btn>
         </div>
       </div>
-      <div class="mt-8" v-if="pageType === 'admin' && userStatus === 'success' && (userRole === 0 || userRole === 1)">
+      <div class="mt-8" v-if="pageType === 'admin'">
         <v-btn text class="title text-shadow" :to="{ name: 'AdminCommonSetting' }" color="white">一般設定</v-btn>
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text class="title text-shadow" :to="{ name: 'AdminMember' }" color="white">會員管理</v-btn>
@@ -87,6 +87,12 @@
 <script>
 export default {
   name: "TheNavbar",
+  props: {
+    loading: {
+      type: Boolean,
+      default: true
+    }
+  },
   computed: {
     userStatus() {
       return this.$store.getters["user/status"];
@@ -97,11 +103,24 @@ export default {
     pageType() {
       const [, path] = this.$route.path.split("/");
       return path === "admin" ? "admin" : "normal";
+    },
+    loadingContent: {
+      get() {
+        return this.loading;
+      },
+      set(val) {
+        this.$emit("update:loading", val);
+      }
     }
   },
   methods: {
-    signOut() {
-      this.$store.dispatch("user/signOut");
+    async signOut() {
+      this.loadingContent = true;
+
+      await this.$store.dispatch("user/signOut");
+
+      this.loadingContent = false;
+
       this.$router.push({ name: "Home" });
     }
   }

@@ -114,7 +114,7 @@ export default [
             }
           },
           {
-            path: "活動列表",
+            path: "活動清單",
             name: "AdminCourseList",
             component() {
               return import("@/views/Admin/Content/Events/CourseList.vue");

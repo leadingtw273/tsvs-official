@@ -18,7 +18,7 @@ export default {
         menuList: [
           { text: "會員列表", displayType: "page", pageName: "AdminMemberList" },
           { text: "會員審核", displayType: "page", pageName: "AdminMemberApply" },
-          { text: "積分審核", displayType: "content", pageName: "AdminMemberQuantityApply" }
+          { text: "積分審核", displayType: "page", pageName: "AdminMemberQuantityApply" }
         ]
       }
     };

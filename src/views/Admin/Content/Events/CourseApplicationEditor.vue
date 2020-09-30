@@ -1,12 +1,31 @@
 <template>
   <div>
     <v-data-table :headers="headers" :items="items" class="elevation-1" dark>
-      <template v-slot:item.image="{ value }">
+      <template v-slot:item.attachment="{ value }">
         <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5" v-if="value !== ''"></v-img>
       </template>
 
-      <template v-slot:item.image="{ value }">
+      <template v-slot:item.attachment="{ value }">
         <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
+      </template>
+
+      <template v-slot:item.type="{ value }">
+        {{ value === 1 ? "公告活動資訊" : "繼續教育積分" }}
+      </template>
+
+      <template v-slot:item.pass="{ item }">
+        <v-btn color="success" class="ma-1" small>通過</v-btn>
+        <v-btn color="warning" class="ma-1" small>待補件</v-btn>
+        <v-btn
+          color="accent"
+          class="ma-1"
+          @click.stop="
+            rejectDialog = true;
+            deleteItemId = item.id;
+          "
+          small
+          >拒絕</v-btn
+        >
       </template>
 
       <template v-slot:item.actions="{ item }">
@@ -85,16 +104,39 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="rejectDialog" width="500">
+      <v-card dark>
+        <v-card-title class="headline primary">
+          確認刪除理由
+        </v-card-title>
+
+        <v-card-text class="d-flex flex-column align-center ">
+          <v-textarea label="理由" style="width: 100%;"></v-textarea>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="d-flex justify-center">
+          <v-btn color="primary" @click="deleteTestItem()">
+            確定
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import dayjs from "dayjs";
 
 export default {
   name: "CourseApplicationEditor",
   data() {
     return {
+      rejectDialog: false,
+      deleteItemId: null,
       dialog: false,
       editor: ClassicEditor,
       editorConfig: {
@@ -103,62 +145,42 @@ export default {
         }
       },
       headers: [
-        { text: "圖片", value: "image" },
-        { text: "標題", value: "title" },
-        { text: "課程日期", value: "date" },
+        { text: "申請類別", value: "type" },
+        { text: "圖片", value: "attachment" },
+        { text: "標題", value: "title_zh" },
+        { text: "課程日期", value: "date_begin" },
         { text: "內容", value: "content", align: "center" },
-        { text: "Actions", value: "actions", sortable: false }
+        { text: "Actions", value: "actions", sortable: false },
+        { text: "狀態", value: "pass", sortable: false }
       ],
       items: [
         {
-          image: "https://www.tsvs.org/upload/Image/20200419%20Banner.jpg",
-          title: "【TSVS線上活動】4/19(日) 9-12AM 縱貫海峽—海峽兩岸血管外科高峰論壇",
-          date: "2020-04-19",
-          content: `<div><p class="MsoNormal" style="margin-top:12.0pt;mso-para-margin-top:1.0gd;
-            layout-grid-mode:char;mso-layout-grid-align:none"><span style="font-size:14.0pt;
-            font-family:DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
-            &quot;Times New Roman&quot;">活動名稱</span><span lang="EN-US" style="font-size:14.0pt;
-            mso-fareast-font-family:DFKai-SB">: </span><span style="font-size:14.0pt;
-            font-family:DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
-            &quot;Times New Roman&quot;">縱貫海峽—海峽兩岸血管外科高峰論壇</span></p>
-            <p class="MsoNormal" style="margin-top:12.0pt;mso-para-margin-top:1.0gd;
-            layout-grid-mode:char;mso-layout-grid-align:none"><span style="font-size: 14pt; font-family: DFKai-SB;">活動日期</span><span lang="EN-US" style="font-size: 14pt; font-family: &quot;Times New Roman&quot;, serif;">: 109</span><span style="font-size: 14pt; font-family: DFKai-SB;">年</span><span lang="EN-US" style="font-size: 14pt; font-family: &quot;Times New Roman&quot;, serif;">4</span><span style="font-size: 14pt; font-family: DFKai-SB;">月</span><span lang="EN-US" style="font-size: 14pt; font-family: &quot;Times New Roman&quot;, serif;">19</span><span style="font-size: 14pt; font-family: DFKai-SB;">日</span></p>
-            <span style="font-size:14.0pt;font-family:
-            DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;;
-            mso-bidi-font-family:&quot;Times New Roman&quot;;mso-font-kerning:1.0pt;mso-ansi-language:
-            EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA"> 線上活動連結:</span><b style="font-family: &quot;microsoft jhenghei&quot;, sans-serif; font-size: small;">&nbsp;<a href="http://q129.itraining.tw/index.php" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://q129.itraining.tw/index.php&amp;source=gmail&amp;ust=1587024711227000&amp;usg=AFQjCNGyFjO0mHbYgt-U_9QkVZ1MLVRALQ" style="color: rgb(17, 85, 204);">http://q129.<wbr>itraining.tw/index.php</a>&nbsp;(無須安裝APP即可進入與會)</b><span style="font-size:14.0pt;font-family:
-            DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;;
-            mso-bidi-font-family:&quot;Times New Roman&quot;;mso-font-kerning:1.0pt;mso-ansi-language:
-            EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA"><br>
-            <br>
-            活動議程與講師介紹可點上方連結查看或至下方連結下載<br>
-            <br>
-            <img src="https://www.tsvs.org/upload/Image/20200419%20Banner.jpg" width="640" height="167" alt=""><br>
-            <br>
-            <br type="_moz">
-            </span></div>
-            `
+          title_zh: "123", // 活動主題
+          type: 1, // 申請類別（1: 公告活動、2: 繼續教育積分）
+          date_begin: dayjs(1601395200000).format("YYYY-MM-DD"), // 起
+          date_end: dayjs(1601395200000).format("YYYY-MM-DD"), // 迄
+          location: "", // 活動地點
+          organizer: "台灣血管外科學會", // 主辦單位
+          co_organizer: "", // 協辦單位
+          contact_person: "123", // 聯絡人
+          contact_phone: "0912345678", // 連絡電話
+          contact_mail: "ceo@sita.tech", // 電子信箱
+          link_event: "", // 活動連結
+          attachment: "https://i.imgur.com/TNYqUno.jpg" // 附件
         },
         {
-          image: "",
-          title: "【TSVS南區困難病例討論會】2020/06/13(六)下午2點, 歡迎報名參加~!",
-          date: "2020-06-13",
-          content: `<td>
-            <span style="font-family: Arial;"><span style="font-size: large;">TSVS南區困難病例討論</span></span>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">時間: 2020/06/13(六)下午2點</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">地點: 悅誠廣場1樓 掌門精釀啤酒館</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">&nbsp; &nbsp; &nbsp; (高雄市三民區民族一路427號)</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">&nbsp; &nbsp; &nbsp; (高雄市民族 大順路交叉口 交通方便)</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">分享案例醫院:&nbsp;</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">輔英 屏基 高醫 長庚 成大 安南 嘉基 奇美 亞大</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;"><br>
-            </span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">*TSVS積分: 15分</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">*會中有提供各式啤酒及小菜品嚐 會後有精緻晚餐</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;">*請於5/30前, 線上報名參加:</span></span></div>
-            <div><span style="font-family: Arial;"><span style="font-size: large;"><a href="https://forms.gle/fR2zyaewnziFa9Uf9">https://forms.gle/fR2zyaewnziFa9Uf9</a></span></span></div>
-            </td>
-            `
+          title_zh: "123",
+          type: 2,
+          date_begin: dayjs(1601395200000).format("YYYY-MM-DD"),
+          date_end: dayjs(1601395200000).format("YYYY-MM-DD"),
+          location: "123",
+          organizer: "台灣血管外科學會",
+          co_organizer: "123",
+          contact_person: "123",
+          contact_phone: "0912345678",
+          contact_mail: "ceo@sita.tech",
+          link_event: "",
+          attachment: "https://i.imgur.com/TNYqUno.jpg"
         }
       ],
       editedIndex: -1,
@@ -187,6 +209,11 @@ export default {
     }
   },
   methods: {
+    deleteTestItem() {
+      const deleteIndex = this.items.findIndex(({ id }) => id === this.deleteItemId);
+      this.items.splice(deleteIndex, 1);
+      this.rejectDialog = false;
+    },
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);

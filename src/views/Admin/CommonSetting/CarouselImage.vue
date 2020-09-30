@@ -18,6 +18,10 @@
         </v-icon>
       </template>
 
+      <template v-slot:item.type="{ value }">
+        {{ value === 1 ? "公告活動資訊" : "繼續教育積分" }}
+      </template>
+
       <template v-slot:item.content="{ value }">
         <v-dialog max-width="75%" dark>
           <template v-slot:activator="{ on }">
@@ -103,15 +107,16 @@ export default {
         }
       },
       headers: [
+        { text: "申請類別", value: "type" },
         { text: "圖片", value: "image" },
         { text: "標題", value: "title" },
-        { text: "副標題", value: "subTitle" },
         { text: "課程日期", value: "date" },
         { text: "內容", value: "content", align: "center" },
         { text: "Actions", value: "actions", sortable: false }
       ],
       items: [
         {
+          type: 1,
           image: "https://cw1.tw/CW/images/article/C1323775766370.jpg",
           title: "台灣血管外科學會",
           subTitle: "Taiwan Society for Vascular Surgery",
@@ -142,6 +147,7 @@ export default {
             `
         },
         {
+          type: 1,
           image: "https://www.medicaltravel.org.tw/img/section1bg1.jpg",
           title: "醫療大數據",
           subTitle: "Precision Medicine",
@@ -164,6 +170,7 @@ export default {
             `
         },
         {
+          type: 1,
           image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
           title: "人工智慧的醫療照護應用",
           subTitle: "小病就跑大醫院？減少醫療浪費",
@@ -171,6 +178,7 @@ export default {
           content: ""
         },
         {
+          type: 1,
           image: "https://images.chinatimes.com/newsphoto/2020-02-13/900/N14A00_P_01_01.jpg",
           title: "人工智慧的醫療照護應用02",
           subTitle: "小病就跑大醫院？減少醫療浪費",
@@ -178,6 +186,7 @@ export default {
           content: ""
         },
         {
+          type: 1,
           image: "https://cloudcdn.taiwantradeshows.com.tw/2019/medicare/edm/images/shutterstock.jpg",
           title: "人工智慧的醫療照護應用03",
           subTitle: "小病就跑大醫院？減少醫療浪費",

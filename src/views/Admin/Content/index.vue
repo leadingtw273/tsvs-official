@@ -34,7 +34,7 @@ export default {
             pageName: "AdminEvents",
             items: [
               { text: "活動審核", displayType: "page", pageName: "AdminCourseApplicationEditor" },
-              { text: "活動列表", displayType: "page", pageName: "AdminCourseList" }
+              { text: "活動清單", displayType: "page", pageName: "AdminCourseList" }
             ]
           },
           {

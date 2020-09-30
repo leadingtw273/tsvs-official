@@ -9,6 +9,14 @@
         <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
       </template>
 
+      <template v-slot:item.type="{ value }">
+        {{ value === 1 ? "公告活動資訊" : "繼續教育積分" }}
+      </template>
+
+      <template v-slot:item.notice="{}">
+        <v-btn color="primary" class="ma-1" @click.stop="sendSuccessDialog = true" small>發送通知</v-btn>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">
           mdi-pencil
@@ -44,7 +52,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>活動列表</v-toolbar-title>
+          <v-toolbar-title>活動清單</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -85,6 +93,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="sendSuccessDialog" width="400">
+      <v-card dark>
+        <v-card-text class="d-flex flex-column align-center pa-6">
+          <v-icon color="success" size="150">mdi-check-circle-outline</v-icon>
+          <span class="white--text text-h6">訊息發送成功</span>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="d-flex justify-center">
+          <v-btn color="primary" @click.stop="sendSuccessDialog = false">
+            確定
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -95,6 +120,7 @@ export default {
   name: "CourseList",
   data() {
     return {
+      sendSuccessDialog: false,
       dialog: false,
       editor: ClassicEditor,
       editorConfig: {
@@ -103,14 +129,17 @@ export default {
         }
       },
       headers: [
+        { text: "申請類別", value: "type" },
         { text: "圖片", value: "image" },
         { text: "標題", value: "title" },
         { text: "課程日期", value: "date" },
         { text: "內容", value: "content", align: "center" },
-        { text: "Actions", value: "actions", sortable: false }
+        { text: "Actions", value: "actions", sortable: false },
+        { text: "Notice", value: "notice", sortable: false }
       ],
       items: [
         {
+          type: 1,
           image: "https://www.tsvs.org/upload/Image/20200419%20Banner.jpg",
           title: "【TSVS線上活動】4/19(日) 9-12AM 縱貫海峽—海峽兩岸血管外科高峰論壇",
           date: "2020-04-19",
@@ -140,6 +169,7 @@ export default {
             `
         },
         {
+          type: 1,
           image: "",
           title: "【TSVS南區困難病例討論會】2020/06/13(六)下午2點, 歡迎報名參加~!",
           date: "2020-06-13",
@@ -159,6 +189,30 @@ export default {
             <div><span style="font-family: Arial;"><span style="font-size: large;"><a href="https://forms.gle/fR2zyaewnziFa9Uf9">https://forms.gle/fR2zyaewnziFa9Uf9</a></span></span></div>
             </td>
             `
+        },
+        {
+          type: 1,
+          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          title: "人工智慧的醫療照護應用",
+          subTitle: "小病就跑大醫院？減少醫療浪費",
+          date: "2020-06-13",
+          content: ""
+        },
+        {
+          type: 1,
+          image: "https://images.chinatimes.com/newsphoto/2020-02-13/900/N14A00_P_01_01.jpg",
+          title: "人工智慧的醫療照護應用02",
+          subTitle: "小病就跑大醫院？減少醫療浪費",
+          date: "2020-06-13",
+          content: ""
+        },
+        {
+          type: 1,
+          image: "https://cloudcdn.taiwantradeshows.com.tw/2019/medicare/edm/images/shutterstock.jpg",
+          title: "人工智慧的醫療照護應用03",
+          subTitle: "小病就跑大醫院？減少醫療浪費",
+          date: "2020-06-13",
+          content: ""
         }
       ],
       editedIndex: -1,

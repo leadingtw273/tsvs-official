@@ -82,6 +82,12 @@ export default [
     name: "AboutMeetingRecord",
     component() {
       return import("@/views/About/MeetingRecord");
-    }
+    },
+    children: [
+      {
+        path: ":id",
+        name: "AboutMeetingRecordItem"
+      }
+    ]
   }
 ];

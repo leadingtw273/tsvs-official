@@ -18,7 +18,13 @@ export default [
         name: "HealthEducationSurgeryInformation",
         component() {
           return import("@/views/HealthEducation/SurgeryInformation.vue");
-        }
+        },
+        children: [
+          {
+            path: ":id",
+            name: "HealthEducationSurgeryInformationItem"
+          }
+        ]
       }
     ],
     redirect: { name: "HealthEducationSearchDoctor" }

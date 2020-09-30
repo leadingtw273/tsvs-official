@@ -14,7 +14,10 @@ export default {
     return {
       config: {
         menuTitle: "一般設定",
-        menuList: [{ text: "背景圖片設定", displayType: "page", pageName: "AdminBackgroundImage" }]
+        menuList: [
+          { text: "背景圖片設定", displayType: "page", pageName: "AdminBackgroundImage" },
+          { text: "首頁輪播", displayType: "page", pageName: "AdminCarouselImage" }
+        ]
       }
     };
   }

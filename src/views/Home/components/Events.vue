@@ -20,7 +20,15 @@
             >2020/6/3-5@花蓮慈濟 Aorta & Peripheral Artery Cadaver Workshop</span
           >
         </div>
-        <v-btn class="d-flex ml-2" color="white" @click="open()" icon large><v-icon>mdi-calendar-month</v-icon></v-btn>
+
+        <div>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-calendar-month</v-icon>
+          </v-btn>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </div>
       </div>
       <div class="d-flex align-center">
         <div class="d-flex justify-center mr-6" style="width: 20%;">
@@ -38,7 +46,15 @@
             >2020/6/3-5@花蓮慈濟 Aorta & Peripheral Artery Cadaver Workshop</span
           >
         </div>
-        <v-btn class="d-flex ml-2" color="white" @click="open()" icon large><v-icon>mdi-calendar-month</v-icon></v-btn>
+
+        <div>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-calendar-month</v-icon>
+          </v-btn>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </div>
       </div>
       <div class="d-flex align-center">
         <div class="d-flex justify-center mr-6" style="width: 20%;">
@@ -56,7 +72,15 @@
             >2020/6/3-5@花蓮慈濟 Aorta & Peripheral Artery Cadaver Workshop</span
           >
         </div>
-        <v-btn class="d-flex ml-2" color="white" @click="open()" icon large><v-icon>mdi-calendar-month</v-icon></v-btn>
+
+        <div>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-calendar-month</v-icon>
+          </v-btn>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </div>
       </div>
       <div class="d-flex align-center">
         <div class="d-flex justify-center mr-6" style="width: 20%;">
@@ -74,7 +98,15 @@
             >2020/6/3-5@花蓮慈濟 Aorta & Peripheral Artery Cadaver Workshop</span
           >
         </div>
-        <v-btn class="d-flex ml-2" color="white" @click="open()" icon large><v-icon>mdi-calendar-month</v-icon></v-btn>
+
+        <div>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-calendar-month</v-icon>
+          </v-btn>
+          <v-btn class="d-flex ml-2" color="white" @click="open()" icon large>
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </div>
       </div>
     </v-sheet>
     <v-sheet class="d-flex justify-end px-12 py-6" color="transparent" height="23%">

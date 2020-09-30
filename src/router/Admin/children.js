@@ -12,6 +12,13 @@ export default [
         component() {
           return import("@/views/Admin/CommonSetting/BackgroundImage");
         }
+      },
+      {
+        path: "首頁輪播",
+        name: "AdminCarouselImage",
+        component() {
+          return import("@/views/Admin/CommonSetting/CarouselImage");
+        }
       }
     ],
     redirect: { name: "AdminBackgroundImage" }

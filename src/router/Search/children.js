@@ -4,21 +4,39 @@ export default [
     name: "SearchGuidelines",
     component() {
       return import("@/views/Search/Guidelines.vue");
-    }
+    },
+    children: [
+      {
+        path: ":id",
+        name: "SearchGuidelinesItem"
+      }
+    ]
   },
   {
     path: "手術準則",
     name: "SearchSurgicalGuidelines",
     component() {
       return import("@/views/Search/SurgicalGuidelines.vue");
-    }
+    },
+    children: [
+      {
+        path: ":id",
+        name: "SearchSurgicalGuidelinesItem"
+      }
+    ]
   },
   {
     path: "影片紀錄",
     name: "SearchRecord",
     component() {
       return import("@/views/Search/Record.vue");
-    }
+    },
+    children: [
+      {
+        path: ":id",
+        name: "SearchRecordItem"
+      }
+    ]
   },
   {
     path: "訓練醫院",
@@ -39,7 +57,13 @@ export default [
     name: "SearchDownload",
     component() {
       return import("@/views/Search/Download.vue");
-    }
+    },
+    children: [
+      {
+        path: ":id",
+        name: "SearchRecordItem"
+      }
+    ]
   },
   {
     path: "學術教育資源",

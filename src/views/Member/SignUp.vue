@@ -395,7 +395,7 @@
 <script>
 import TheTagGroup from "@/components/TheTagGroup";
 import DatePicker from "@/components/Picker/DatePicker";
-import apiMember from "@/apis/Member";
+// import apiMember from "@/apis/Member";
 import apiFile from "@/apis/File";
 import dayjs from "dayjs";
 
@@ -474,17 +474,19 @@ export default {
   },
   methods: {
     async signUp() {
-      const member = new apiMember();
+      // const member = new apiMember();
 
-      const password = this.password;
-      const org_address = this.orgAddress;
-      const { success } = await member.signUp({ ...this.form, password, org_address });
+      // const password = this.password;
+      // const org_address = this.orgAddress;
+      // const { success } = await member.signUp({ ...this.form, password, org_address });
 
-      if (success) {
-        this.signUpStep = 3;
-      } else {
-        this.registrationStatus = "failed";
-      }
+      // if (success) {
+      //   this.signUpStep = 3;
+      // } else {
+      //   this.registrationStatus = "failed";
+      // }
+
+      this.signUpStep = 3;
     },
     async uploadImage(file) {
       const fileApi = new apiFile();

@@ -141,9 +141,34 @@
         <v-checkbox v-model="confirmCheckBox" label="以閱讀申請繼續教育積分注意事項"></v-checkbox>
       </div>
       <div class="d-flex justify-center">
-        <v-btn color="primary" outlined>輸入完成立即新增</v-btn>
+        <v-btn color="primary" @click.stop="dialog = true" outlined>輸入完成立即新增</v-btn>
       </div>
     </v-form>
+
+    <v-dialog v-model="dialog" width="500">
+      <v-card dark>
+        <v-card-title class="headline primary">
+          表單送出成功
+          <v-spacer></v-spacer>
+          <v-btn @click.stop="dialog = false" icon>
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="d-flex flex-column align-center ">
+          <v-icon color="success" size="150">mdi-check-circle-outline</v-icon>
+          <span class="white--text text-h6">表單將會經過審核，審核進度會傳送至聯絡人信箱</span>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="d-flex justify-center">
+          <v-btn color="primary" :to="{ name: 'Home' }">
+            確定
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -160,6 +185,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       valid: false,
       confirmCheckBox: false,
       formData: {

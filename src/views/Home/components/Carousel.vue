@@ -42,16 +42,16 @@ export default {
           }
         },
         {
-          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          image: "https://images.chinatimes.com/newsphoto/2020-02-13/900/N14A00_P_01_01.jpg",
           text: {
-            title: "人工智慧的醫療照護應用",
+            title: "人工智慧的醫療照護應用02",
             subTitle: "小病就跑大醫院？減少醫療浪費"
           }
         },
         {
-          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          image: "https://cloudcdn.taiwantradeshows.com.tw/2019/medicare/edm/images/shutterstock.jpg",
           text: {
-            title: "人工智慧的醫療照護應用",
+            title: "人工智慧的醫療照護應用03",
             subTitle: "小病就跑大醫院？減少醫療浪費"
           }
         }

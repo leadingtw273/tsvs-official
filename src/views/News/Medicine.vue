@@ -1,6 +1,18 @@
 <template>
   <div>
     <template v-if="viewItem == null">
+      <div class="d-flex mb-4">
+        <span class="ml-auto mr-2 align-self-center text-h6 ">查詢： </span>
+        <v-text-field
+          style="max-width: 300px;"
+          v-model="searchText"
+          label="關鍵字"
+          hide-details="auto"
+          outlined
+          dense
+        ></v-text-field>
+      </div>
+
       <the-view-item-list :itemList="dataList" @select="showContent"></the-view-item-list>
     </template>
     <template v-else>
@@ -18,6 +30,7 @@ export default {
   components: { TheViewItemList },
   data() {
     return {
+      searchText: "",
       resourceList: [
         {
           id: "01",

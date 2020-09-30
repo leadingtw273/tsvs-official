@@ -228,6 +228,15 @@ export default {
         start: "2020-09-15 09:30:00",
         end: "2020-09-16 17:30:00",
         timed: true
+      },
+      {
+        id: 4,
+        image: "https://fakeimg.pl/250x100/",
+        class: "會議",
+        name: "測試活動05",
+        start: "2020-09-22 09:30:00",
+        end: "2020-09-24 17:30:00",
+        timed: true
       }
     ];
   }

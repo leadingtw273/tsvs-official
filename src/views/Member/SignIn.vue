@@ -20,6 +20,31 @@
       </div>
     </v-sheet>
 
+    <v-dialog v-model="dialog" width="500">
+      <v-card dark>
+        <v-card-title class="headline primary">
+          登入成功
+          <v-spacer></v-spacer>
+          <v-btn @click.stop="dialog = false" icon>
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="d-flex flex-column align-center ">
+          <v-icon color="success" size="150">mdi-check-circle-outline</v-icon>
+          <span class="white--text text-h6">歡迎回來 {{ $store.getters["user/name"] }}</span>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="d-flex justify-center">
+          <v-btn color="primary" :to="{ name: 'Home' }">
+            確定
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -34,6 +59,7 @@ export default {
       username: "",
       password: "",
       success: null,
+      dialog: false,
       loading: false
     };
   },
@@ -52,7 +78,7 @@ export default {
       });
 
       if (this.$store.getters["user/status"] === "success") {
-        this.$router.replace({ name: "Home" });
+        this.dialog = true;
       } else {
         this.success = false;
       }

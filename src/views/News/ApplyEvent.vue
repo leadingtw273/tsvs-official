@@ -50,6 +50,14 @@
         <v-col cols="12" class="d-flex">
           <div class="align-self-center title text-right mr-6" style="width: 100px;">
             <span class="accent--text">*</span>
+            <span>聯絡信箱</span>
+          </div>
+          <v-text-field label="聯絡信箱" dense hide-details outlined></v-text-field>
+        </v-col>
+
+        <v-col cols="12" class="d-flex">
+          <div class="align-self-center title text-right mr-6" style="width: 100px;">
+            <span class="accent--text">*</span>
             <span>聯絡電話</span>
           </div>
           <v-text-field label="聯絡電話" dense hide-details outlined></v-text-field>
@@ -78,7 +86,7 @@
         <br />
         <span class="title">甲、 申請"活動公告"須於活動開辦前"兩周"提出申請，未依規定申請者恕不受理。</span>
         <br />
-        <span class="title">
+        <span class="title accent--text">
           乙、 活動公告不等同於申請繼續教育積分，申請繼續教育積分請至"會議課程資訊"頁面申請。
         </span>
         <br />
@@ -95,9 +103,34 @@
         <v-checkbox v-model="confirmCheckBox" label="以閱讀申請公告活動資訊注意事項"></v-checkbox>
       </div>
       <div class="d-flex justify-center">
-        <v-btn color="primary" outlined>輸入完成立即新增</v-btn>
+        <v-btn color="primary" @click.stop="dialog = true" outlined>輸入完成立即新增</v-btn>
       </div>
     </v-form>
+
+    <v-dialog v-model="dialog" width="500">
+      <v-card dark>
+        <v-card-title class="headline primary">
+          表單送出成功
+          <v-spacer></v-spacer>
+          <v-btn @click.stop="dialog = false" icon>
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="d-flex flex-column align-center ">
+          <v-icon color="success" size="150">mdi-check-circle-outline</v-icon>
+          <span class="white--text text-h6">表單將會經過審核，審核進度會傳送至聯絡人信箱</span>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="d-flex justify-center">
+          <v-btn color="primary" :to="{ name: 'Home' }">
+            確定
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -114,6 +147,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       valid: false,
       confirmCheckBox: false,
       formData: {

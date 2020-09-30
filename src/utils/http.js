@@ -3,8 +3,8 @@ import store from "@/store";
 
 const getBaseUrl = env => {
   let base = {
-    production: "https://5d7601f06531.ngrok.io",
-    development: "https://5d7601f06531.ngrok.io"
+    production: "https://38876f861511.ngrok.io",
+    development: "https://38876f861511.ngrok.io"
   }[env];
   if (!base) {
     base = "/";

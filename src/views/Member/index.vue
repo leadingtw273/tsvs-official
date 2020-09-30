@@ -14,17 +14,37 @@ export default {
     return {
       config: {
         menuTitle: "會員專區",
-        menuList: [
-          { text: "會員入會", displayType: "page", pageName: "MemberSignUp" },
-          { text: "會員登入", displayType: "page", pageName: "MemberSignIn" },
-          { text: "忘記密碼", displayType: "page", pageName: "MemberCenter" },
-
-          { text: "會員基本資料", displayType: "page", pageName: "MemberCenter" },
-          { text: "變更密碼", displayType: "page", pageName: "MemberSearch" },
-          { text: "會員積分", displayType: "page", pageName: "MemberIntegral" }
-        ]
+        menuList: []
       }
     };
+  },
+  methods: {
+    getMenuList() {
+      const stats = this.$store.getters["user/status"];
+      switch (stats) {
+        case "notSigned":
+          return [
+            { text: "會員入會", displayType: "page", pageName: "MemberSignUp" },
+            { text: "會員登入", displayType: "page", pageName: "MemberSignIn" }
+          ];
+        case "success":
+          return [
+            { text: "個人資訊", displayType: "page", pageName: "MemberDetail" },
+            { text: "申請自填積分", displayType: "page", pageName: "MemberApplyIntegral" },
+            { text: "會議記錄", displayType: "page", pageName: "MemberMeetingRecord" },
+            { text: "秘書處公告", displayType: "page", pageName: "MemberSecretariat" },
+            { text: "影片紀錄", displayType: "page", pageName: "MemberSearchRecord" }
+          ];
+        default:
+          return [
+            { text: "會員入會", displayType: "page", pageName: "MemberSignUp" },
+            { text: "會員登入", displayType: "page", pageName: "MemberSignIn" }
+          ];
+      }
+    }
+  },
+  created() {
+    this.config.menuList = this.getMenuList();
   }
 };
 </script>

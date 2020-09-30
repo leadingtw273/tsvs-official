@@ -64,9 +64,9 @@ export default {
         commit("SET_STATUS", "notSigned");
       }
     },
-    async signOut({ commit, state }) {
+    async signOut({ commit, getters }) {
       const member = new apiMember();
-      const { success } = await member.signOut(state.authenticate);
+      const { success } = await member.signOut(getters.token);
 
       if (!success) console.error("store/user/actions/signOut => 後端無法正確登出");
 
@@ -87,6 +87,7 @@ export default {
       try {
         const authenticate = store.get("authenticate");
         await dispatch("getUserInfo", authenticate);
+        commit("SET_AUTH", authenticate);
         commit("SET_STATUS", "success");
       } catch (error) {
         console.error(error);

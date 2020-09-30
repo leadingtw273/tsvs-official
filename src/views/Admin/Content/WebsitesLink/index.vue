@@ -45,6 +45,9 @@
               <v-text-field v-model="editedItem.class" label="類別"></v-text-field>
             </v-col>
             <v-col cols="12">
+              <v-text-field v-model="editedItem.order" label="順位"></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field v-model="editedItem.link" label="連結"></v-text-field>
             </v-col>
           </v-row>

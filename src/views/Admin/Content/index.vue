@@ -29,12 +29,12 @@ export default {
             pageName: "AdminNews"
           },
           {
-            text: "會議課程",
+            text: "活動管理",
             displayType: "page",
             pageName: "AdminEvents",
             items: [
-              { text: "課程申請內容編輯", displayType: "page", pageName: "AdminCourseApplicationEditor" },
-              { text: "課程列表", displayType: "page", pageName: "AdminCourseList" }
+              { text: "活動審核", displayType: "page", pageName: "AdminCourseApplicationEditor" },
+              { text: "活動列表", displayType: "page", pageName: "AdminCourseList" }
             ]
           },
           {

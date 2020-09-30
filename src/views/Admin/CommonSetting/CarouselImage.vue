@@ -1,6 +1,14 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" class="elevation-1" dark hide-default-footer>
+    <v-data-table :headers="headers" :items="items" class="elevation-1" dark>
+      <template v-slot:item.image="{ value }">
+        <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5" v-if="value !== ''"></v-img>
+      </template>
+
+      <template v-slot:item.image="{ value }">
+        <v-img class="ma-auto my-2" :src="value" width="200px" aspect-ratio="1.5"></v-img>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">
           mdi-pencil
@@ -36,7 +44,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>章程法令規章列表</v-toolbar-title>
+          <v-toolbar-title>會議課程列表</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn>
@@ -52,11 +60,17 @@
 
         <v-card-text class="black--text">
           <v-row>
-            <v-col cols="6">
-              <v-text-field v-model="editedItem.class" label="主要類別"></v-text-field>
+            <v-col cols="12" v-if="editedItem.image !== ''">
+              <v-img class="ma-auto" :src="editedItem.image" width="70%" aspect-ratio="1.7"></v-img>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="editedItem.image" label="圖片"></v-text-field>
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="editedItem.subClass" label="次要類別"></v-text-field>
+              <v-text-field v-model="editedItem.title" label="標題"></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field v-model="editedItem.date" label="課程日期"></v-text-field>
             </v-col>
             <v-col cols="12">
               <ckeditor :editor="editor" v-model="editedItem.content" :config="editorConfig"></ckeditor>
@@ -89,43 +103,86 @@ export default {
         }
       },
       headers: [
-        { text: "ID", value: "id" },
-        { text: "POST ID", value: "post" },
-        { text: "活動名稱簡寫", value: "title_short" },
-        { text: "活動標籤", value: "tag" },
-        { text: "活動類型", value: "class" },
-        { text: "活動開始時間", value: "date_begin" },
-        { text: "活動結束時間", value: "date_end" },
-        { text: "封面圖網址", value: "cover_image" },
-        { text: "核發積分數量", value: "point" },
-        { text: "活動地點", value: "location" },
-        { text: "主辦單位", value: "organizer" },
-        { text: "協辦單位", value: "co_organizer" },
-        { text: "聯絡人", value: "contact_person" },
-        { text: "連絡電話", value: "contact_phone" },
-        { text: "聯絡電子信箱", value: "contact_mail" },
-        { text: "活動網址", value: "link_event" },
-        { text: "報名網址", value: "link_signup" },
-        { text: "執行", value: "actions", sortable: false }
+        { text: "圖片", value: "image" },
+        { text: "標題", value: "title" },
+        { text: "副標題", value: "subTitle" },
+        { text: "課程日期", value: "date" },
+        { text: "內容", value: "content", align: "center" },
+        { text: "Actions", value: "actions", sortable: false }
       ],
       items: [
         {
-          post: 1,
-          title_short: "台灣血管外科學會",
-          tag: "",
-          class: 1,
-          date_begin: "2020-09-13T09:30",
-          date_end: "2020-09-13T17:00",
-          cover_image: "",
-          point: "",
-          location: "",
-          organizer: "",
-          co_organizer: "",
-          contact_person: "",
-          contact_phone: "",
-          contact_mail: "",
-          link_event: "",
-          link_signup: ""
+          image: "https://cw1.tw/CW/images/article/C1323775766370.jpg",
+          title: "台灣血管外科學會",
+          subTitle: "Taiwan Society for Vascular Surgery",
+          date: "2020-04-19",
+          content: `<div><p class="MsoNormal" style="margin-top:12.0pt;mso-para-margin-top:1.0gd;
+            layout-grid-mode:char;mso-layout-grid-align:none"><span style="font-size:14.0pt;
+            font-family:DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+            &quot;Times New Roman&quot;">活動名稱</span><span lang="EN-US" style="font-size:14.0pt;
+            mso-fareast-font-family:DFKai-SB">: </span><span style="font-size:14.0pt;
+            font-family:DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+            &quot;Times New Roman&quot;">縱貫海峽—海峽兩岸血管外科高峰論壇</span></p>
+            <p class="MsoNormal" style="margin-top:12.0pt;mso-para-margin-top:1.0gd;
+            layout-grid-mode:char;mso-layout-grid-align:none"><span style="font-size: 14pt; font-family: DFKai-SB;">活動日期</span><span lang="EN-US" style="font-size: 14pt; font-family: &quot;Times New Roman&quot;, serif;">: 109</span><span style="font-size: 14pt; font-family: DFKai-SB;">年</span><span lang="EN-US" style="font-size: 14pt; font-family: &quot;Times New Roman&quot;, serif;">4</span><span style="font-size: 14pt; font-family: DFKai-SB;">月</span><span lang="EN-US" style="font-size: 14pt; font-family: &quot;Times New Roman&quot;, serif;">19</span><span style="font-size: 14pt; font-family: DFKai-SB;">日</span></p>
+            <span style="font-size:14.0pt;font-family:
+            DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;;
+            mso-bidi-font-family:&quot;Times New Roman&quot;;mso-font-kerning:1.0pt;mso-ansi-language:
+            EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA"> 線上活動連結:</span><b style="font-family: &quot;microsoft jhenghei&quot;, sans-serif; font-size: small;">&nbsp;<a href="http://q129.itraining.tw/index.php" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://q129.itraining.tw/index.php&amp;source=gmail&amp;ust=1587024711227000&amp;usg=AFQjCNGyFjO0mHbYgt-U_9QkVZ1MLVRALQ" style="color: rgb(17, 85, 204);">http://q129.<wbr>itraining.tw/index.php</a>&nbsp;(無須安裝APP即可進入與會)</b><span style="font-size:14.0pt;font-family:
+            DFKai-SB;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;;
+            mso-bidi-font-family:&quot;Times New Roman&quot;;mso-font-kerning:1.0pt;mso-ansi-language:
+            EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA"><br>
+            <br>
+            活動議程與講師介紹可點上方連結查看或至下方連結下載<br>
+            <br>
+            <img src="https://www.tsvs.org/upload/Image/20200419%20Banner.jpg" width="640" height="167" alt=""><br>
+            <br>
+            <br type="_moz">
+            </span></div>
+            `
+        },
+        {
+          image: "https://www.medicaltravel.org.tw/img/section1bg1.jpg",
+          title: "醫療大數據",
+          subTitle: "Precision Medicine",
+          date: "2020-06-13",
+          content: `<td>
+            <span style="font-family: Arial;"><span style="font-size: large;">TSVS南區困難病例討論</span></span>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">時間: 2020/06/13(六)下午2點</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">地點: 悅誠廣場1樓 掌門精釀啤酒館</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">&nbsp; &nbsp; &nbsp; (高雄市三民區民族一路427號)</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">&nbsp; &nbsp; &nbsp; (高雄市民族 大順路交叉口 交通方便)</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">分享案例醫院:&nbsp;</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">輔英 屏基 高醫 長庚 成大 安南 嘉基 奇美 亞大</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;"><br>
+            </span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">*TSVS積分: 15分</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">*會中有提供各式啤酒及小菜品嚐 會後有精緻晚餐</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;">*請於5/30前, 線上報名參加:</span></span></div>
+            <div><span style="font-family: Arial;"><span style="font-size: large;"><a href="https://forms.gle/fR2zyaewnziFa9Uf9">https://forms.gle/fR2zyaewnziFa9Uf9</a></span></span></div>
+            </td>
+            `
+        },
+        {
+          image: "https://buzzorange.com/techorange/wp-content/uploads/sites/2/2019/04/doctor-1024x681.webp?jpeg",
+          title: "人工智慧的醫療照護應用",
+          subTitle: "小病就跑大醫院？減少醫療浪費",
+          date: "2020-06-13",
+          content: ""
+        },
+        {
+          image: "https://images.chinatimes.com/newsphoto/2020-02-13/900/N14A00_P_01_01.jpg",
+          title: "人工智慧的醫療照護應用02",
+          subTitle: "小病就跑大醫院？減少醫療浪費",
+          date: "2020-06-13",
+          content: ""
+        },
+        {
+          image: "https://cloudcdn.taiwantradeshows.com.tw/2019/medicare/edm/images/shutterstock.jpg",
+          title: "人工智慧的醫療照護應用03",
+          subTitle: "小病就跑大醫院？減少醫療浪費",
+          date: "2020-06-13",
+          content: ""
         }
       ],
       editedIndex: -1,

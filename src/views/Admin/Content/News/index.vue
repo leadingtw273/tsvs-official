@@ -14,6 +14,10 @@
         </v-icon>
       </template>
 
+      <template v-slot:item.isLogin="{ value }">
+        {{ value ? "是" : "否" }}
+      </template>
+
       <template v-slot:item.content="{ value }">
         <v-dialog max-width="75%" dark>
           <template v-slot:activator="{ on }">
@@ -113,7 +117,6 @@ export default {
         { text: "標題", value: "title" },
         { text: "日期", value: "date" },
         { text: "內容", value: "content", align: "center" },
-        { text: "設為封面", value: "isAdvertising" },
         { text: "需登入", value: "isLogin" },
         { text: "Actions", value: "actions", sortable: false }
       ],
@@ -147,26 +150,6 @@ export default {
             '<div class="秘書處公告-2019-9-1-內容"><div class="秘書處公告-2019-9-1-內容__7bf59c8eeef446f0a2d8ce2d5b664552"> 血管外科健保申報共識 <br><br>檔案載點 (需登入) </div></div>',
           isAdvertising: false,
           isLogin: true
-        },
-        {
-          class: "活動通知",
-          image: "",
-          title: "血管外科健保申報共識",
-          date: "2019-10-18",
-          content:
-            '<div class="活動通知-2019-10-18-01-內容"><div class="活動通知-2019-10-18-01-內容__4875e9cd258248a0bdfc37e741cb2e41"> TSVS課程 2020/6/3-5@花蓮慈濟 Aorta &amp; Peripheral Artery Cadaver Workshop <br><br>2020/6/3-5@花蓮慈濟 Aorta &amp; Peripheral Artery Cadaver Workshop </div><div class="v-responsive v-image mt-10" style="width: 300px;"><div class="v-responsive__sizer" style="padding-bottom: 71.1752%;"></div><div class="v-image__image v-image__image--cover" style="background-image: url(&quot;http://127.0.0.1:8080/img/%E8%8A%B1%E8%93%AE%E6%85%88%E6%BF%9F%20Aorta.e5f33c21.png&quot;); background-position: center center;"></div><div class="v-responsive__content" style="width: 451px;"></div></div></div>',
-          isAdvertising: false,
-          isLogin: false
-        },
-        {
-          class: "活動通知",
-          image: "",
-          title: "血管外科健保申報共識",
-          date: "2019-10-17",
-          content:
-            '<div class="活動通知-2019-10-18-02-內容"><div class="活動通知-2019-10-18-02-內容__6db1df4ea69a44f289416448f1fcfef3"> TSVS活動 11/9(六)下午3點_北區困難病例討論會@維多麗雅酒店3F, 歡迎報名參加 <br><br>報名連結：https://forms.gle/fNwyAp4Zpfb7gc7R7 <br><br>主題：北區困難病例討論會 <br><br>時間：2019/11/9 (六) 15:00-21:00 <br><br>地點：維多麗亞酒店 3F天璽廳 <br><br>地址：台北市中山區敬業四路168號 (捷運文湖線: 劍南路站) <br><br>議程將後續公告… </div></div>',
-          isAdvertising: false,
-          isLogin: false
         },
         {
           class: "醫學新知",

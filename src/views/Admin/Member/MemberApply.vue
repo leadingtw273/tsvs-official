@@ -44,10 +44,19 @@
               <v-text-field v-if="typeof editedItem[key] === 'string'" v-model="editedItem[key]" :label="schema[key]" />
 
               <v-text-field
-                v-else-if="typeof editedItem[key] === 'number'"
+                v-else-if="typeof editedItem[key] === 'number' && key !== 'type'"
                 v-model.number="editedItem[key]"
                 :label="schema[key]"
               />
+
+              <v-select
+                v-model.number="editedItem[key]"
+                :items="[
+                  { text: '正式會員', value: 2 },
+                  { text: '學會之友', value: 1 }
+                ]"
+                label="身分別"
+              ></v-select>
             </v-col>
           </v-row>
         </v-card-text>

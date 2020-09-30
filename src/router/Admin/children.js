@@ -100,21 +100,21 @@ export default [
         }
       },
       {
-        path: "會議課程",
+        path: "活動管理",
         name: "AdminEvents",
         component() {
           return import("@/views/Admin/Content/Events");
         },
         children: [
           {
-            path: "課程申請內容編輯",
+            path: "活動審核",
             name: "AdminCourseApplicationEditor",
             component() {
               return import("@/views/Admin/Content/Events/CourseApplicationEditor.vue");
             }
           },
           {
-            path: "課程列表",
+            path: "活動列表",
             name: "AdminCourseList",
             component() {
               return import("@/views/Admin/Content/Events/CourseList.vue");

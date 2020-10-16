@@ -9,6 +9,11 @@ export default {
       total: 0,
       data: [],
       loading: false
+    },
+    register: {
+      total: 0,
+      data: [],
+      loading: false
     }
   },
   getters: {},
@@ -43,11 +48,38 @@ export default {
         loading: false
       });
     },
+    async getRegisterUserList({ commit, rootState }, params = {}) {
+      commit("SET_LOADING", {
+        type: "register",
+        loading: true
+      });
+      const api = new apiAdminMember({
+        token: rootState.user.authenticate.token
+      });
+      const res = await api.getRegisterUserList(params);
+
+      commit("SET_INFO", {
+        type: "register",
+        data: res.data,
+        total: res.total
+      });
+
+      commit("SET_LOADING", {
+        type: "register",
+        loading: false
+      });
+    },
     async updateUser({ rootState }, params) {
       const api = new apiAdminMember({
         token: rootState.user.authenticate.token
       });
       await api.updateUser(params);
+    },
+    async approval({ rootState }, id) {
+      const api = new apiAdminMember({
+        token: rootState.user.authenticate.token
+      });
+      await api.approvalUser(id);
     },
     async deleteUser({ rootState }, id) {
       const api = new apiAdminMember({

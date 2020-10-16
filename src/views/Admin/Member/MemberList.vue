@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-data-table
-      dark
       :headers="headers"
       :items="user.data"
       class="elevation-1"
@@ -32,7 +31,7 @@
       <template v-slot:top> </template>
     </v-data-table>
 
-    <v-dialog v-model="dialog" max-width="900px" dark>
+    <v-dialog v-model="dialog" max-width="900px">
       <v-card>
         <v-card-title>
           <span class="headline"></span>

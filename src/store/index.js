@@ -24,7 +24,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setLoading({ commit }, payload) {
+    setLoading({ commit }, payload) {          
       commit("SET_LOADING", payload);
     }
   },

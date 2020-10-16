@@ -29,7 +29,7 @@ export default class AdminMemberApi extends Api {
 
   async approvalUser(id) {
     return await super.post(
-      `${this.url}/${id}`,
+      `${this.url}/register/${id}/approval`,
       { approved: true },
       { headers: { Authorization: `Bearer ${this.token}` } }
     );

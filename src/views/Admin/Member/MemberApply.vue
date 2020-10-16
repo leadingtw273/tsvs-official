@@ -1,7 +1,15 @@
 <template>
   <div>
+    <dialog-form
+      :isOpen.sync="isOpen"
+      :items="formSchema"
+      :data="formData"
+      okLabel="審核通過"
+      title="審核"
+      type="tab"
+      v-on:save="handleSave"
+    ></dialog-form>
     <v-data-table
-      dark
       :headers="headers"
       :items="user.data"
       class="elevation-1"
@@ -13,11 +21,11 @@
     >
       <template v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="editItem(item)">
-          mdi-pencil
+          mdi-eye
         </v-icon>
-        <v-icon @click="deleteItem(item)">
+        <!-- <v-icon @click="deleteItem(item)">
           mdi-delete
-        </v-icon>
+        </v-icon> -->
       </template>
 
       <template v-slot:top>
@@ -31,44 +39,19 @@
 
       <template v-slot:top> </template>
     </v-data-table>
-
-    <v-dialog v-model="dialog" max-width="900px" dark>
-      <v-card>
-        <v-card-title>
-          <span class="headline"></span>
-        </v-card-title>
-
-        <v-card-text class="black--text">
-          <v-row>
-            <v-col v-for="key in Object.keys(defaultItem)" v-bind:key="key" cols="6">
-              <v-text-field v-if="typeof editedItem[key] === 'string'" v-model="editedItem[key]" :label="schema[key]" />
-
-              <v-text-field
-                v-else-if="typeof editedItem[key] === 'number'"
-                v-model.number="editedItem[key]"
-                :label="schema[key]"
-              />
-            </v-col>
-          </v-row>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="close">取消</v-btn>
-          <v-btn color="blue darken-1" text @click="save">更新</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import DialogForm from "../../../components/DialogForm/Form";
 
 export default {
   name: "MemberTable",
+  components: { DialogForm },
   data() {
     return {
+      isOpen: false,
       loading: true,
       dialog: false,
       footerProps: {
@@ -82,7 +65,7 @@ export default {
         { text: "手機號碼", value: "phone_mobile" },
         { text: "任職醫院", value: "org_name" },
         { text: "科別", value: "org_department" },
-        { text: "執行", value: "actions", sortable: false }
+        { text: "操作", value: "actions", sortable: false }
       ],
       pageOptions: {},
       schema: {
@@ -110,6 +93,74 @@ export default {
         role: "權限",
         type: "身分別"
       },
+      formData: {},
+
+      formSchema: [
+        {
+          name: "基本資料",
+          items: [
+            { name: "username", label: "帳號", col: 12, readonly: true },
+            { name: "name_zh", label: "中文姓名/單位名稱", readonly: true },
+            { name: "name_en", label: "英文姓名", readonly: true },
+            {
+              name: "type",
+              label: "身分別",
+              type: "select",
+              items: [
+                { label: "學會之友", value: 1 },
+                { label: "正式會員", value: 2 }
+              ],
+              readonly: true
+            },
+            {
+              name: "class",
+              label: "類別",
+              type: "select",
+              items: [
+                { label: "個人會員", value: 1 },
+                { label: "團體會員", value: 2 }
+              ],
+              readonly: true
+            },
+            {
+              name: "gender",
+              label: "性別",
+              type: "select",
+              items: [
+                { label: "團體會員", value: 0 },
+                { label: "男性", value: 1 },
+                { label: "女性", value: 2 }
+              ],
+              readonly: true
+            },
+            { name: "birthDate", label: "出生日期", type: "date", readonly: true, mask: "####/##/##" },
+            { name: "education", label: "教育程度", readonly: true },
+            { name: "link", label: "個人介紹連結", readonly: true },
+            { name: "cover_image", label: "個人照片/公司 Logo", type: "file", readonly: true },
+            { name: "diplomacy_image", label: "畢業證書/設立證明", type: "file", readonly: true }
+          ]
+        },
+        {
+          name: "聯絡資訊",
+          items: [
+            { name: "address_official", label: "戶籍地址/單位登記地址", readonly: true },
+            { name: "adddress_contact", label: "通訊地址", readonly: true },
+            { name: "phone_office", label: "公司電話", readonly: true },
+            { name: "phone_mobile", label: "行動電話/聯絡人行動電話", readonly: true },
+            { name: "mail", label: "電子郵件", readonly: true }
+          ]
+        },
+        {
+          name: "單位資訊",
+          items: [
+            { name: "org_name", label: "服務醫院名稱", readonly: true },
+            { name: "org_address", label: "服務醫院地址", readonly: true },
+            { name: "org_contact_person", label: "聯絡人姓名", readonly: true },
+            { name: "org_department", label: "服務醫院科別", readonly: true },
+            { name: "org_position", label: "現任職稱", readonly: true }
+          ]
+        }
+      ],
       items: [],
       editedIndex: -1,
       editedItem: {},
@@ -145,7 +196,7 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.admin.user.user
+      user: state => state.admin.user.register
     }),
     formTitle() {
       return this.editedIndex === -1 ? "新增" : "編輯";
@@ -164,12 +215,25 @@ export default {
   },
   methods: {
     fetchUsers() {
-      this.$store.dispatch("admin/user/getUserList", this.pagination);
+      this.$store.dispatch("admin/user/getRegisterUserList", this.pagination);
     },
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+
+      this.isOpen = true;
+      this.formData = Object.assign({}, item);
+    },
+    async handleSave(data, cb) {
+      try {
+        await this.$store.dispatch("admin/user/approval", data.id);
+        this.fetchUsers();
+      } catch (error) {
+        console.log(error);
+      }
+
+      cb();
     },
     async deleteItem(item) {
       confirm("確定刪除這筆資料？") && (await this.$store.dispatch("admin/user/deleteUser", item.id));

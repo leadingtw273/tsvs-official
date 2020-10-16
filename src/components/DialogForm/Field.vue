@@ -10,14 +10,18 @@
   />
   <div v-else-if="type === 'file'">
     <v-subheader class="px-0 mb-n2">{{ label }}</v-subheader>
-    <v-file-input v-if="!readonly" class="mt-n6 mb-1" hide-input :loading="loading"> </v-file-input>
+    <v-file-input v-if="!readonly" class="mt-n6 mb-1" hide-input :loading="loading" @change="updateFile">
+    </v-file-input>
 
-    <v-img :src="data"></v-img>
+    <v-skeleton-loader v-if="data && loading" type="image"></v-skeleton-loader>
+    <v-img v-else :src="data" :loading="loading" style="background: #ccc"></v-img>
   </div>
   <v-text-field v-model="value" v-else v-mask="mask" :label="label" :readonly="readonly" />
 </template>
 
 <script>
+import fileApi from "@/apis/File.js";
+
 import dayjs from "dayjs";
 export default {
   name: "DialogField",
@@ -43,8 +47,7 @@ export default {
   },
   data: () => ({
     value: null,
-    loading: false,
-    url: "https://p2.bahamut.com.tw/B/2KU/02/669e2406f6fd57a4824c484fe41a8ia5.JPG?w=500"
+    loading: false
   }),
   created() {},
   watch: {
@@ -79,6 +82,13 @@ export default {
     },
     handleOff() {
       this.$emit("update:isOpen", false);
+    },
+    async updateFile(file) {
+      const api = new fileApi();
+      this.loading = true;
+      const res = await api.uploadImage(file);
+      this.loading = false;
+      this.value = res.url;
     }
   }
 };

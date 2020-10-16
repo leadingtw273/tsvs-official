@@ -1,14 +1,14 @@
 <template>
   <div>
     <dialog-form
-      :isOpen.sync="isOpen"
-      :items="formSchema"
-      :data="formData"
       okLabel="審核通過"
       title="審核"
       type="tab"
+      :isOpen.sync="isOpen"
+      :items="formSchema"
+      :data="formData"
       v-on:save="handleSave"
-    ></dialog-form>
+    />
     <v-data-table
       :headers="headers"
       :items="user.data"
@@ -30,10 +30,7 @@
 
       <template v-slot:top>
         <v-toolbar flat dark>
-          <v-toolbar-title>使用者列表</v-toolbar-title>
-          <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
-          <!-- <v-spacer></v-spacer> -->
-          <!-- <v-btn color="primary" @click.stop="dialog = true" large>新增</v-btn> -->
+          <v-toolbar-title>會員審核</v-toolbar-title>
         </v-toolbar>
       </template>
 
@@ -53,7 +50,6 @@ export default {
     return {
       isOpen: false,
       loading: true,
-      dialog: false,
       footerProps: {
         "items-per-page-options": [1, 5, 10, 30]
       },
@@ -68,33 +64,7 @@ export default {
         { text: "操作", value: "actions", sortable: false }
       ],
       pageOptions: {},
-      schema: {
-        username: "帳號",
-        name_zh: "中文姓名/單位名稱",
-        name_en: "英文姓名",
-        mail: "電子信箱",
-        gender: "性別",
-        class: "會員類別",
-        link: "介紹連結",
-        adddress_contact: "通訊地址",
-        address_official: "戶籍地址",
-        applyDate: "申請日期",
-        birthDate: "生日",
-        cover_image: "個人照片/Logo",
-        diplomacy_image: "證明文件",
-        education: "學歷",
-        org_name: "醫院名稱",
-        org_address: "醫院地址",
-        org_contact_person: "醫院連絡人",
-        org_department: "醫院科別",
-        org_position: "現任職務",
-        phone_mobile: "行動電話",
-        phone_office: "公司電話",
-        role: "權限",
-        type: "身分別"
-      },
       formData: {},
-
       formSchema: [
         {
           name: "基本資料",
@@ -161,34 +131,7 @@ export default {
           ]
         }
       ],
-      items: [],
-      editedIndex: -1,
-      editedItem: {},
-      defaultItem: {
-        username: "",
-        name_zh: "",
-        name_en: "",
-        mail: "",
-        gender: 0,
-        class: 1,
-        link: "",
-        adddress_contact: "",
-        address_official: "",
-        applyDate: "",
-        birthDate: "",
-        cover_image: "",
-        diplomacy_image: "",
-        education: "",
-        org_name: "",
-        org_address: "",
-        org_contact_person: "",
-        org_department: "",
-        org_position: "",
-        phone_mobile: "",
-        phone_office: "",
-        role: 999,
-        type: 1
-      }
+      items: []
     };
   },
   created() {
@@ -198,9 +141,6 @@ export default {
     ...mapState({
       user: state => state.admin.user.register
     }),
-    formTitle() {
-      return this.editedIndex === -1 ? "新增" : "編輯";
-    },
     pagination() {
       return {
         size: this.pageOptions.itemsPerPage || 10,
@@ -208,20 +148,11 @@ export default {
       };
     }
   },
-  watch: {
-    dialog(val) {
-      val || this.close();
-    }
-  },
   methods: {
     fetchUsers() {
       this.$store.dispatch("admin/user/getRegisterUserList", this.pagination);
     },
     editItem(item) {
-      this.editedIndex = this.items.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-
       this.isOpen = true;
       this.formData = Object.assign({}, item);
     },
@@ -234,26 +165,6 @@ export default {
       }
 
       cb();
-    },
-    async deleteItem(item) {
-      confirm("確定刪除這筆資料？") && (await this.$store.dispatch("admin/user/deleteUser", item.id));
-      this.fetchUsers();
-    },
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-    async save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.items[this.editedIndex], this.editedItem);
-      } else {
-        await this.$store.dispatch("admin/user/updateUser", this.editedItem);
-      }
-      this.close();
-      this.fetchUsers();
     }
   }
 };

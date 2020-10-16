@@ -1,5 +1,14 @@
 <template>
   <div>
+    <dialog-form
+      title="會員資料"
+      type="tab"
+      :isOpen.sync="isOpen"
+      :items="formSchema"
+      :data="formData"
+      v-on:save="handleSave"
+    />
+
     <v-data-table
       :headers="headers"
       :items="user.data"
@@ -31,7 +40,7 @@
       <template v-slot:top> </template>
     </v-data-table>
 
-    <v-dialog v-model="dialog" max-width="900px">
+    <!-- <v-dialog v-model="dialog" max-width="900px">
       <v-card>
         <v-card-title>
           <span class="headline"></span>
@@ -57,17 +66,20 @@
           <v-btn color="blue darken-1" text @click="save">更新</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import DialogForm from "../../../components/DialogForm/Form";
 
 export default {
   name: "MemberTable",
+  components: { DialogForm },
   data() {
     return {
+      isOpen: false,
       loading: true,
       dialog: false,
       footerProps: {
@@ -84,59 +96,82 @@ export default {
         { text: "執行", value: "actions", sortable: false }
       ],
       pageOptions: {},
-      schema: {
-        username: "帳號",
-        name_zh: "中文姓名/單位名稱",
-        name_en: "英文姓名",
-        mail: "電子信箱",
-        gender: "性別",
-        class: "會員類別",
-        link: "介紹連結",
-        adddress_contact: "通訊地址",
-        address_official: "戶籍地址",
-        applyDate: "申請日期",
-        birthDate: "生日",
-        cover_image: "個人照片/Logo",
-        diplomacy_image: "證明文件",
-        education: "學歷",
-        org_name: "醫院名稱",
-        org_address: "醫院地址",
-        org_contact_person: "醫院連絡人",
-        org_department: "醫院科別",
-        org_position: "現任職務",
-        phone_mobile: "行動電話",
-        phone_office: "公司電話",
-        role: "權限",
-        type: "身分別"
-      },
-      items: [],
-      editedIndex: -1,
-      editedItem: {},
-      defaultItem: {
-        username: "",
-        name_zh: "",
-        name_en: "",
-        mail: "",
-        gender: 0,
-        class: 1,
-        link: "",
-        adddress_contact: "",
-        address_official: "",
-        applyDate: "",
-        birthDate: "",
-        cover_image: "",
-        diplomacy_image: "",
-        education: "",
-        org_name: "",
-        org_address: "",
-        org_contact_person: "",
-        org_department: "",
-        org_position: "",
-        phone_mobile: "",
-        phone_office: "",
-        role: 999,
-        type: 1
-      }
+      formData: {},
+      formSchema: [
+        {
+          name: "基本資料",
+          items: [
+            { name: "username", label: "帳號", col: 12, readonly: true },
+            { name: "name_zh", label: "中文姓名/單位名稱" },
+            { name: "name_en", label: "英文姓名" },
+            {
+              name: "type",
+              label: "身分別",
+              type: "select",
+              items: [
+                { label: "學會之友", value: 1 },
+                { label: "正式會員", value: 2 }
+              ]
+            },
+            {
+              name: "class",
+              label: "類別",
+              type: "select",
+              items: [
+                { label: "個人會員", value: 1 },
+                { label: "團體會員", value: 2 }
+              ]
+            },
+            {
+              name: "gender",
+              label: "性別",
+              type: "select",
+              items: [
+                { label: "團體會員", value: 0 },
+                { label: "男性", value: 1 },
+                { label: "女性", value: 2 }
+              ]
+            },
+            {
+              name: "role",
+              label: "身分組",
+              type: "select",
+              items: [
+                { label: "系統管理員", value: 0 },
+                { label: "學會管理員", value: 1 },
+                { label: "一般會員", value: 999 }
+              ]
+            },
+            { name: "birthDate", label: "出生日期", type: "date", mask: "####/##/##" },
+            { name: "applyDate", label: "申請日期", type: "date", mask: "####/##/##", readonly: true },
+            { name: "education", label: "教育程度" },
+            { name: "link", label: "個人介紹連結" },
+            { name: "cover_image", label: "個人照片/公司 Logo", type: "file" },
+            { name: "diplomacy_image", label: "畢業證書/設立證明", type: "file" }
+          ]
+        },
+        {
+          name: "聯絡資訊",
+          items: [
+            { name: "address_official", label: "戶籍地址/單位登記地址" },
+            { name: "adddress_contact", label: "通訊地址" },
+            { name: "phone_office", label: "公司電話" },
+            { name: "phone_mobile", label: "行動電話/聯絡人行動電話" },
+            { name: "mail", label: "電子郵件" }
+          ]
+        },
+        {
+          name: "單位資訊",
+          items: [
+            { name: "org_name", label: "服務醫院名稱" },
+            { name: "org_address", label: "服務醫院地址" },
+            { name: "org_contact_person", label: "聯絡人姓名" },
+            { name: "org_department", label: "服務醫院科別" },
+            { name: "org_position", label: "現任職稱" }
+          ]
+        }
+      ],
+      items: []
     };
   },
   created() {
@@ -156,23 +191,28 @@ export default {
       };
     }
   },
-  watch: {
-    dialog(val) {
-      val || this.close();
-    }
-  },
   methods: {
     fetchUsers() {
       this.$store.dispatch("admin/user/getUserList", this.pagination);
     },
     editItem(item) {
-      this.editedIndex = this.items.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      this.isOpen = true;
+      this.formData = Object.assign({}, item);
     },
     async deleteItem(item) {
       confirm("確定刪除這筆資料？") && (await this.$store.dispatch("admin/user/deleteUser", item.id));
       this.fetchUsers();
+    },
+    async handleSave(data, cb) {
+      console.log(data);
+      try {
+        await this.$store.dispatch("admin/user/updateUser", data);
+        this.fetchUsers();
+      } catch (error) {
+        console.log(error);
+      }
+
+      cb();
     },
     close() {
       this.dialog = false;

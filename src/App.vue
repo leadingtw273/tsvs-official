@@ -3,7 +3,7 @@
     <the-navbar></the-navbar>
 
     <v-main>
-      <router-view></router-view>
+      <router-view v-if="status"></router-view>
     </v-main>
 
     <the-footer></the-footer>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TheNavbar from "@/components/TheNavbar";
 import TheFooter from "@/components/TheFooter";
 import NetworkErrorDialog from "@/components/Dialog/NetworkError";
@@ -27,11 +28,14 @@ export default {
   name: "App",
   components: { TheNavbar, TheFooter, NetworkErrorDialog, ResponseErrorDialog },
   computed: {
-    loading() {
-      return this.$store.state.loading;
-    }
+    ...mapState({
+      status: state => state.status,
+      loading: state => state.loading
+    })
   },
   async created() {
+    await this.$store.dispatch("initApp");
+
     await this.$store.dispatch("user/reGetStatus");
   }
 };

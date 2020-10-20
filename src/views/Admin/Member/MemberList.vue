@@ -3,6 +3,7 @@
     <dialog-form
       title="會員資料"
       type="tab"
+      height="90vh"
       :isOpen.sync="isOpen"
       :items="formSchema"
       :data="formData"
@@ -204,7 +205,6 @@ export default {
       this.fetchUsers();
     },
     async handleSave(data, cb) {
-      console.log(data);
       try {
         await this.$store.dispatch("admin/user/updateUser", data);
         this.fetchUsers();

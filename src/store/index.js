@@ -4,11 +4,14 @@ import Vuex from "vuex";
 import user from "./user";
 import dialog from "./dialog";
 import admin from "./admin";
+import menu from "./menu";
+import post from "./post";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    status: false,
     view: "normal",
     loading: false
   },
@@ -21,16 +24,26 @@ export default new Vuex.Store({
     },
     SET_LOADING(state, payload) {
       state.loading = payload;
+    },
+    SET_APP_STATUS(state, payload) {
+      state.status = payload;
     }
   },
   actions: {
-    setLoading({ commit }, payload) {          
+    async initApp({ commit, dispatch }) {
+      commit("SET_APP_STATUS", false);
+      await dispatch("menu/getMenu");
+      commit("SET_APP_STATUS", true);
+    },
+    setLoading({ commit }, payload) {
       commit("SET_LOADING", payload);
     }
   },
   modules: {
     user,
     dialog,
+    menu,
+    post,
     admin
   }
 });

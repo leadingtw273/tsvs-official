@@ -7,6 +7,7 @@
     item-text="label"
     item-value="value"
     :readonly="readonly"
+    :rules="fieldRule"
   />
   <div v-else-if="type === 'file'">
     <v-subheader class="px-0 mb-n2">{{ label }}</v-subheader>
@@ -16,7 +17,7 @@
     <v-skeleton-loader v-if="data && loading" type="image"></v-skeleton-loader>
     <v-img v-else :src="data" :loading="loading" style="background: #ccc"></v-img>
   </div>
-  <v-text-field v-model="value" v-else v-mask="mask" :label="label" :readonly="readonly" />
+  <v-text-field v-model="value" v-else v-mask="mask" :rules="fieldRule" :label="label" :readonly="readonly" />
 </template>
 
 <script>
@@ -42,14 +43,24 @@ export default {
       type: Array,
       default: () => []
     },
+    rules: {},
     mask: {},
-    data: {}
+    data: {},
+    required: {
+      type: Boolean,
+      default: false
+    },
+    default: {}
   },
   data: () => ({
     value: null,
     loading: false
   }),
-  created() {},
+  created() {
+    if (typeof this.default !== "undefined") {
+      this.value = this.default;
+    }
+  },
   watch: {
     value: {
       deep: true,
@@ -75,7 +86,16 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    fieldRule: function() {
+      if (this.rules && this.required) {
+        return [value => !!value || "該欄位為必填!", ...this.rules];
+      } else if (this.required) {
+        return [value => !!value || "該欄位為必填!"];
+      }
+      return this.rules;
+    }
+  },
   methods: {
     handleOk() {
       this.$emit("update:isOpen", false);

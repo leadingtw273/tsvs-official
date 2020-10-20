@@ -3,6 +3,7 @@
     <dialog-form
       okLabel="審核通過"
       title="審核"
+      height="90vh"
       type="tab"
       :isOpen.sync="isOpen"
       :items="formSchema"

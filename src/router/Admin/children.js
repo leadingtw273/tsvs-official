@@ -17,28 +17,28 @@ export default [
     redirect: { name: "AdminBackgroundImage" }
   },
   {
-    path: "會員管理",
+    path: "member",
     name: "AdminMember",
     component() {
       return import("@/views/Admin/Member");
     },
     children: [
       {
-        path: "會員列表",
+        path: "list",
         name: "AdminMemberList",
         component() {
           return import("@/views/Admin/Member/MemberList");
         }
       },
       {
-        path: "會員審核",
+        path: "apply",
         name: "AdminMemberApply",
         component() {
           return import("@/views/Admin/Member/MemberApply");
         }
       },
       {
-        path: "積分申請",
+        path: "QuantityApply",
         name: "AdminMemberQuantityApply",
         component() {
           return import("@/views/Admin/Member/QuantityApply");
@@ -48,120 +48,14 @@ export default [
     redirect: { name: "AdminMemberList" }
   },
   {
-    path: "內容管理",
+    path: "content/:navbar?/:sidebar?/:catalog?",
     name: "AdminContent",
-    component() {
-      return import("@/views/Admin/Content");
-    },
-    children: [
-      {
-        path: "學會資訊",
-        name: "AdminAbout",
-        component() {
-          return import("@/views/Admin/Content/About");
-        },
-        children: [
-          {
-            path: "內容編輯",
-            name: "AdminEditorContent",
-            component() {
-              return import("@/views/Admin/Content/About/EditorContent.vue");
-            }
-          },
-          {
-            path: "章程法令規章",
-            name: "AdminBylawsRegulations",
-            component() {
-              return import("@/views/Admin/Content/About/BylawsRegulations.vue");
-            }
-          },
-          {
-            path: "會議記錄",
-            name: "AdminMeetingRecord",
-            component() {
-              return import("@/views/Admin/Content/About/MeetingRecord.vue");
-            }
-          }
-        ],
-        redirect: { name: "AdminEditorContent" }
-      },
-      {
-        path: "學會公告",
-        name: "AdminNews",
-        component() {
-          return import("@/views/Admin/Content/News");
-        }
-      },
-      {
-        path: "會議課程",
-        name: "AdminEvents",
-        component() {
-          return import("@/views/Admin/Content/Events");
-        },
-        children: [
-          {
-            path: "課程申請內容編輯",
-            name: "AdminCourseApplicationEditor",
-            component() {
-              return import("@/views/Admin/Content/Events/CourseApplicationEditor.vue");
-            }
-          },
-          {
-            path: "課程列表",
-            name: "AdminCourseList",
-            component() {
-              return import("@/views/Admin/Content/Events/CourseList.vue");
-            }
-          }
-        ],
-        redirect: { name: "AdminCourseApplicationEditor" }
-      },
-      {
-        path: "資料查詢",
-        name: "AdminSearch",
-        component() {
-          return import("@/views/Admin/Content/Search");
-        },
-        children: [
-          {
-            path: "內容編輯",
-            name: "AdminSearchContentEditor",
-            component() {
-              return import("@/views/Admin/Content/Search/SearchContentEditor");
-            }
-          },
-          {
-            path: "影片紀錄",
-            name: "AdminRecord",
-            component() {
-              return import("@/views/Admin/Content/Search/Record");
-            }
-          },
-          {
-            path: "資料下載",
-            name: "AdminDownload",
-            component() {
-              return import("@/views/Admin/Content/Search/Download");
-            }
-          }
-        ],
-        redirect: { name: "AdminSearchContentEditor" }
-      },
-      {
-        path: "衛教專區",
-        name: "AdminHealthEducation",
-        component() {
-          return import("@/views/Admin/Content/HealthEducation");
-        }
-      },
-      {
-        path: "相關網站",
-        name: "AdminWebsitesLink",
-        component() {
-          return import("@/views/Admin/Content/WebsitesLink");
-        }
+    component: () => import("@/layout/admin/container"),
+    meta: {
+      displayType: "menu",
+      text: {
+        zh: "內容管理"
       }
-    ],
-    redirect: { name: "AdminAbout" }
+    }
   }
 ];

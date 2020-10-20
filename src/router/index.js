@@ -5,17 +5,17 @@ import Home from "../views/Home";
 import NotFound from "../views/NotFound";
 
 import Admin from "./Admin";
-import About from "./About";
-import News from "./News";
-import Events from "./Events";
-import Search from "./Search";
-import Member from "./Member";
-import HealthEducation from "./HealthEducation";
-import WebsitesLink from "./WebsitesLink";
+// import About from "./About";
+// import News from "./News";
+// import Events from "./Events";
+// import Search from "./Search";
+// import Member from "./Member";
+// import HealthEducation from "./HealthEducation";
+// import WebsitesLink from "./WebsitesLink";
 
 Vue.use(VueRouter);
 
-const routes = [
+const staticRoutes = [
   {
     path: "/",
     name: "Home",
@@ -26,13 +26,13 @@ const routes = [
     }
   },
   ...Admin,
-  ...About,
-  ...News,
-  ...Events,
-  ...Search,
-  ...Member,
-  ...HealthEducation,
-  ...WebsitesLink,
+  // ...About,
+  // ...News,
+  // ...Events,
+  // ...Search,
+  // ...Member,
+  // ...HealthEducation,
+  // ...WebsitesLink,
   {
     path: "/*",
     component: NotFound
@@ -42,7 +42,7 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes: staticRoutes,
   scrollBehavior() {
     return { x: 0, y: 0 };
   }

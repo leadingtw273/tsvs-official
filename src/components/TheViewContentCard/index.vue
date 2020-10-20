@@ -1,22 +1,17 @@
 <template>
   <div class="the-view-content-card d-flex flex-row mx-12 mb-12">
-    <side-bar
-      :menuTitle="menuTitle"
-      :menuList="menuList"
-      :mainMenuIndex.sync="mainMenuIndex"
-      :subMenuIndex.sync="subMenuIndex"
-    ></side-bar>
+    <side-bar :menuTitle="menuTitle" :menuList="menuList" />
     <v-sheet color="secondary" class="sidebar-content py-12 px-8">
-      <card-header :mainText="mainItem.text" :subText="subItem != null ? subItem.text : ''"></card-header>
-
+      <card-header :mainText="mainText" :subText="subText"></card-header>
       <div>
-        <component :is="displayComponent" :fetchUrl="targetItem.fetchUrl"></component>
+        <component :is="displayComponent"></component>
       </div>
     </v-sheet>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import SideBar from "./components/SideBar";
 import CardHeader from "./components/CardHeader";
 import CardContent from "./components/CardContent";
@@ -32,84 +27,73 @@ export default {
     },
     menuList: {
       type: Array,
-      required: true,
-      validator(arr) {
-        return arr.every(item => {
-          const checkProperty = Object.prototype.hasOwnProperty.bind(item);
-          return (
-            checkProperty("text") &&
-            checkProperty("pageName") &&
-            (checkProperty("displayType") || checkProperty("items"))
-          );
-        });
-      }
+      required: true
     }
   },
   data() {
     return {
-      mainMenuIndex: 0,
-      subMenuIndex: 0
+      status: false,
+
+      navbarIndex: 0,
+      sideBarIndex: 0,
+      catalogIndex: 0
     };
   },
+  mounted() {
+    // this.setMenuIndex();
+  },
   computed: {
-    mainItem() {
-      return this.menuList[this.mainMenuIndex];
+    ...mapState({
+      menu: state => state.menu.data,
+      currentMenu: state => state.menu.current
+    }),
+    mainText() {
+      if (!this.currentMenu.navbar) return "";
+      const { text } = this.currentMenu.navbar.meta;
+      return typeof text === "object" ? text.zh : text;
     },
-    subItem() {
-      if (this.mainItem.items == null) return null;
-      return this.mainItem.items[this.subMenuIndex];
-    },
-    targetItem() {
-      return this.subItem != null ? this.subItem : this.mainItem;
-    },
-    currentPath() {
-      return this.$route.path;
+    subText() {
+      if (!this.currentMenu.sidebar) return "";
+
+      const { text } = this.currentMenu.sidebar.meta;
+
+      return typeof text === "object" ? text.zh : text;
     },
     displayComponent() {
+      if (this.isAdmin && this.isEditMenu) {
+        return "RouterView";
+      }
       const componentMap = new Map([
         ["content", "CardContent"],
         ["list", "CardContentList"],
-        ["page", "RouterView"]
+        ["page", "RouterView"],
+        ["menu", "RouterView"]
       ]);
-
-      return componentMap.get(this.targetItem.displayType);
-    }
-  },
-  watch: {
-    currentPath() {
-      this.setMenuIndex();
+      return componentMap.get(this.currentMenu.menu.meta.displayType);
+    },
+    isAdmin: function() {
+      return this.$route.matched.some(x => x.meta && x.meta.admin === true);
+    },
+    isEditMenu: function() {
+      return this.$route.matched.some(x => x.name === "AdminContent");
     }
   },
   methods: {
-    getPathText() {
-      const path = this.$route.path;
-
-      let mainMenuText = null;
-      let subMenuText = null;
-      if (this.$store.state.view === "admin") {
-        [, , , mainMenuText, subMenuText] = path.split("/");
-      } else {
-        [, , mainMenuText, subMenuText] = path.split("/");
-      }
-
-      return { mainMenuText, subMenuText };
-    },
-    parseIndexByText(itemList, parseText) {
-      const result = itemList.findIndex(({ text }) => text === parseText);
-      return result === -1 ? 0 : result;
-    },
     setMenuIndex() {
-      const { mainMenuText, subMenuText } = this.getPathText();
+      this.status = false;
+      const { navbar, sidebar, catalog } = this.$route.params;
 
-      this.mainMenuIndex = this.parseIndexByText(this.menuList, mainMenuText);
-
-      if (subMenuText != null) {
-        this.subMenuIndex = this.parseIndexByText(this.mainItem.items, subMenuText);
+      this.navbarIndex = this.menuList.findIndex(x => x.path === navbar);
+      if (sidebar) {
+        this.sideBarIndex = this.menuList[this.navbarIndex].children.findIndex(x => x.path === sidebar);
       }
+      if (catalog) {
+        this.catalogIndex = this.menuList[this.navbarIndex].children[this.sideBarIndex].children.findIndex(
+          x => x.path === catalog
+        );
+      }
+      this.status = true;
     }
-  },
-  mounted() {
-    this.setMenuIndex();
   }
 };
 </script>

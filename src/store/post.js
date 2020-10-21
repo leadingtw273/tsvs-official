@@ -5,9 +5,24 @@ export default {
   state: {},
   mutations: {},
   actions: {
-    async getPost(state, params = {}) {
-      const api = new postApi();
+    async getPost({ rootState }, params = {}) {
+      let api;
+      if (rootState.user.name) {
+        api = new postApi({ token: rootState.user.authenticate.token });
+      } else {
+        api = new postApi();
+      }
       const res = await api.getPost(params);
+      return res.data;
+    },
+    async getPostDetail({ rootState }, id) {
+      let api;
+      if (rootState.user.name) {
+        api = new postApi({ token: rootState.user.authenticate.token });
+      } else {
+        api = new postApi();
+      }
+      const res = await api.getPostDetail(id);
       return res.data;
     },
     async createPost({ rootState }, params) {

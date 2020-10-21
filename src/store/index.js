@@ -32,6 +32,7 @@ export default new Vuex.Store({
   actions: {
     async initApp({ commit, dispatch }) {
       commit("SET_APP_STATUS", false);
+      await dispatch("user/reGetStatus");
       await dispatch("menu/getMenu");
       commit("SET_APP_STATUS", true);
     },

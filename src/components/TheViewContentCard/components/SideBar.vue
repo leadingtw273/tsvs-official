@@ -44,7 +44,7 @@
             </v-btn-toggle>
 
             <div
-              v-if="sidebarIndex === j"
+              v-if="sidebarIndex === j && sidebar.meta.type === 0"
               class="add-btn d-flex ml-12"
               style="font-size: 15px"
               @click.stop="handleCreate('catalog', sidebar)"
@@ -62,7 +62,7 @@
           </template>
         </v-btn-toggle>
 
-        <template v-if="isAdmin && isEditMenu && navbar.children != null && navbarIndex === i">
+        <template v-if="isAdmin && isEditMenu && navbar.meta.type === 0 && navbarIndex === i">
           <div class="add-btn d-flex ml-7" @click.stop="handleCreate('sidebar', navbar)" :key="i">
             <v-icon color="#abbbf0" left>mdi-plus</v-icon>
             新增
@@ -130,7 +130,21 @@ export default {
             { label: "否", value: false }
           ]
         },
-        { name: "priority", type: "number", label: "顯示順序(數字越小越前)", default: 0 }
+        {
+          name: "type",
+          type: "select",
+          label: "類別",
+          default: 0,
+          col: 6,
+          items: [
+            { label: "清單", value: 0 },
+            { label: "頁面", value: 1 },
+            { label: "文章列表", value: 2 },
+            { label: "相簿", value: 3 },
+            { label: "其他", value: 4 }
+          ]
+        },
+        { name: "priority", type: "number", label: "顯示順序(數字越小越前)", default: 0, col: 6 }
       ]
     };
   },
@@ -157,7 +171,7 @@ export default {
     },
     async handleSave(route, cb) {
       await this.$store.dispatch("menu/createMenu", route);
-      await this.$store.dispatch("initApp");
+      await this.$store.dispatch("menu/getMenu");
 
       cb();
     },

@@ -8,6 +8,12 @@ export default class MenuApi extends Api {
   }
 
   async getMenu() {
+    if (this.token) {
+      return await super.get(`${this.url}`, {
+        params: { size: 99999 },
+        headers: { Authorization: `Bearer ${this.token}` }
+      });
+    }
     return await super.get(`${this.url}`, { params: { size: 99999 } });
   }
 

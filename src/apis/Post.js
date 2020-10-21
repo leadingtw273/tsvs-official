@@ -8,7 +8,22 @@ export default class PostApi extends Api {
   }
 
   async getPost(params) {
-    return await super.get(`${this.url}`, { params });
+    if (this.token) {
+      return await super.get(`${this.url}`, {
+        params: { size: 9999, ...params },
+        headers: { Authorization: `Bearer ${this.token}` }
+      });
+    }
+    return await super.get(`${this.url}`, { params: { size: 9999, ...params } });
+  }
+
+  async getPostDetail(id) {
+    if (this.token) {
+      return await super.get(`${this.url}/${id}`, {
+        headers: { Authorization: `Bearer ${this.token}` }
+      });
+    }
+    return await super.get(`${this.url}/${id}`);
   }
 
   async createPost(params) {

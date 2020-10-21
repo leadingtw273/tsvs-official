@@ -14,10 +14,9 @@
       okLabel="更新"
       v-on:save="handleSave"
     />
-
-    <div>
-      <editor-page v-if="false" />
-      <editor-list />
+    <div v-if="!loading">
+      <editor-page v-if="currentMenu.menu.meta.type === 1" :data.sync="post" />
+      <editor-list v-if="currentMenu.menu.meta.type === 2" />
     </div>
   </div>
 </template>
@@ -48,8 +47,25 @@ export default {
             { label: "否", value: false }
           ]
         },
-        { name: "priority", type: "number", label: "顯示順序(數字越小越前)", default: 0 }
-      ]
+        {
+          name: "type",
+          type: "select",
+          readonly: true,
+          label: "類別",
+          default: 0,
+          col: 6,
+          items: [
+            { label: "清單", value: 0 },
+            { label: "頁面", value: 1 },
+            { label: "文章列表", value: 2 },
+            { label: "相簿", value: 3 },
+            { label: "其他", value: 4 }
+          ]
+        },
+        { name: "priority", type: "number", label: "顯示順序(數字越小越前)", default: 0, col: 6 }
+      ],
+      loading: true,
+      post: []
     };
   },
   created() {
@@ -81,29 +97,32 @@ export default {
       deep: true,
       immediate: true,
       handler: async function() {
-        // this.getPost();
+        this.getPost();
       }
     }
   },
   methods: {
     async getPost() {
+      this.loading = true;
       const { meta } = this.currentMenu.menu;
       const post = await this.$store.dispatch("post/getPost", {
         parent: meta.id
       });
-      console.log(post);
+      this.post = post;
+      this.loading = false;
     },
     async handleSave(data, cb) {
       const { meta } = this.currentMenu.menu;
       await this.$store.dispatch("menu/updateMenu", { id: meta.id, ...data });
       cb();
-      window.location.reload();
+      await this.$store.dispatch("menu/getMenu");
     },
     handleEditMenu() {
       const { meta } = this.currentMenu.menu;
       this.formData = {
         name_zh: meta.text.zh,
         name_en: meta.text.en,
+        type: meta.type,
         locked: meta.requiresAuth,
         priority: meta.priority
       };
@@ -113,7 +132,7 @@ export default {
       const { meta } = this.currentMenu.menu;
       if (confirm("是否確定要刪除?")) {
         await this.$store.dispatch("menu/deleteMenu", meta.id);
-        await this.$store.dispatch("initApp");
+        await this.$store.dispatch("menu/getMenu");
       }
     }
   }

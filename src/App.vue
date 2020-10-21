@@ -35,8 +35,6 @@ export default {
   },
   async created() {
     await this.$store.dispatch("initApp");
-
-    await this.$store.dispatch("user/reGetStatus");
   }
 };
 </script>

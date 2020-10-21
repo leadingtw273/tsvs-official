@@ -57,9 +57,14 @@ export default {
     }
   },
   actions: {
-    async getMenu({ commit }) {
+    async getMenu({ commit, rootState }) {
       commit("SET_LOADING", true);
-      const api = new menuApi();
+      let api;
+      if (rootState.user.name) {
+        api = new menuApi({ token: rootState.user.authenticate.token });
+      } else {
+        api = new menuApi();
+      }
       const res = await api.getMenu();
       const root = res.data.find(x => x.type === 999);
       commit("SET_ROOT_MENU", root.id);
@@ -85,7 +90,7 @@ export default {
           return navbar;
         });
 
-      commit("SET_MENU", rootMenu);
+      await commit("SET_MENU", rootMenu);
       commit("SET_LOADING", false);
     },
     async createMenu({ rootState }, params) {

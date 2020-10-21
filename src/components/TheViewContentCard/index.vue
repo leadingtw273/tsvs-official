@@ -1,5 +1,5 @@
 <template>
-  <div class="the-view-content-card d-flex flex-row mx-12 mb-12">
+  <div class="the-view-content-card d-flex flex-row mx-12 mb-12" v-if="!menuLoading">
     <side-bar :menuTitle="menuTitle" :menuList="menuList" />
     <v-sheet color="secondary" class="sidebar-content py-12 px-8">
       <card-header :mainText="mainText" :subText="subText"></card-header>
@@ -39,12 +39,9 @@ export default {
       catalogIndex: 0
     };
   },
-  mounted() {
-    // this.setMenuIndex();
-  },
   computed: {
     ...mapState({
-      menu: state => state.menu.data,
+      menuLoading: state => state.menu.loading,
       currentMenu: state => state.menu.current
     }),
     mainText() {

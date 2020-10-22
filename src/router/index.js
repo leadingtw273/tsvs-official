@@ -5,17 +5,9 @@ import Home from "../views/Home";
 import NotFound from "../views/NotFound";
 
 import Admin from "./Admin";
-// import About from "./About";
-// import News from "./News";
-// import Events from "./Events";
-// import Search from "./Search";
-// import Member from "./Member";
-// import HealthEducation from "./HealthEducation";
-// import WebsitesLink from "./WebsitesLink";
-
 Vue.use(VueRouter);
 
-const staticRoutes = [
+const constantRoutes = [
   {
     path: "/",
     name: "Home",
@@ -26,23 +18,27 @@ const staticRoutes = [
     }
   },
   ...Admin,
-  // ...About,
-  // ...News,
-  // ...Events,
-  // ...Search,
-  // ...Member,
-  // ...HealthEducation,
-  // ...WebsitesLink,
+  {
+    path: "/:navbar/:sidebar?/:catalog?",
+    name: "Content",
+    component: () => import("@/layout/container")
+  },
+  {
+    path: "/404",
+    name: "NotFound",
+    component: NotFound
+  },
   {
     path: "/*",
     component: NotFound
   }
 ];
+export const asyncRoutes = [...Admin];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: staticRoutes,
+  routes: constantRoutes,
   scrollBehavior() {
     return { x: 0, y: 0 };
   }

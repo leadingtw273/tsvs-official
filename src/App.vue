@@ -1,9 +1,9 @@
 <template>
-  <v-app>
+  <v-app v-if="status">
     <the-navbar></the-navbar>
 
     <v-main>
-      <router-view v-if="status"></router-view>
+      <router-view></router-view>
     </v-main>
 
     <the-footer></the-footer>

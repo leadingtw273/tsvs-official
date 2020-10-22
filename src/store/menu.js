@@ -1,4 +1,5 @@
 import menuApi from "@/apis/Menu";
+import { asyncRoutes } from "@/router/index";
 // const Container = () => import("@/layout/container.vue");
 
 function _convertMenu(menu, parent) {
@@ -11,7 +12,7 @@ function _convertMenu(menu, parent) {
   ]);
   const route = {
     path: menu.name_en.toLowerCase().replace(/ /g, "_"),
-    name: menu.name_en.toLowerCase().replace(" ", "_"),
+    name: menu.name_en.toLowerCase().replace(/ /g, "_"),
     meta: {
       id: menu.id,
       type: menu.type,
@@ -39,7 +40,7 @@ export default {
     total: 0,
     data: [],
     rootId: undefined,
-    loading: false
+    loading: true
   },
   mutations: {
     SET_MENU(state, data) {
@@ -90,7 +91,7 @@ export default {
           return navbar;
         });
 
-      await commit("SET_MENU", rootMenu);
+      await commit("SET_MENU", [...rootMenu, ...asyncRoutes]);
       commit("SET_LOADING", false);
     },
     async createMenu({ rootState }, params) {

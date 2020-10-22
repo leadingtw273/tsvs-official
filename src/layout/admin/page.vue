@@ -17,16 +17,12 @@ import DynamicForm from "@/components/DynamicForm/Form";
 import FieldCkeditor from "@/components/DynamicForm/FieldCkeditor";
 
 export default {
-  props: {
-    data: {
-      default: () => []
-    }
-  },
   components: { DynamicForm, FieldCkeditor },
   data() {
     return {
       status: false,
       loading: false,
+      data: {},
       formSchema: [
         { name: "title_zh", label: "中文標題", col: 6, required: true },
         { name: "title_en", label: "英文標題", col: 6, required: true },
@@ -52,6 +48,8 @@ export default {
     };
   },
   async mounted() {
+    await this.getPosts();
+
     if (this.data.length > 0) {
       const data = this.data[0];
       this.form = {
@@ -65,6 +63,7 @@ export default {
       };
       this.editorContent = data.content;
     }
+
     this.status = true;
   },
   computed: {
@@ -74,6 +73,15 @@ export default {
     })
   },
   methods: {
+    async getPosts() {
+      this.loading = true;
+      const { meta } = this.currentMenu.menu;
+      const data = await this.$store.dispatch("post/getPost", {
+        parent: meta.id
+      });
+      this.data = data.data;
+      this.loading = false;
+    },
     async handleSave() {
       this.loading = true;
       if (this.data.length > 0) {
@@ -92,7 +100,6 @@ export default {
       this.$store.dispatch("post/createPost", this.form);
     },
     async update() {
-      console.log(JSON.parse(JSON.stringify(this.form)));
       this.$store.dispatch("post/updatePost", {
         id: this.data[0].id,
         ...this.form

@@ -18,25 +18,33 @@ export default {
       }
     };
   },
-  created() {
-    this.config.menuList = this.menu;
-
-    const rootMenu = this.$route.matched.find(x => x.meta && x.meta.displayType === "menu");
-    this.config.menuTitle = rootMenu.meta ? rootMenu.meta.text.zh : "";
-    this.status = true;
-    this.$store.commit("menu/SET_APP_CURRENT_MENU", this.getCurrentMenu());
-  },
   computed: {
     ...mapState({
+      currentMenu: state => state.menu.current,
       menu: state => state.menu.data
-    })
+    }),
+    isAdminContent() {
+      return this.$route.name === "AdminContent";
+    }
   },
   watch: {
     $route: {
       immediate: true,
       deep: true,
       handler: function() {
-        this.$store.commit("menu/SET_APP_CURRENT_MENU", this.getCurrentMenu());
+        this.status = false;
+        const newMenu = this.getCurrentMenu();
+        this.$store.commit("menu/SET_APP_CURRENT_MENU", newMenu);
+
+        if (!this.isAdminContent) {
+          this.config.menuList = newMenu.navbar.children;
+          this.config.menuTitle = newMenu.navbar.meta.text ? newMenu.navbar.meta.text.zh : newMenu.navbar.name;
+        } else {
+          this.config.menuList = this.menu.filter(x => !x.meta.admin);
+          this.config.menuTitle = newMenu.navbar.meta.text ? newMenu.navbar.meta.text.zh : newMenu.navbar.name;
+        }
+
+        this.status = true;
       }
     }
   },
@@ -47,18 +55,37 @@ export default {
         sidebarItem,
         catalogItem,
         menu = undefined;
+      const isAdmin = this.$route.matched.some(x => x.meta && x.meta.admin);
+      if (isAdmin && !this.isAdminContent) {
+        navbarItem = this.menu.find(x => x.name === this.$route.matched[0].name);
+        menu = navbarItem;
 
-      navbarItem = this.menu.find(x => x.path === navbar);
-      menu = navbarItem;
+        if (navbarItem && navbarItem.children && navbarItem.children.length > 0) {
+          sidebarItem = navbarItem.children.find(x => x.name === this.$route.matched[1].name);
+          menu = sidebarItem;
+        }
 
-      if (sidebar) {
-        sidebarItem = navbarItem.children.find(x => x.path === sidebar);
-        menu = sidebarItem;
-      }
+        if (sidebarItem && sidebarItem.children && sidebarItem.children.length > 0) {
+          catalogItem = sidebarItem.children.find(x => x.name === this.$route.matched[2].name);
+          menu = catalogItem;
+        }
+      } else {
+        navbarItem = this.menu.find(x => x.path === navbar);
 
-      if (catalog) {
-        catalogItem = sidebarItem.children.find(x => x.path === catalog);
-        menu = catalogItem;
+        if (!navbarItem && this.isAdminContent) {
+          navbarItem = this.menu[0];
+        }
+        menu = navbarItem;
+
+        if (sidebar) {
+          sidebarItem = navbarItem.children.find(x => x.path === sidebar);
+          menu = sidebarItem;
+        }
+
+        if (catalog) {
+          catalogItem = sidebarItem.children.find(x => x.path === catalog);
+          menu = catalogItem;
+        }
       }
 
       return {

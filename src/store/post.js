@@ -13,7 +13,7 @@ export default {
         api = new postApi();
       }
       const res = await api.getPost(params);
-      return res.data;
+      return res;
     },
     async getPostDetail({ rootState }, id) {
       let api;

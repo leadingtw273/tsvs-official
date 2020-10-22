@@ -43,26 +43,22 @@
               </template>
             </v-btn-toggle>
 
-            <div
-              v-if="sidebarIndex === j && sidebar.meta.type === 0"
-              class="add-btn d-flex ml-12"
-              style="font-size: 15px"
-              @click.stop="handleCreate('catalog', sidebar)"
-              :key="sidebar.name + '_addBtn'"
-            >
-              <v-icon color="#abbbf0" size="18" left>mdi-plus</v-icon>
-              新增
-            </div>
-            <v-divider
-              class="mt-2 mb-2 ml-6"
-              style="width: 125px"
-              v-if="sidebarIndex === j"
-              :key="sidebar.name + '_divider'"
-            />
+            <template v-if="isAdmin && isEditMenu && sidebarIndex === j && sidebar.meta.displayType === 'menu'">
+              <div
+                class="add-btn d-flex ml-12"
+                style="font-size: 15px"
+                @click.stop="handleCreate('catalog', sidebar)"
+                :key="sidebar.name + '_addBtn'"
+              >
+                <v-icon color="#abbbf0" size="18" left>mdi-plus</v-icon>
+                新增
+              </div>
+              <v-divider class="mt-2 mb-2 ml-6" style="width: 125px" :key="sidebar.name + '_divider'" />
+            </template>
           </template>
         </v-btn-toggle>
 
-        <template v-if="isAdmin && isEditMenu && navbar.meta.type === 0 && navbarIndex === i">
+        <template v-if="isAdmin && isEditMenu && navbar.meta.displayType === 'menu' && navbarIndex === i">
           <div class="add-btn d-flex ml-7" @click.stop="handleCreate('sidebar', navbar)" :key="i">
             <v-icon color="#abbbf0" left>mdi-plus</v-icon>
             新增
@@ -184,33 +180,54 @@ export default {
     },
     routeGo(type, item) {
       if (item.name === this.currentMenu.menu.name) return;
-      if (item.children.length > 0) return;
+      if (item.children && item.children.length > 0) return;
+
+      if (this.currentMenu.menu.meta.displayType === "component" && this.$route.name !== "AdminContent") {
+        this.$router.push({ name: item.name });
+        return;
+      }
 
       const route = {
         name: "",
         params: {}
       };
 
-      switch (type) {
-        case "navbar":
-          route.name = item.name;
-          route.params.navbar = item.name;
+      const path = [];
+      const getPath = item => {
+        path.push(item.name);
+        if (item.meta && item.meta.parent) {
+          getPath(item.meta.parent);
+        }
+      };
+      getPath(item);
+
+      let catalog, sidebar, navbar;
+
+      switch (path.length) {
+        case 1:
+          [navbar] = path;
+          route.name = navbar;
+          route.params.navbar = navbar;
           break;
 
-        case "sidebar":
-          route.params.navbar = item.meta.parent.name;
-          route.params.sidebar = item.name;
+        case 2:
+          [sidebar, navbar] = path;
+          route.params.navbar = navbar;
+          route.params.sidebar = sidebar;
           break;
 
-        case "catalog":
-          route.params.navbar = item.meta.parent.meta.parent.name;
-          route.params.sidebar = item.meta.parent.name;
-          route.params.catalog = item.name;
+        case 3:
+          [catalog, sidebar, navbar] = path;
+          route.params.navbar = navbar;
+          route.params.sidebar = sidebar;
+          route.params.catalog = catalog;
           break;
       }
 
       if (this.isAdmin && this.isEditMenu) {
         route.name = "AdminContent";
+      } else {
+        route.name = "Content";
       }
 
       this.$router.push(route);

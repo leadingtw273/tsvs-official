@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <template v-if="targetId == null">
+  <div v-if="!loading">
+    <template v-if="!post">
       <div class="d-flex mb-4">
         <span class="ml-auto mr-2 align-self-center text-h6 ">查詢： </span>
         <v-text-field
@@ -13,43 +13,60 @@
         ></v-text-field>
       </div>
 
-      <the-view-item-list :itemList="resource" @select="selectId"></the-view-item-list>
+      <template v-if="posts.length > 0">
+        <v-simple-table class="transparent">
+          <template v-slot:default>
+            <tbody>
+              <tr v-for="post in posts" :key="post.id">
+                <td class="title" style="width: 10rem">{{ new Date(post.createdAt).toLocaleDateString() }}</td>
+                <td>
+                  <v-btn text rounded @click="selectTarget(post.id)" class="text-lowercase title ">{{
+                    post.title_zh
+                  }}</v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
 
-      <v-pagination
-        v-if="resourceList.length > 10"
-        class="mt-4"
-        v-model="page"
-        :length="6"
-        color="primary_light_1"
-        dark
-      ></v-pagination>
+        <v-pagination class="mt-4" v-model="page" :length="total" color="primary_light_1" dark></v-pagination>
+      </template>
+      <template v-else>
+        目前無資料
+      </template>
     </template>
     <template v-else>
-      <div v-html="targetItem.content"></div>
+      <div v-html="post.content"></div>
     </template>
   </div>
 </template>
 
 <script>
-import TheViewItemList from "@/components/TheViewItemList";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    TheViewItemList
-  },
-  props: {
-    fetchUrl: {
-      type: String
-    }
-  },
   data() {
     return {
+      post: undefined,
+      posts: [],
+      loading: false,
       searchText: "",
+      total: 1,
       page: 1,
       resource: null
     };
   },
+  async created() {
+    await this.getPosts();
+
+    if (this.$route.query.id) {
+      this.getPostDetail(parseInt(this.$route.query.id, 10));
+    }
+  },
   computed: {
+    ...mapState({
+      currentMenu: state => state.menu.current
+    }),
     targetId() {
       if (this.$route.query._id == null) return null;
       return this.$route.query._id;
@@ -59,42 +76,55 @@ export default {
       return this.resource.find(({ id }) => id === this.targetId);
     }
   },
-  methods: {
-    async fetchData() {
-      // demo data
-      this.resource = [
-        {
-          id: "1",
-          title: "測試１",
-          date: "2020-09-22",
-          content: "這是測試資料１"
-        },
-        {
-          id: "2",
-          title: "測試２",
-          date: "2020-09-21",
-          content: "這是測試資料２"
-        },
-        {
-          id: "3",
-          title: "測試３",
-          date: "2020-09-20",
-          content: "這是測試資料３"
-        },
-        {
-          id: "4",
-          title: "測試４",
-          date: "2020-09-19",
-          content: "這是測試資料４"
+  watch: {
+    $route: {
+      deep: true,
+      handler: function(oldRoute, newRoute) {
+        if (oldRoute.path !== newRoute.path) {
+          this.post = undefined;
+          this.getPosts();
+        } else if (this.$route.query.id) {
+          this.getPostDetail(parseInt(this.$route.query.id, 10));
+        } else {
+          this.post = undefined;
+          this.$router.replace({ query: {} });
         }
-      ];
+      }
     },
-    selectId(id) {
-      this.$router.push({ query: { _id: id } });
+    searchText() {
+      this.getPosts();
     }
   },
-  async created() {
-    await this.fetchData();
+
+  methods: {
+    async getPosts() {
+      this.loading = true;
+      const { meta } = this.currentMenu.menu;
+      const data = await this.$store.dispatch("post/getPost", {
+        parent: meta.id,
+        keyword: this.searchText,
+        size: 30
+      });
+      // if (!data.data || data.data.length === 0) {
+      //   this.$router.push({ name: "NotFound" });
+      // }
+      this.posts = data.data;
+      this.total = Math.ceil(data.total / 30);
+      this.loading = false;
+    },
+
+    async getPostDetail(id) {
+      if (this.posts.map(x => x.id).includes(id)) {
+        const data = await this.$store.dispatch("post/getPostDetail", id);
+        this.post = data;
+      } else {
+        this.$router.push({ name: "NotFound" });
+      }
+    },
+
+    selectTarget(id) {
+      this.$router.push({ query: { id: id } });
+    }
   }
 };
 </script>

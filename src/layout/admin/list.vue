@@ -128,6 +128,12 @@ export default {
       if (!open) {
         this.resetForm();
       }
+    },
+    $route: {
+      deep: true,
+      handler: function() {
+        this.getPosts();
+      }
     }
   },
 
@@ -138,7 +144,7 @@ export default {
       const data = await this.$store.dispatch("post/getPost", {
         parent: meta.id
       });
-      this.data = data;
+      this.data = data.data;
       this.loading.list = false;
     },
     async getPostDetail(id) {

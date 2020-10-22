@@ -57,41 +57,18 @@ export default {
       return typeof text === "object" ? text.zh : text;
     },
     displayComponent() {
-      if (this.isAdmin && this.isEditMenu) {
+      if (this.$route.name === "AdminContent") {
         return "RouterView";
       }
       const componentMap = new Map([
-        ["content", "CardContent"],
         ["list", "CardContentList"],
-        ["page", "RouterView"],
-        ["menu", "RouterView"]
+        ["page", "CardContent"],
+        ["component", "RouterView"]
       ]);
       return componentMap.get(this.currentMenu.menu.meta.displayType);
-    },
-    isAdmin: function() {
-      return this.$route.matched.some(x => x.meta && x.meta.admin === true);
-    },
-    isEditMenu: function() {
-      return this.$route.matched.some(x => x.name === "AdminContent");
     }
   },
-  methods: {
-    setMenuIndex() {
-      this.status = false;
-      const { navbar, sidebar, catalog } = this.$route.params;
-
-      this.navbarIndex = this.menuList.findIndex(x => x.path === navbar);
-      if (sidebar) {
-        this.sideBarIndex = this.menuList[this.navbarIndex].children.findIndex(x => x.path === sidebar);
-      }
-      if (catalog) {
-        this.catalogIndex = this.menuList[this.navbarIndex].children[this.sideBarIndex].children.findIndex(
-          x => x.path === catalog
-        );
-      }
-      this.status = true;
-    }
-  }
+  methods: {}
 };
 </script>
 

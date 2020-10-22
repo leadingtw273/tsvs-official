@@ -15,8 +15,11 @@
       v-on:save="handleSave"
     />
     <div v-if="!loading">
-      <editor-page v-if="currentMenu.menu.meta.type === 1" :data.sync="post" />
-      <editor-list v-if="currentMenu.menu.meta.type === 2" />
+      <editor-page v-if="currentMenu.menu.meta.displayType === 'page'" />
+      <editor-list v-else-if="currentMenu.menu.meta.displayType === 'list'" />
+      <div v-else-if="currentMenu.menu.meta.displayType === 'menu'">
+        該頁面為 Navbar, 請新增子分類
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +67,7 @@ export default {
         },
         { name: "priority", type: "number", label: "顯示順序(數字越小越前)", default: 0, col: 6 }
       ],
-      loading: true,
+      loading: false,
       post: []
     };
   },
@@ -97,7 +100,7 @@ export default {
       deep: true,
       immediate: true,
       handler: async function() {
-        this.getPost();
+        // this.getPost();
       }
     }
   },
@@ -108,7 +111,7 @@ export default {
       const post = await this.$store.dispatch("post/getPost", {
         parent: meta.id
       });
-      this.post = post;
+      this.post = post.data;
       this.loading = false;
     },
     async handleSave(data, cb) {

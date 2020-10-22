@@ -29,7 +29,7 @@
               rounded
               class="ml-4 text-shadow"
               color="accent"
-              @click="pushToPage('Admin')"
+              @click="pushToPage('AdminCommonSetting')"
               v-if="pageType === 'normal'"
             >
               後臺管理
@@ -63,31 +63,33 @@
         <v-divider class="align-self-center mx-1" vertical></v-divider>
         <v-btn text class="title text-shadow" href="https://tsvs-admin.netlify.app/" color="white">年會頁面管理</v-btn>
       </div>
+
       <div class="mt-8" v-else>
-        <v-btn text class="title text-shadow" :to="{ name: 'About' }" color="white">學會資訊</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'News' }" color="white">學會公告</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'Events' }" color="white">會議課程資訊</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'Search' }" color="white">資料查詢</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'Member' }" color="white">會員專區</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'HealthEducation' }" color="white">衛教專區</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" :to="{ name: 'WebsitesLink' }" color="white">相關網站</v-btn>
-        <v-divider class="align-self-center mx-1" vertical></v-divider>
-        <v-btn text class="title text-shadow" color="white">學習專區</v-btn>
+        <template v-for="(navbar, i) in navbars">
+          <v-btn text class="title text-shadow" color="white" @click="routerGo(navbar)" :key="i">
+            {{ navbar.meta ? navbar.meta.text.zh : navbar.name }}
+          </v-btn>
+
+          <v-divider
+            class="align-self-center mx-1"
+            vertical
+            v-if="i !== navbars.length - 1"
+            :key="i + '_divider'"
+          ></v-divider>
+        </template>
       </div>
     </v-container>
   </v-sheet>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "TheNavbar",
   computed: {
+    ...mapState({
+      menu: state => state.menu.data
+    }),
     userName() {
       return this.$store.getters["user/name"];
     },
@@ -96,7 +98,13 @@ export default {
     },
     pageType() {
       return this.$store.state.view;
+    },
+    navbars() {
+      return this.menu.filter(x => !x.meta.admin);
     }
+  },
+  created() {
+    console.log(this.menu);
   },
   methods: {
     pushToPage(page) {
@@ -110,11 +118,28 @@ export default {
         default:
           this.$store.commit("checkoutNormalViewPage");
       }
+
       this.$router.push({ name: page });
     },
     signOut() {
       this.$store.dispatch("user/signOut");
       this.$router.push({ name: "Home" });
+    },
+    routerGo(route) {
+      let path = "/";
+      path += route.path;
+      if (route.children && route.children.length > 0) {
+        const sidebar = route.children[0];
+        path += "/" + sidebar.path;
+        if (sidebar.children && sidebar.children.length > 0) {
+          const catalog = sidebar.children[0];
+          path += "/" + catalog.path;
+        }
+      }
+
+      if (this.$route.path === path) return;
+
+      this.$router.push(path);
     }
   }
 };
